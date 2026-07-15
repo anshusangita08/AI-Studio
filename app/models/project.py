@@ -6,8 +6,8 @@ Represents an AI Studio project and its on-disk layout.
 
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass, field
-from datetime import datetime
+from dataclasses import asdict, dataclass
+from datetime import UTC, datetime
 from pathlib import Path
 import json
 import uuid
@@ -23,7 +23,7 @@ class Project:
 
     @classmethod
     def create(cls, name: str) -> "Project":
-        now = datetime.utcnow().isoformat(timespec="seconds")
+        now = datetime.now(UTC).isoformat(timespec="seconds")
 
         slug = (
             name.strip()
