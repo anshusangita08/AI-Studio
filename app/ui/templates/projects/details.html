@@ -2,49 +2,84 @@
 
 {% block content %}
 
-<h1>{{ project.name }}</h1>
+<div class="container">
 
-<p><strong>Slug</strong></p>
-<p>{{ project.slug }}</p>
+    <h1>🎬 {{ project.name }}</h1>
 
-<p><strong>Created</strong></p>
-<p>{{ project.created_at }}</p>
+    <hr>
 
-<p><strong>Updated</strong></p>
-<p>{{ project.updated_at }}</p>
+    <p>
+        <strong>Slug</strong><br>
+        {{ project.slug }}
+    </p>
 
-<hr>
+    <p>
+        <strong>Created</strong><br>
+        {{ project.created_at }}
+    </p>
 
-<h2>Rename Project</h2>
+    <p>
+        <strong>Last Updated</strong><br>
+        {{ project.updated_at }}
+    </p>
 
-<form
-    action="/projects/{{ project.slug }}/rename"
-    method="post"
->
+    <hr>
 
-    <input
-        type="text"
-        name="name"
-        value="{{ project.name }}"
-        required
-        style="width:350px;"
+    <h2>Rename Project</h2>
+
+    <form
+        action="/projects/{{ project.slug }}/rename"
+        method="post"
     >
 
-    <button type="submit">
-        Save
-    </button>
+        <input
+            type="text"
+            name="name"
+            value="{{ project.name }}"
+            required
+            style="width:350px;"
+        >
 
-</form>
+        <button type="submit">
+            Save
+        </button>
 
-<br>
+    </form>
 
-<p>
+    <hr>
 
-<a href="/projects">
-← Back to Projects
+    <h2 style="color:#c62828;">
+        Danger Zone
+    </h2>
 
-</a>
+    <form
+        action="/projects/{{ project.slug }}/delete"
+        method="post"
+        onsubmit="return confirm('Delete project &quot;{{ project.name }}&quot;?\n\nThis cannot be undone.');"
+    >
 
-</p>
+        <button
+            type="submit"
+            style="
+                background:#c62828;
+                color:white;
+                border:none;
+                padding:10px 18px;
+                border-radius:6px;
+                cursor:pointer;
+            "
+        >
+            🗑 Delete Project
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="/projects/">
+        ← Back to Projects
+    </a>
+
+</div>
 
 {% endblock %}

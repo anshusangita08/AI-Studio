@@ -103,3 +103,22 @@ async def rename_project(
         url=f"/projects/{slug}",
         status_code=303,
     )
+
+
+@router.post("/{slug}/delete")
+async def delete_project(
+    slug: str,
+):
+    try:
+        project_service.delete(slug)
+
+    except FileNotFoundError as exc:
+        raise HTTPException(
+            status_code=404,
+            detail="Project not found.",
+        ) from exc
+
+    return RedirectResponse(
+        url="/projects/",
+        status_code=303,
+    )
