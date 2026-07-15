@@ -9,7 +9,6 @@ from app.bootstrap import bootstrap
 from app.core.config import config
 from app.core.logging import logger
 from app.core.version import APP_NAME, VERSION
-from app.ui.routes import router as ui_router
 from app.ui.routes_projects import router as project_router
 
 
@@ -37,7 +36,6 @@ app.mount(
     name="static",
 )
 
-app.include_router(ui_router)
 app.include_router(project_router)
 
 
