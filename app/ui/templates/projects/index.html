@@ -8,15 +8,39 @@
     <a href="/projects/new">➕ Create Project</a>
 </p>
 
+<div style="margin-bottom:20px;">
+
+    <input
+        id="project-search"
+        type="text"
+        placeholder="🔍 Search projects..."
+        style="
+            width:100%;
+            max-width:420px;
+            padding:10px;
+            border:1px solid #ccc;
+            border-radius:6px;
+            font-size:14px;
+        "
+        onkeyup="filterProjects()"
+    >
+
+</div>
+
 {% if projects %}
 
-<div class="project-list">
+<div
+    id="project-list"
+    class="project-list"
+>
 
 {% for project in projects %}
 
 <a
     href="/projects/{{ project.slug }}"
     class="project-card"
+    data-name="{{ project.name|lower }}"
+    data-slug="{{ project.slug|lower }}"
     style="
         display:block;
         text-decoration:none;
@@ -79,6 +103,53 @@
 {% endfor %}
 
 </div>
+
+<p
+    id="no-results"
+    style="
+        display:none;
+        margin-top:30px;
+        font-weight:bold;
+        color:#666;
+    "
+>
+    No matching projects found.
+</p>
+
+<script>
+function filterProjects() {
+
+    const search = document
+        .getElementById("project-search")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const cards = document.querySelectorAll(".project-card");
+
+    let visible = 0;
+
+    cards.forEach(card => {
+
+        const name = card.dataset.name;
+        const slug = card.dataset.slug;
+
+        const match =
+            name.includes(search) ||
+            slug.includes(search);
+
+        card.style.display = match ? "block" : "none";
+
+        if (match) {
+            visible++;
+        }
+
+    });
+
+    document.getElementById("no-results").style.display =
+        visible === 0 ? "block" : "none";
+}
+</script>
 
 {% else %}
 
