@@ -10,6 +10,7 @@ from app.core.config import config
 from app.core.logging import logger
 from app.core.version import APP_NAME, VERSION
 from app.ui.routes_projects import router as project_router
+from app.ui.routes_story import router as story_router
 
 
 @asynccontextmanager
@@ -37,6 +38,7 @@ app.mount(
 )
 
 app.include_router(project_router)
+app.include_router(story_router)
 
 
 @app.get("/health")

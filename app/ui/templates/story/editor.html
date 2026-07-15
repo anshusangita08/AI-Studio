@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>📖 Story Planner</h1>
+
+    <p>
+        <strong>Project</strong><br>
+        {{ project.name }}
+    </p>
+
+    <hr>
+
+    {% if saved %}
+
+    <div
+        style="
+            background:#d1e7dd;
+            border:1px solid #badbcc;
+            color:#0f5132;
+            padding:12px;
+            border-radius:6px;
+            margin-bottom:20px;
+        "
+    >
+        ✅ Story saved successfully.
+    </div>
+
+    {% endif %}
+
+    <form
+        action="/projects/{{ project.slug }}/story"
+        method="post"
+    >
+
+        <textarea
+            name="story"
+            rows="24"
+            style="
+                width:100%;
+                font-family:Consolas, monospace;
+                font-size:15px;
+                padding:12px;
+                border:1px solid #ccc;
+                border-radius:6px;
+                resize:vertical;
+            "
+            placeholder="Start writing your story here..."
+        >{{ story }}</textarea>
+
+        <br><br>
+
+        <button
+            type="submit"
+            style="
+                padding:10px 20px;
+                cursor:pointer;
+            "
+        >
+            💾 Save Story
+        </button>
+
+    </form>
+
+    <hr>
+
+    <a href="/projects/{{ project.slug }}">
+        ← Back to Project
+    </a>
+
+</div>
+
+{% endblock %}
