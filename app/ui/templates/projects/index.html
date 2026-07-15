@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Projects</h2>
+
+<p>
+
+<a href="/projects/new">
+
+Create Project
+
+</a>
+
+</p>
+
+<table>
+
+<tr>
+
+<th>Name</th>
+
+<th>Created</th>
+
+</tr>
+
+{% for project in projects %}
+
+<tr>
+
+<td>
+
+{{ project.name }}
+
+</td>
+
+<td>
+
+{{ project.created_at }}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% if not projects %}
+
+<p>No projects created yet.</p>
+
+{% endif %}
+
+{% endblock %}
