@@ -80,3 +80,26 @@ async def open_project(
             "project": project,
         },
     )
+
+
+@router.post("/{slug}/rename")
+async def rename_project(
+    slug: str,
+    name: str = Form(...),
+):
+    try:
+        project_service.rename(
+            slug,
+            name,
+        )
+
+    except FileNotFoundError as exc:
+        raise HTTPException(
+            status_code=404,
+            detail="Project not found.",
+        ) from exc
+
+    return RedirectResponse(
+        url=f"/projects/{slug}",
+        status_code=303,
+    )

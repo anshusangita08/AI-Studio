@@ -55,3 +55,31 @@ class Project:
                 fp,
                 indent=4,
             )
+    def rename(
+    self,
+    slug: str,
+    new_name: str,
+) -> Project:
+
+    project = self.get(slug)
+
+    new_name = new_name.strip()
+
+    if not new_name:
+        raise ValueError(
+            "Project name cannot be empty."
+        )
+
+    project.name = new_name
+
+    from datetime import UTC, datetime
+
+    project.updated_at = datetime.now(
+        UTC
+    ).isoformat(timespec="seconds")
+
+    folder = PROJECT_ROOT / slug
+
+    project.save(folder)
+
+    return project

@@ -135,6 +135,29 @@ class ProjectService:
             PROJECT_ROOT / slug
         ).exists()
 
+    def rename(
+        self,
+        slug: str,
+        new_name: str,
+    ) -> Project:
+
+        project = self.get(slug)
+
+        new_name = new_name.strip()
+
+        if not new_name:
+            raise ValueError(
+                "Project name cannot be empty."
+            )
+
+        project.name = new_name
+
+        folder = PROJECT_ROOT / slug
+
+        project.save(folder)
+
+        return project
+
     def delete(
         self,
         slug: str,

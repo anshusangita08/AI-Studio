@@ -4,78 +4,47 @@
 
 <h1>{{ project.name }}</h1>
 
-<p>
+<p><strong>Slug</strong></p>
+<p>{{ project.slug }}</p>
 
-<a href="/projects/">Projects</a>
+<p><strong>Created</strong></p>
+<p>{{ project.created_at }}</p>
 
->
-
-<strong>{{ project.name }}</strong>
-
-</p>
+<p><strong>Updated</strong></p>
+<p>{{ project.updated_at }}</p>
 
 <hr>
 
-<div
-    style="
-        display:flex;
-        gap:40px;
-        align-items:flex-start;
-    "
+<h2>Rename Project</h2>
+
+<form
+    action="/projects/{{ project.slug }}/rename"
+    method="post"
 >
 
-    {% include "projects/sidebar.html" %}
+    <input
+        type="text"
+        name="name"
+        value="{{ project.name }}"
+        required
+        style="width:350px;"
+    >
 
-    <div style="flex:1;">
+    <button type="submit">
+        Save
+    </button>
 
-        <h2>Overview</h2>
+</form>
 
-        <table>
+<br>
 
-            <tr>
-                <td><strong>Name</strong></td>
-                <td>{{ project.name }}</td>
-            </tr>
+<p>
 
-            <tr>
-                <td><strong>Slug</strong></td>
-                <td>{{ project.slug }}</td>
-            </tr>
+<a href="/projects">
+← Back to Projects
 
-            <tr>
-                <td><strong>Created</strong></td>
-                <td>{{ project.created_at }}</td>
-            </tr>
+</a>
 
-            <tr>
-                <td><strong>Updated</strong></td>
-                <td>{{ project.updated_at }}</td>
-            </tr>
-
-        </table>
-
-        <hr>
-
-        <h2>Workspace Status</h2>
-
-        <ul>
-
-            <li>✅ Story Folder Ready</li>
-
-            <li>✅ Prompt Folder Ready</li>
-
-            <li>✅ Images Folder Ready</li>
-
-            <li>✅ Audio Folder Ready</li>
-
-            <li>✅ Video Folder Ready</li>
-
-            <li>✅ Export Folder Ready</li>
-
-        </ul>
-
-    </div>
-
-</div>
+</p>
 
 {% endblock %}
