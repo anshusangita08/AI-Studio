@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>{{ project.name }}</h1>
+
+<hr>
+
+<h2>Project Information</h2>
+
+<table>
+    <tr>
+        <td><strong>ID</strong></td>
+        <td>{{ project.id }}</td>
+    </tr>
+
+    <tr>
+        <td><strong>Created</strong></td>
+        <td>{{ project.created_at }}</td>
+    </tr>
+
+    <tr>
+        <td><strong>Updated</strong></td>
+        <td>{{ project.updated_at }}</td>
+    </tr>
+
+    <tr>
+        <td><strong>Slug</strong></td>
+        <td>{{ project.slug }}</td>
+    </tr>
+</table>
+
+<hr>
+
+<h2>Workspace</h2>
+
+<ul>
+    <li>📖 Story</li>
+    <li>📝 Prompts</li>
+    <li>🖼 Images</li>
+    <li>🎙 Audio</li>
+    <li>🎬 Video</li>
+    <li>📦 Exports</li>
+</ul>
+
+<hr>
+
+<p>
+
+<a href="/projects/">
+
+⬅ Back to Projects
+
+</a>
+
+</p>
+
+{% endblock %}
