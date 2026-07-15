@@ -2,53 +2,65 @@
 
 {% block content %}
 
-<h2>Projects</h2>
+<h1>Projects</h1>
 
 <p>
-
-<a href="/projects/new">
-
-Create Project
-
-</a>
-
+    <a href="/projects/new">➕ Create Project</a>
 </p>
+
+{% if projects %}
 
 <table>
 
-<tr>
+    <thead>
 
-<th>Name</th>
+        <tr>
+            <th>Name</th>
+            <th>Created</th>
+            <th>Open</th>
+        </tr>
 
-<th>Created</th>
+    </thead>
 
-</tr>
+    <tbody>
 
-{% for project in projects %}
+    {% for project in projects %}
 
-<tr>
+        <tr>
 
-<td>
+            <td>
 
-{{ project.name }}
+                <a href="/projects/{{ project.slug }}">
+                    {{ project.name }}
+                </a>
 
-</td>
+            </td>
 
-<td>
+            <td>
 
-{{ project.created_at }}
+                {{ project.created_at }}
 
-</td>
+            </td>
 
-</tr>
+            <td>
 
-{% endfor %}
+                <a href="/projects/{{ project.slug }}">
+                    Open
+                </a>
+
+            </td>
+
+        </tr>
+
+    {% endfor %}
+
+    </tbody>
 
 </table>
 
-{% if not projects %}
+{% else %}
 
-<p>No projects created yet.</p>
+<p>No projects have been created yet.</p>
 
 {% endif %}
 
