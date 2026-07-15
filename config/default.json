@@ -1,0 +1,20 @@
+{
+    "application": {
+        "name": "AI Studio",
+        "environment": "development",
+        "debug": true
+    },
+
+    "server": {
+        "host": "127.0.0.1",
+        "port": 8000
+    },
+
+    "workspace": {
+        "root": "workspace"
+    },
+
+    "logging": {
+        "level": "INFO"
+    }
+}

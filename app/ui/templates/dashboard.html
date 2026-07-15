@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>System Status</h2>
+
+<table>
+
+<tr>
+<td>Operating System</td>
+<td>{{ system.operating_system }}</td>
+</tr>
+
+<tr>
+<td>Python</td>
+<td>{{ system.python_version }}</td>
+</tr>
+
+<tr>
+<td>CPU</td>
+<td>{{ system.cpu }}</td>
+</tr>
+
+<tr>
+<td>Logical Cores</td>
+<td>{{ system.logical_cores }}</td>
+</tr>
+
+<tr>
+<td>RAM</td>
+<td>{{ system.ram_gb }} GB</td>
+</tr>
+
+<tr>
+<td>FFmpeg</td>
+<td>{{ "Installed" if system.ffmpeg_available else "Not Found" }}</td>
+</tr>
+
+<tr>
+<td>Ollama</td>
+<td>{{ "Installed" if system.ollama_available else "Not Found" }}</td>
+</tr>
+
+</table>
+
+{% endblock %}
