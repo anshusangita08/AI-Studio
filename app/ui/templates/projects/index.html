@@ -10,53 +10,44 @@
 
 {% if projects %}
 
-<table>
+<div class="project-list">
 
-    <thead>
+{% for project in projects %}
 
-        <tr>
-            <th>Name</th>
-            <th>Created</th>
-            <th>Open</th>
-        </tr>
+<div class="project-card">
 
-    </thead>
+    <h2>🎬 {{ project.name }}</h2>
 
-    <tbody>
+    <p>
+        <strong>Created:</strong><br>
+        {{ project.created_at }}
+    </p>
 
-    {% for project in projects %}
+    <p>
+        <strong>Updated:</strong><br>
+        {{ project.updated_at }}
+    </p>
 
-        <tr>
+    <p>
+        <strong>Slug:</strong><br>
+        {{ project.slug }}
+    </p>
 
-            <td>
+    <p>
 
-                <a href="/projects/{{ project.slug }}">
-                    {{ project.name }}
-                </a>
+        <a href="/projects/{{ project.slug }}">
 
-            </td>
+            Open Project
 
-            <td>
+        </a>
 
-                {{ project.created_at }}
+    </p>
 
-            </td>
+</div>
 
-            <td>
+{% endfor %}
 
-                <a href="/projects/{{ project.slug }}">
-                    Open
-                </a>
-
-            </td>
-
-        </tr>
-
-    {% endfor %}
-
-    </tbody>
-
-</table>
+</div>
 
 {% else %}
 
