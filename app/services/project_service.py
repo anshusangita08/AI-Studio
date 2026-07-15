@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import json
 import shutil
+from datetime import UTC, datetime
 from pathlib import Path
 
 from app.models.project import Project
@@ -146,11 +147,16 @@ class ProjectService:
         new_name = new_name.strip()
 
         if not new_name:
+
             raise ValueError(
                 "Project name cannot be empty."
             )
 
         project.name = new_name
+
+        project.updated_at = datetime.now(
+            UTC
+        ).isoformat(timespec="seconds")
 
         folder = PROJECT_ROOT / slug
 
