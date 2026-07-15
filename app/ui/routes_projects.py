@@ -4,15 +4,23 @@ Project routes.
 
 from __future__ import annotations
 
-from fastapi import APIRouter, Form, Request
+from fastapi import APIRouter
+from fastapi import Form
+from fastapi import HTTPException
+from fastapi import Request
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
 
 from app.services.project_service import project_service
 
-router = APIRouter(prefix="/projects", tags=["Projects"])
+router = APIRouter(
+    prefix="/projects",
+    tags=["Projects"],
+)
 
-templates = Jinja2Templates(directory="app/ui/templates")
+templates = Jinja2Templates(
+    directory="app/ui/templates",
+)
 
 
 @router.get("/")
@@ -39,10 +47,36 @@ async def new_project(request: Request):
 
 
 @router.post("/new")
-async def create_project(name: str = Form(...)):
-    project_service.create(name)
+async def create_project(
+    name: str = Form(...),
+):
+    project = project_service.create(name)
 
     return RedirectResponse(
-        url="/projects/",
+        url=f"/projects/{project.slug}",
         status_code=303,
+    )
+
+
+@router.get("/{slug}")
+async def open_project(
+    request: Request,
+    slug: str,
+):
+    try:
+        project = project_service.get(slug)
+
+    except FileNotFoundError as exc:
+        raise HTTPException(
+            status_code=404,
+            detail="Project not found.",
+        ) from exc
+
+    return templates.TemplateResponse(
+        request=request,
+        name="projects/details.html",
+        context={
+            "title": project.name,
+            "project": project,
+        },
     )
