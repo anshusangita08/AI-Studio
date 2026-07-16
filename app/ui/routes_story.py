@@ -1,87 +1,51 @@
-"""
-Story routes.
-"""
-
-from __future__ import annotations
-
-from pathlib import Path
-
-from fastapi import APIRouter
-from fastapi import Form
-from fastapi import HTTPException
-from fastapi import Request
-from fastapi.responses import RedirectResponse
-from fastapi.templating import Jinja2Templates
-
-from app.services.project_service import PROJECT_ROOT
+from fastapi import APIRouter, Depends, Request, HTTPException, Form
 from app.services.project_service import project_service
 from app.services.story_service import StoryService
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import RedirectResponse
 
-router = APIRouter(
-    prefix="/projects",
-    tags=["Story"],
-)
+router = APIRouter(prefix="/projects", tags=["story"])
 
-templates = Jinja2Templates(
-    directory="app/ui/templates",
-)
-
-story_service = StoryService(PROJECT_ROOT)
-
+story_service = StoryService()
+templates = Jinja2Templates(directory="app/ui/templates")
 
 @router.get("/{slug}/story")
-async def story_editor(
-    request: Request,
-    slug: str,
-):
+async def get_story(slug: str, request: Request):
+    """Get story content for a project."""
     try:
         project = project_service.get(slug)
-
-    except FileNotFoundError as exc:
-        raise HTTPException(
-            status_code=404,
-            detail="Project not found.",
-        ) from exc
-
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="Project not found")
+        
+    story_content = story_service.read_story(slug)
+    
     return templates.TemplateResponse(
         request=request,
-        name="story/editor.html",
+        name="projects/story.html",
         context={
-            "title": f"{project.name} - Story",
             "project": project,
-            "story": story_service.load(slug),
-            "saved": False,
-        },
+            "story_content": story_content
+        }
     )
-
 
 @router.post("/{slug}/story")
 async def save_story(
+    slug: str, 
     request: Request,
-    slug: str,
-    story: str = Form(...),
+    content: str = Form(...)
 ):
+    """Save story content for a project."""
     try:
         project = project_service.get(slug)
-
-    except FileNotFoundError as exc:
-        raise HTTPException(
-            status_code=404,
-            detail="Project not found.",
-        ) from exc
-
-    story_service.save(
-        slug,
-        story,
-    )
-
-    return templates.TemplateResponse(
-        request=request,
-        name="story/editor.html",
-        context={
-            "title": f"{project.name} - Story",
-            "project": project,
-            "story": story,
-            "saved": True,
-        },
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="Project not found")
+        
+    success = story_service.save_story(slug, content)
+    
+    if not success:
+        raise HTTPException(status_code=500, detail="Failed to save story")
+        
+    return RedirectResponse(
+        url=f"/projects/{slug}/story",
+        status_code=303
     )
