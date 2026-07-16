@@ -37,23 +37,66 @@
 
         {% include "components/editor_toolbar.html" %}
 
-        <textarea
-            id="story-editor"
-            name="story"
-            rows="24"
+        <div
             style="
-                width:100%;
-                font-family:Consolas, monospace;
-                font-size:15px;
-                padding:12px;
-                border:1px solid #ccc;
-                border-radius:6px;
-                resize:vertical;
-                box-sizing:border-box;
+                display:flex;
+                gap:20px;
+                align-items:stretch;
             "
-            placeholder="Start writing your story here..."
-            oninput="updateStats()"
-        >{{ story }}</textarea>
+        >
+
+            <div
+                style="
+                    flex:1;
+                "
+            >
+
+                <h3>Editor</h3>
+
+                <textarea
+                    id="story-editor"
+                    name="story"
+                    rows="28"
+                    style="
+                        width:100%;
+                        box-sizing:border-box;
+                        font-family:Consolas, monospace;
+                        font-size:15px;
+                        padding:12px;
+                        border:1px solid #ccc;
+                        border-radius:6px;
+                        resize:vertical;
+                    "
+                    placeholder="Start writing your story here..."
+                    oninput="updateEditor()"
+                >{{ story }}</textarea>
+
+            </div>
+
+            <div
+                style="
+                    flex:1;
+                "
+            >
+
+                <h3>Preview</h3>
+
+                <div
+                    id="preview"
+                    style="
+                        min-height:620px;
+                        border:1px solid #ccc;
+                        border-radius:6px;
+                        padding:12px;
+                        background:#fafafa;
+                        white-space:pre-wrap;
+                        overflow:auto;
+                    "
+                ></div>
+
+            </div>
+
+        </div>
 
     </form>
 
@@ -67,14 +110,16 @@
 
 <script>
 
-function updateStats() {
+function updateEditor() {
 
     const editor =
         document.getElementById("story-editor");
 
-    const text = editor.value;
+    const text =
+        editor.value;
 
-    const trimmed = text.trim();
+    const trimmed =
+        text.trim();
 
     const words =
         trimmed === ""
@@ -92,11 +137,15 @@ function updateStats() {
     document.getElementById(
         "editor-status"
     ).textContent = "Unsaved changes";
+
+    document.getElementById(
+        "preview"
+    ).textContent = text;
 }
 
 window.addEventListener(
     "load",
-    updateStats
+    updateEditor
 );
 
 </script>
