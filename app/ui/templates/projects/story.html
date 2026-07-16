@@ -12,13 +12,27 @@
             <div class="col-md-12">
                 <h1>{{ project.title }} - Story</h1>
                 
+                <!-- Original Story Section -->
                 <form method="post" action="/projects/{{ project.slug }}/story">
                     <div class="mb-3">
-                        <label for="story-content" class="form-label">Story Content</label>
-                        <textarea class="form-control" id="story-content" name="content" rows="20">{{ story_content }}</textarea>
+                        <h2>Story</h2>
+                        <p><strong>Editable.</strong> Loads story.md. Save Story saves to story.md (original).</p>
+                        <textarea class="form-control" id="story-content" name="content" rows="10">{{ story_content }}</textarea>
                     </div>
                     
                     <button type="submit" class="btn btn-primary">Save Story</button>
+                </form>
+
+                <!-- Expanded Story Section -->
+                <form method="post" action="/projects/{{ project.slug }}/expanded-story">
+                    <div class="mb-3 mt-4">
+                        <h2>Expanded Story</h2>
+                        <p><strong>Editable.</strong> Loads expanded_story.md. Generate Story fills this textarea only. Save Expanded Story saves to expanded_story.md (separate from original).</p>
+                        <textarea class="form-control" id="expanded-story-content" name="content" rows="15">{{ expanded_story_content }}</textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Save Expanded Story</button>
+                    <button type="button" class="btn btn-secondary" id="generate-btn">✨ Generate Story</button>
                     <a href="/projects/{{ project.slug }}" class="btn btn-secondary">Back to Project</a>
                 </form>
             </div>
@@ -26,5 +40,33 @@
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+        document.getElementById('generate-btn').addEventListener('click', function() {
+            // Show confirmation for both story and expanded story sections
+            const originalContent = document.getElementById('story-content').value;
+            const expandedContent = document.getElementById('expanded-story-content').value;
+            
+            // If there's existing content in either field, show confirmation
+            if (originalContent.trim() !== '' || expandedContent.trim() !== '') {
+                if (!confirm('This will overwrite the expanded story section.\n\nUnsaved changes to expanded story will be lost.')) {
+                    return; 
+                }
+            }
+            
+            // Submit to generate endpoint  
+            fetch('/projects/{{ project.slug }}/story/generate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.expanded_story) {
+                    document.getElementById('expanded-story-content').value = data.expanded_story;
+                }
+            });
+        });
+    </script>
 </body>
 </html>
