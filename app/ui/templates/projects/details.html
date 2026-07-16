@@ -77,10 +77,10 @@
         Danger Zone
     </h2>
 
-    <form
+<form
         action="/projects/{{ project.slug }}/delete"
         method="post"
-        onsubmit="return confirm('Delete project &quot;{{ project.name }}&quot;?\n\nThis cannot be undone.');"
+        onsubmit="return confirm('Delete project "{{ project.name }}"?\\n\\nThis cannot be undone.');"
     >
 
         <button

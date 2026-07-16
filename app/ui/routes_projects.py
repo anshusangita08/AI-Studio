@@ -48,14 +48,27 @@ async def new_project(request: Request):
 
 @router.post("/new")
 async def create_project(
+    request: Request,
     name: str = Form(...),
 ):
-    project = project_service.create(name)
-
-    return RedirectResponse(
-        url=f"/projects/{project.slug}",
-        status_code=303,
-    )
+    try:
+        project = project_service.create(name)
+        
+        return RedirectResponse(
+            url=f"/projects/{project.slug}",
+            status_code=303,
+        )
+    
+    except (ValueError, FileExistsError) as exc:
+        # Return to the creation page with error message
+        return templates.TemplateResponse(
+            request=request,
+            name="projects/create.html",
+            context={
+                "title": "Create Project",
+                "error": str(exc),
+            },
+        )
 
 
 @router.get("/{slug}")

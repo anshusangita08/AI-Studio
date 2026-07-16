@@ -16,6 +16,9 @@ ROOT = Path(__file__).resolve().parents[2]
 
 PROJECT_ROOT = ROOT / "workspace" / "projects"
 
+# Reserved project names that conflict with routes
+RESERVED_PROJECT_NAMES = {"new", "delete", "edit", "settings", "story"}
+
 
 PROJECT_STRUCTURE = (
     "story",
@@ -45,6 +48,17 @@ class ProjectService:
         self,
         name: str,
     ) -> Project:
+        # Trim leading and trailing whitespace first
+        name = name.strip()
+        
+        # Validate that the name is not empty after trimming
+        if not name:
+            raise ValueError("Project name cannot be empty.")
+
+        # Check for reserved names (case-insensitive)
+        clean_name = name.lower()
+        if clean_name in RESERVED_PROJECT_NAMES:
+            raise ValueError("Project name cannot be a reserved word.")
 
         project = Project.create(name)
 

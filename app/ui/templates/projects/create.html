@@ -4,6 +4,12 @@
 
 <h2>Create Project</h2>
 
+{% if error %}
+<div class="alert alert-danger">
+    {{ error }}
+</div>
+{% endif %}
+
 <form method="post">
 
 <p>

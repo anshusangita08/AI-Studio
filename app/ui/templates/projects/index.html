@@ -50,9 +50,11 @@
             {{ project.updated_at }}
         </p>
         
-        <div class="project-actions">
+<div class="project-actions">
             <a href="/projects/{{ project.slug }}" class="btn btn-secondary">Open Project →</a>
-            <button class="btn btn-danger delete-btn" onclick="confirmDelete('{{ project.slug }}')">Delete</button>
+            <form style="display:inline;" action="/projects/{{ project.slug }}/delete" method="post">
+                <button type="submit" class="btn btn-danger delete-btn" onclick="return confirm('Are you sure you want to delete this project?')">Delete</button>
+            </form>
         </div>
     </div>
 
@@ -99,8 +101,8 @@ function filterProjects() {
 
 function confirmDelete(slug) {
     if (confirm('Are you sure you want to delete this project?')) {
-        // In a real implementation, we would make an API call
-        window.location.href = '/projects/' + slug + '/delete';
+        // The form now handles POST so we don't need this anymore
+        // We'll let the form submit naturally
     }
 }
 </script>
