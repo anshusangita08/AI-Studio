@@ -30,12 +30,39 @@
 
     {% endif %}
 
+    <div
+        style="
+            display:flex;
+            gap:30px;
+            margin-bottom:20px;
+            flex-wrap:wrap;
+        "
+    >
+
+        <div>
+            <strong>Words</strong><br>
+            <span id="word-count">0</span>
+        </div>
+
+        <div>
+            <strong>Characters</strong><br>
+            <span id="char-count">0</span>
+        </div>
+
+        <div>
+            <strong>Status</strong><br>
+            <span id="editor-status">Saved</span>
+        </div>
+
+    </div>
+
     <form
         action="/projects/{{ project.slug }}/story"
         method="post"
     >
 
         <textarea
+            id="story-editor"
             name="story"
             rows="24"
             style="
@@ -48,6 +75,7 @@
                 resize:vertical;
             "
             placeholder="Start writing your story here..."
+            oninput="updateStats()"
         >{{ story }}</textarea>
 
         <br><br>
@@ -71,5 +99,35 @@
     </a>
 
 </div>
+
+<script>
+
+function updateStats() {
+
+    const editor =
+        document.getElementById("story-editor");
+
+    const text = editor.value;
+
+    const trimmed = text.trim();
+
+    const words =
+        trimmed === ""
+        ? 0
+        : trimmed.split(/\s+/).length;
+
+    document.getElementById("word-count").textContent =
+        words;
+
+    document.getElementById("char-count").textContent =
+        text.length;
+
+    document.getElementById("editor-status").textContent =
+        "Unsaved changes";
+}
+
+updateStats();
+
+</script>
 
 {% endblock %}
