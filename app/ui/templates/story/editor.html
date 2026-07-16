@@ -30,36 +30,12 @@
 
     {% endif %}
 
-    <div
-        style="
-            display:flex;
-            gap:30px;
-            margin-bottom:20px;
-            flex-wrap:wrap;
-        "
-    >
-
-        <div>
-            <strong>Words</strong><br>
-            <span id="word-count">0</span>
-        </div>
-
-        <div>
-            <strong>Characters</strong><br>
-            <span id="char-count">0</span>
-        </div>
-
-        <div>
-            <strong>Status</strong><br>
-            <span id="editor-status">Saved</span>
-        </div>
-
-    </div>
-
     <form
         action="/projects/{{ project.slug }}/story"
         method="post"
     >
+
+        {% include "components/editor_toolbar.html" %}
 
         <textarea
             id="story-editor"
@@ -73,22 +49,11 @@
                 border:1px solid #ccc;
                 border-radius:6px;
                 resize:vertical;
+                box-sizing:border-box;
             "
             placeholder="Start writing your story here..."
             oninput="updateStats()"
         >{{ story }}</textarea>
-
-        <br><br>
-
-        <button
-            type="submit"
-            style="
-                padding:10px 20px;
-                cursor:pointer;
-            "
-        >
-            💾 Save Story
-        </button>
 
     </form>
 
@@ -116,17 +81,23 @@ function updateStats() {
         ? 0
         : trimmed.split(/\s+/).length;
 
-    document.getElementById("word-count").textContent =
-        words;
+    document.getElementById(
+        "word-count"
+    ).textContent = words;
 
-    document.getElementById("char-count").textContent =
-        text.length;
+    document.getElementById(
+        "char-count"
+    ).textContent = text.length;
 
-    document.getElementById("editor-status").textContent =
-        "Unsaved changes";
+    document.getElementById(
+        "editor-status"
+    ).textContent = "Unsaved changes";
 }
 
-updateStats();
+window.addEventListener(
+    "load",
+    updateStats
+);
 
 </script>
 
