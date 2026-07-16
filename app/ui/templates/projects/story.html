@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ project.title }} - Story</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>{{ project.title }} - Story</h1>
+                
+                <form method="post" action="/projects/{{ project.slug }}/story">
+                    <div class="mb-3">
+                        <label for="story-content" class="form-label">Story Content</label>
+                        <textarea class="form-control" id="story-content" name="content" rows="20">{{ story_content }}</textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Save Story</button>
+                    <a href="/projects/{{ project.slug }}" class="btn btn-secondary">Back to Project</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
