@@ -3,22 +3,41 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Virtual environments
+# Virtual Environments
 .venv/
 venv/
 env/
 
 # Pytest
 .pytest_cache/
-
-# Coverage
 .coverage
-htmlcov/
 
-# IDE
+# VS Code
 .vscode/
-.idea/
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Build
+dist/
+build/
+
+# Logs
+*.log
+
+# LM Studio
+models/
+
+# AI Studio Runtime
+workspace/
+!workspace/.gitkeep
+
+# Temporary
+*.tmp
+*.bak
 
 # OS
-.DS_Store
 Thumbs.db
+.DS_Store
+test_filesystem_operation.txt
