@@ -120,7 +120,7 @@ class TestStoryService:
             
             assert "Test Project" in result
             assert result.startswith("# Test Project")
-            assert "mock story" in result.lower()
+            assert "placeholder hero" in result.lower()
             
     def test_generate_mock_story_deterministic(self):
         """Test that generate_mock_story produces deterministic output."""

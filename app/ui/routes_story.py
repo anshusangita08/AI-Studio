@@ -21,7 +21,8 @@ def _build_story_context(project, slug):
     return {
         "project": project,
         "story_content": story_service.read_story(slug),
-        "expanded_story_content": story_service.read_expanded_story(slug)
+        "expanded_story_content": story_service.read_expanded_story(slug),
+        "scenes_content": story_service.read_scenes(slug)
     }
 
 @router.get("/{slug}/story")
@@ -43,8 +44,11 @@ async def generate_story(
     """Generate mock story content for a project."""
     project = _get_project_or_404(slug)
     
-    # Generate mock story content (this will populate the expanded story field)
-    generated_content = story_service.generate_mock_story(project.name)
+    # Read the current expanded story
+    expanded_story_content = story_service.read_expanded_story(slug)
+    
+    # Generate mock story content based on expanded story (this will populate the expanded story field)
+    generated_content = story_service.generate_mock_story(expanded_story_content)
     
     # For AJAX requests, return just the content
     if request.headers.get("content-type", "").startswith("application/json"):

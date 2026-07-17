@@ -4,30 +4,29 @@
     const generateBtn = document.getElementById('generate-btn');
     if (generateBtn) {
         generateBtn.addEventListener('click', function() {
-            // Show confirmation for both story and expanded story sections
-            const originalContent = document.getElementById('story-content').value;
-            const expandedContent = document.getElementById('expanded-story-content').value;
-
-            // If there's existing content in either field, show confirmation
-            if (originalContent.trim() !== '' || expandedContent.trim() !== '') {
-                if (!confirm('This will overwrite the expanded story section.\n\nUnsaved changes to expanded story will be lost.')) {
-                    return;
-                }
-            }
-
+            console.log("Generate Story handler entered");
             // Submit to generate endpoint
+            console.log("About to call fetch");
             fetch('/projects/{{ project.slug }}/story/generate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
-            .then(response => response.json())
+            .then(response => {
+                console.log("Status", response.status);
+                return response.text();
+            })
+            .then(text => {
+                console.log("Response", text);
+                return JSON.parse(text);
+            })
             .then(data => {
                 if (data.expanded_story) {
                     document.getElementById('expanded-story-content').value = data.expanded_story;
                 }
-            });
+            })
+            .catch(err => console.error(err));
         });
     }
 
@@ -50,3 +49,5 @@
             });
         });
     }
+</script>
+{% endif %}

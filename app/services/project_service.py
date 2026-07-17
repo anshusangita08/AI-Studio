@@ -182,7 +182,15 @@ class ProjectService:
         self,
         slug: str,
     ) -> None:
-
+        """
+        Delete a project by its slug.
+        
+        Args:
+            slug (str): The slug of the project to delete
+            
+        Raises:
+            FileNotFoundError: If the project does not exist
+        """
         folder = (
             PROJECT_ROOT / slug
         )
@@ -192,6 +200,10 @@ class ProjectService:
             raise FileNotFoundError(
                 slug
             )
+
+        # Ensure we're only deleting within our project root
+        if not str(folder.resolve()).startswith(str(PROJECT_ROOT.resolve())):
+            raise ValueError("Invalid project path - cannot delete outside of project root")
 
         shutil.rmtree(folder)
 

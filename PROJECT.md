@@ -47,8 +47,11 @@ Milestone 007
 ## Completed Milestones
 
 (Add as development progresses.)
+- Story Planner fixes: Fixed rendering regressions in the story planner component
+- Scene persistence fix: Resolved issue where scenes were not persisting after page refresh
+- Project delete verification: Implemented proper confirmation dialog for project deletion workflow
 
----
+
 
 ## Coding Standards
 

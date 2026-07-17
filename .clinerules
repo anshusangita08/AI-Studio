@@ -100,26 +100,25 @@ Only use terminal commands when an MCP capability does not exist.
 
 # Playwright
 
-Always use Playwright MCP.
+Playwright is for verification only.
 
-Never launch Chromium manually.
+Never invent URLs, IDs, slugs or test data.
 
-If localhost is unavailable:
+When verification requires an existing entity:
 
-- Stop.
-- Do not retry using another startup method.
-- Show the error.
-- Ask the user.
+- create it first
+- or discover it from the application
+- or ask the user for the existing value
 
-For UI changes always inspect:
+Never use placeholder values such as:
 
-1. Console
-2. Network
-3. DOM
+- some-project
+- some-project-slug
+- example
+- test-id
 
-Use runtime evidence instead of assumptions.
-
----
+If Playwright cannot determine the correct value automatically,
+skip Playwright verification and rely on manual verification.
 
 # Windows Environment
 
@@ -309,7 +308,49 @@ Prefer:
 4. Create a new module only if necessary.
 5. Create a new directory only if explicitly requested.
 
+Prefer direct implementation over defensive investigation.
+
+If:
+- the failing file is known
+- the failing endpoint is known
+- the failing button is known
+
+implement the fix immediately.
+Avoid proving the obvious.
+Time should be spent writing code, not rediscovering evidence.
+
 ---
+
+# Debugging
+
+When the user has already provided:
+
+- the traceback,
+- the failing endpoint,
+- the failing button,
+- or the failing file,
+- Never create temporary debug scripts (temp_*.py, debug_*.py, scratch_*.py).
+- Never reproduce application behavior outside the production code unless explicitly instructed.
+- Debug by tracing the existing codebase.
+- Fix the implementation directly.
+- If the same command or investigation fails twice, stop and reassess instead of repeating it.
+- Remove any temporary files before completing the task.
+
+treat it as the root starting point.
+
+Do not spend time rediscovering the failure.
+
+Prefer editing code over further investigation.
+
+Maximum investigation:
+
+- Read the required file(s).
+- Identify the defect.
+- Implement the fix.
+
+Do not repeatedly search for the same pattern.
+
+If the first edit attempt fails, inspect the file directly and edit manually.
 
 # Code Search
 
@@ -323,7 +364,23 @@ Never read an entire file unless necessary.
 
 Stop searching once sufficient information is found.
 
+When a file has already been read into context:
+Treat it as editable.
+Do not search the same file again.
+Do not attempt increasingly smaller SEARCH blocks.
+Simply edit the required lines.
+
 ---
+
+# File Editing
+
+Do not rely on SEARCH/REPLACE blocks.
+If the target code has already been read:
+- edit the file directly.
+If two SEARCH/REPLACE attempts fail:
+STOP using SEARCH/REPLACE.
+Modify the file manually.
+Never retry the same edit pattern more than twice.
 
 # Git
 
@@ -436,6 +493,31 @@ Summarize:
 - Exact next prompt
 
 ---
+## Context Budget
+
+When performing cleanup or documentation:
+
+- Never search the entire repository.
+- Read only the files explicitly requested.
+- Do not inspect implementation unless required.
+- Never include documentation files that are not being modified.
+- Prefer multiple small tasks over one large task.
+- If prompt context exceeds 75% of the available model context, stop and ask for a new task instead of continuing to gather more files.
+
+# Verification
+
+Do not use Playwright.
+
+Verification consists of:
+
+- python launcher.py
+- targeted pytest if applicable
+
+I will perform the browser verification manually and report the result.
+
+Do not attempt browser navigation.
+Do not invent project slugs.
+Do not use placeholder URLs.
 
 # Completion Criteria
 
@@ -454,6 +536,29 @@ Passing pytest alone is insufficient.
 Wait for user approval before beginning another task.
 
 ---
+
+Cleanup Rules
+
+Delete ONLY investigation artifacts created during the current task.
+
+Allowed patterns:
+- temp_*.py
+- debug_*.py
+- scratch_*.py
+- playground_*.py
+- temp_* directories created for debugging
+
+Never search using:
+- *test*
+- *temp*
+
+These match legitimate project files and directories.
+
+Never delete:
+- tests/
+- workspace/projects/*/temp
+- node_modules/
+- __pycache__ unless explicitly requested.
 
 # Final Report
 
