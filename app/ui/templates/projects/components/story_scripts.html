@@ -1,0 +1,52 @@
+{% if project %}
+<script>
+    // Handle Generate Story button
+    const generateBtn = document.getElementById('generate-btn');
+    if (generateBtn) {
+        generateBtn.addEventListener('click', function() {
+            // Show confirmation for both story and expanded story sections
+            const originalContent = document.getElementById('story-content').value;
+            const expandedContent = document.getElementById('expanded-story-content').value;
+
+            // If there's existing content in either field, show confirmation
+            if (originalContent.trim() !== '' || expandedContent.trim() !== '') {
+                if (!confirm('This will overwrite the expanded story section.\n\nUnsaved changes to expanded story will be lost.')) {
+                    return;
+                }
+            }
+
+            // Submit to generate endpoint
+            fetch('/projects/{{ project.slug }}/story/generate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.expanded_story) {
+                    document.getElementById('expanded-story-content').value = data.expanded_story;
+                }
+            });
+        });
+    }
+
+    // Handle Generate Scenes button
+    const generateScenesBtn = document.getElementById('generate-scenes-btn');
+    if (generateScenesBtn) {
+        generateScenesBtn.addEventListener('click', function() {
+            // Submit to generate scenes endpoint
+            fetch('/projects/{{ project.slug }}/scenes/generate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.scenes) {
+                    document.getElementById('scenes-content').value = data.scenes;
+                }
+            });
+        });
+    }

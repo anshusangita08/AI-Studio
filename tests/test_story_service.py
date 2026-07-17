@@ -143,3 +143,48 @@ class TestStoryService:
             result = service.generate_mock_story(project_name)
             
             assert project_name in result
+            
+    def test_get_scenes_path(self):
+        """Test that scenes path generation works."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            service = StoryService(tmp_dir)
+            
+            expected_path = os.path.join(tmp_dir, "test-project", "story", "scenes.md")
+            actual_path = service.get_scenes_path("test-project")
+            assert actual_path == expected_path
+            
+    def test_read_scenes(self):
+        """Test reading scenes content."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            service = StoryService(tmp_dir)
+            
+            # Test with non-existent file
+            result = service.read_scenes("non-existent-project")
+            assert result == ""
+    
+    def test_save_scenes(self):
+        """Test saving scenes content."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            service = StoryService(tmp_dir)
+            
+            # This should succeed without error (can't easily test actual file creation)
+            success = service.save_scenes("test-project", "# Test Scenes\n\nScene 1 description.")
+            assert success is True
+            
+    def test_generate_mock_scenes(self):
+        """Test generating mock scenes from expanded story."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            service = StoryService(tmp_dir)
+            
+            # Test with empty content
+            result_empty = service.generate_mock_scenes("")
+            assert "No scenes generated" in result_empty
+            
+            # Test with normal content  
+            expanded_story = "# Expanded Story\n\nThis is an expanded version.\n\nIt has more details."
+            result = service.generate_mock_scenes(expanded_story)
+            
+            assert "# Scenes" in result
+            assert "Scene 1: Introduction" in result
+            assert "Scene 2: Conflict" in result  
+            assert "Scene 3: Resolution" in result

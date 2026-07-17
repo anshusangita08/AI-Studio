@@ -1,23 +1,448 @@
 You are the implementation engineer for AI Studio.
 
-Rules:
+# Core Principles
 
+- Modify only the files required for the current task.
+- Keep changes small, modular and incremental.
 - Never redesign the architecture unless explicitly instructed.
-- Modify only the files required for the current milestone.
-- Keep changes small and modular.
-- Preserve backward compatibility.
-- Prefer FastAPI, Jinja2 and HTMX patterns already used in the project.
 - Never remove existing functionality.
-- Always add or update tests for new behavior.
-- Ensure the application remains runnable after every change.
+- Preserve backward compatibility.
+- Reuse existing services before creating new ones.
+- Never invent APIs, routes, services or classes. Inspect existing code first.
+- Do not create new directories unless explicitly requested.
+- If existing code already works, do not rewrite it unless explicitly requested.
+- Never guess. Verify using existing code, tests or runtime evidence.
 
-Before completing any task, always run:
+---
+
+# AI Studio Startup
+
+Always launch AI Studio exactly as the user does.
+
+Working directory:
+
+C:\AI-Studio
+
+Launch command:
+
+python launcher.py
+
+Startup is successful only after one of the following appears:
+
+- Application startup complete
+- Uvicorn running on http://127.0.0.1:8000
+
+Do not start Playwright until startup is complete.
+
+If startup fails:
+
+- Stop immediately.
+- Display the complete terminal output.
+- Ask the user.
+
+Never:
+
+- invent another startup command
+- run uvicorn directly
+- run app.py
+- run bootstrap.py
+- activate a virtual environment
+- create a virtual environment
+- install packages
+- modify the Python interpreter
+- modify PATH
+- change PowerShell execution policy
+- retry using another startup method
+
+---
+
+# Python Environment
+
+This project uses the user's global Python installation.
+
+Always use:
+
+python
+
+Never:
+
+- create .venv
+- activate .venv
+- change interpreters
+- install packages without user approval
+
+Before installing any package:
+
+1. Ask the user.
+2. Verify it is genuinely missing.
+
+---
+
+# MCP Usage
+
+Available MCP servers:
+
+- Playwright
+- Filesystem
+- Git
+
+Always prefer MCP tools over terminal commands whenever possible.
+
+Examples:
+
+- Browser testing → Playwright MCP
+- Repository status → Git MCP
+- File inspection → Filesystem MCP
+
+Only use terminal commands when an MCP capability does not exist.
+
+---
+
+# Playwright
+
+Always use Playwright MCP.
+
+Never launch Chromium manually.
+
+If localhost is unavailable:
+
+- Stop.
+- Do not retry using another startup method.
+- Show the error.
+- Ask the user.
+
+For UI changes always inspect:
+
+1. Console
+2. Network
+3. DOM
+
+Use runtime evidence instead of assumptions.
+
+---
+
+# Windows Environment
+
+Development environment:
+
+- Windows 11
+- PowerShell
+
+Never generate Linux/macOS commands.
+
+Never use:
+
+grep
+find
+xargs
+sed
+awk
+cat
+head
+tail
+touch
+rm
+mv
+cp
+chmod
+pwd
+which
+tee
+
+Always use PowerShell or Python.
+
+Never use cmd.exe switches.
+
+Before executing a command:
+
+- Verify it is valid PowerShell syntax.
+- If uncertain, use Python instead.
+
+Never leave terminals waiting for user input.
+
+---
+
+# Reading Workflow
+
+Read only in this order:
+
+1. PROJECT_STATE.md
+2. NEXT_TASK.md
+3. LESSONS_LEARNED.md
+4. .clinerules
+
+Read BUILD_PLAN.md only when explicitly required.
+
+Never scan the repository.
+
+Inspect only:
+
+- files listed in NEXT_TASK.md
+- directly referenced files
+- files required for the current implementation
+
+Never reread files already understood unless they changed.
+
+---
+
+# Development Workflow
+
+For every task:
+
+1. Understand existing implementation.
+2. Identify minimum required files.
+3. Implement one objective.
+4. Run targeted tests.
+5. Run full tests.
+6. Update documentation if required.
+7. Stop.
+
+Never begin the next milestone automatically.
+
+---
+
+# Bug Fix Workflow
+
+For bug fixes:
+
+1. Reproduce.
+2. Trace the complete request.
+3. Identify the failing layer.
+4. Identify the failing function.
+5. Fix only that function.
+6. Verify.
+7. Stop.
+
+Never assume code is broken without runtime evidence.
+
+Passing tests do not invalidate a browser bug reported by the user.
+
+---
+
+# Browser Investigation Order
+
+When browser behaviour differs:
+
+HTML
+
+↓
+
+JavaScript
+
+↓
+
+Network
+
+↓
+
+Route
+
+↓
+
+Service
+
+↓
+
+Storage
+
+Stop at the first failing layer.
+
+Always prefer browser evidence.
+
+---
+
+# Refactoring
+
+Split large refactors into multiple small tasks.
+
+Never combine:
+
+- refactoring
+- bug fixing
+
+unless explicitly requested.
+
+---
+
+# Code Rules
+
+- Small functions
+- One responsibility
+- Thin routes
+- Business logic inside services
+- Presentation inside templates
+- Reuse components
+- Avoid duplication
+- Preserve coding style
+
+---
+
+# Implementation Preference
+
+Prefer:
+
+1. Reuse existing code
+2. Extend existing code
+3. Helper function
+4. New module
+5. New directory (only if requested)
+
+---
+
+# Code Search
+
+Read only:
+
+- required function
+- required class
+- required section
+
+Never read entire files unnecessarily.
+
+Stop searching once enough information is found.
+
+---
+
+# Git
+
+Always use:
+
+git status --short
+
+git --no-pager diff <file>
+
+git --no-pager show <commit>
+
+Never invoke pagers.
+
+---
+
+# Documentation
+
+Read and edit markdown directly.
+
+Never use terminal commands to display markdown.
+
+Update documentation only after implementation succeeds.
+
+---
+
+# Testing
+
+During development:
+
+Run only relevant tests.
+
+Before completion:
 
 python -m pytest tests/ -v
 
+If UI changed:
+
+- Run Playwright.
+- Return a manual validation checklist.
+
+Never claim browser validation passed until confirmed by the user.
+
+---
+
+# Continue Workflow
+
+If continuing a previous task:
+
+- Resume immediately.
+- Reuse previous conclusions.
+- Do not repeat completed analysis.
+- Read only newly required files.
+
+---
+
+# Decision Making
+
+Before reading any file ask:
+
+"Do I need this file?"
+
+If the answer is no:
+
+Do not read it.
+
+Never inspect code "just in case."
+
+---
+
+# Task Size
+
+Normally modify:
+
+- 1–3 source files
+- 0–2 templates
+- 0–2 tests
+
+If more than five files are required:
+
+Stop.
+
 Return:
+
+- reason
+- subtasks
+- recommended next task
+
+---
+
+# Context Management
+
+Minimize token usage.
+
+Prefer:
+
+- function over file
+- class over module
+- changed section over entire document
+
+Avoid loading large files unnecessarily.
+
+If context becomes large:
+
+Stop.
+
+Summarize.
+
+Return the next prompt.
+
+---
+
+# Completion Criteria
+
+A task is complete only when:
+
+- Code builds.
+- Relevant tests pass.
+- Full pytest passes.
+- Documentation updated if required.
+- Playwright verification completed if UI changed.
+- Manual validation checklist returned if UI changed.
+- User confirms browser behaviour if UI changed.
+
+Passing pytest alone is insufficient.
+
+Wait for user approval before starting another task.
+
+---
+
+# Final Report
+
+Return only:
+
 - Files changed
 - Summary of changes
-- Test results
+- Tests executed
+- Manual validation checklist (if applicable)
+- Known limitations
+- Recommended next task
 
-Never stop midway through a milestone.
+If a debug script has already verified a service:
+
+- Do not create another debug script.
+- Continue debugging at the next application layer.
