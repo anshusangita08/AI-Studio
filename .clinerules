@@ -201,6 +201,28 @@ Never begin the next milestone automatically.
 
 ---
 
+# Planning
+
+Create a plan only when the user explicitly requests one.
+
+For implementation tasks:
+
+- Begin implementation after reading the required context.
+- Do not generate high-level project plans.
+- Do not restate completed work.
+- Do not summarize existing architecture unless required for the current task.
+- Do not pause for confirmation if the requested task is sufficiently defined.
+- Continue implementing until the current objective is complete or a blocking issue is encountered.
+
+Only stop and ask the user when:
+
+- A requirement is ambiguous.
+- Multiple implementation choices have significant trade-offs.
+- User approval is required (for example, installing packages or making architectural changes).
+- The current task exceeds the Task Size limits.
+
+---
+
 # Bug Fix Workflow
 
 For bug fixes:
@@ -266,14 +288,14 @@ unless explicitly requested.
 
 # Code Rules
 
-- Small functions
-- One responsibility
-- Thin routes
-- Business logic inside services
-- Presentation inside templates
-- Reuse components
-- Avoid duplication
-- Preserve coding style
+- Small functions.
+- One responsibility per function.
+- Keep routes thin.
+- Keep business logic inside services.
+- Keep presentation logic inside templates.
+- Reuse existing components.
+- Avoid duplicated logic.
+- Preserve the existing coding style.
 
 ---
 
@@ -281,11 +303,11 @@ unless explicitly requested.
 
 Prefer:
 
-1. Reuse existing code
-2. Extend existing code
-3. Helper function
-4. New module
-5. New directory (only if requested)
+1. Reuse existing code.
+2. Extend existing code.
+3. Create a helper function.
+4. Create a new module only if necessary.
+5. Create a new directory only if explicitly requested.
 
 ---
 
@@ -293,13 +315,13 @@ Prefer:
 
 Read only:
 
-- required function
-- required class
-- required section
+- the required function
+- the required class
+- the required section
 
-Never read entire files unnecessarily.
+Never read an entire file unless necessary.
 
-Stop searching once enough information is found.
+Stop searching once sufficient information is found.
 
 ---
 
@@ -337,12 +359,12 @@ Before completion:
 
 python -m pytest tests/ -v
 
-If UI changed:
+If the UI changes:
 
 - Run Playwright.
 - Return a manual validation checklist.
 
-Never claim browser validation passed until confirmed by the user.
+Never claim browser validation passed until the user confirms it.
 
 ---
 
@@ -361,11 +383,11 @@ If continuing a previous task:
 
 Before reading any file ask:
 
-"Do I need this file?"
+"Do I need this file to complete the current task?"
 
 If the answer is no:
 
-Do not read it.
+- Do not read it.
 
 Never inspect code "just in case."
 
@@ -376,8 +398,8 @@ Never inspect code "just in case."
 Normally modify:
 
 - 1–3 source files
-- 0–2 templates
-- 0–2 tests
+- 0–2 template files
+- 0–2 test files
 
 If more than five files are required:
 
@@ -385,9 +407,9 @@ Stop.
 
 Return:
 
-- reason
-- subtasks
-- recommended next task
+- Reason the task is too large.
+- Proposed subtasks.
+- Recommended next task.
 
 ---
 
@@ -397,9 +419,9 @@ Minimize token usage.
 
 Prefer:
 
-- function over file
-- class over module
-- changed section over entire document
+- Reading one function instead of an entire file.
+- Reading one class instead of an entire module.
+- Reading only changed sections.
 
 Avoid loading large files unnecessarily.
 
@@ -407,9 +429,11 @@ If context becomes large:
 
 Stop.
 
-Summarize.
+Summarize:
 
-Return the next prompt.
+- Completed work
+- Remaining work
+- Exact next prompt
 
 ---
 
@@ -420,14 +444,14 @@ A task is complete only when:
 - Code builds.
 - Relevant tests pass.
 - Full pytest passes.
-- Documentation updated if required.
-- Playwright verification completed if UI changed.
-- Manual validation checklist returned if UI changed.
-- User confirms browser behaviour if UI changed.
+- Documentation is updated if required.
+- Playwright verification is completed if the UI changed.
+- A manual validation checklist is returned if the UI changed.
+- The user confirms browser behaviour if the UI changed.
 
 Passing pytest alone is insufficient.
 
-Wait for user approval before starting another task.
+Wait for user approval before beginning another task.
 
 ---
 
