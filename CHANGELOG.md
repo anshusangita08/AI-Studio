@@ -1,18 +1,18 @@
 Milestone 008.5
 
 Completed
-- Scene Planner completed
-- Scene generation
-- Scene persistence
-- Deterministic mock workflow
-- Browser verification completed
-- Tests passing
+- Project creation
+- Project listing
+- Project opening
+- Project deletion
+- Project rename
+- Directory rename on disk
+- Redirect to new slug after rename
+- Reserved name validation
+- Duplicate name validation
+- Rename unit tests (30 passing)
 Notes
-- Scene Planner implementation complete with enhanced formatting
-- All functionality verified in browser
-- StoryService tests pass (16/16)
-- No architectural changes made during implementation
-
+- All project CRUD operations now fully implemented and tested.
 Milestone 008.4
 
 Completed

@@ -7,125 +7,37 @@ Current Branch:
 develop
 
 Current Milestone:
-008.3
+008.5
 
 ---
 
-# Completed
+## Completed
 
-## Milestone 007
-
+### Milestone 008.5
 Status
 ✅ Complete
 
 Implemented
 
-- Project CRUD
-- Rename
-- Delete
-- Reserved names
-- Duplicate validation
-- Friendly validation
-
-Validation
-
-- pytest ✅
-- launcher ✅
-- Manual testing ✅
-
-Git
-
-Commit:
-...
-
+- Project creation
+- Project listing
+- Project opening
+- Project deletion
+- Project rename
+- Directory rename on disk
+- Redirect to new slug after rename
+- Reserved name validation
+- Duplicate name validation
+- Rename unit tests (30 passing)
 ---
 
-## Milestone 008.1
+## Current Work
 
-Status
-✅ Complete
-
-Implemented
-
-- StoryService
-- Story routes
-- Story editor
-- story.md persistence
-- GET
-- POST
-- Save
-- Load
-
-Validation
-
-- pytest ✅
-- launcher ✅
-- Manual testing ✅
-
-Git
-
-Commit:
-1ebae11
-
----
-
-## Milestone 008.2
-Status
-✅ Complete
-
-Implemented
-
-- Generate Story button
-- Mock story generation
-- Overwrite confirmation
-- User edits generated story
-- Save normally
-
-Validation
-
-- pytest ✅
-- launcher ✅
-- Manual testing ✅
-
-Git
-
-Commit:
-...
----
-
-## Maintenance
-
-Status
-✅ Complete
-
-Implemented
-
-- Delete confirmation dialog
-
-Validation
-
-- Manual testing ✅
-
-# Current Work
-
-Milestone
-008.3
-Status
-In Progress
-
-Planning
-Repository inspection completed.
-No code yet.
-
+No current work; milestone 008.5 is completed.
 # Next Tasks
+None
 
-- Replace deterministic generators with LM Studio integration
-- Ensure StoryService uses LM Studio API client
-- Update routes to use new generator logic
-- Verify existing templates and persistence remain unchanged
-- Run all tests and perform manual verification
 # Known Issues
-
 None
 
 # Lessons Learned

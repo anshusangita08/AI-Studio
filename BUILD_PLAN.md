@@ -88,15 +88,13 @@ Never break previous milestones.
 - [Milestone 013](docs/milestones/013-image-engine.md) - Image Engine
 - [Milestone 014](docs/milestones/014-speech-engine.md) - Speech Engine
 - [Milestone 015](docs/milestones/015-story-compiler.md) - Story Compiler
+- [Milestone 008.5](docs/milestones/008.5-project-manager.md) - Project Manager (CRUD)
 
 ---
 
 # Current Milestone
 
-Milestone 007: Project Manager
-
-Completed
-
+Milestone 008.5
 ---
 
 # Links to milestone documents
