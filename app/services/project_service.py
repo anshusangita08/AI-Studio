@@ -14,6 +14,7 @@ from app.models.project import Project
 
 ROOT = Path(__file__).resolve().parents[2]
 
+# Default project root location
 PROJECT_ROOT = ROOT / "workspace" / "projects"
 
 # Reserved project names that conflict with routes
@@ -37,12 +38,15 @@ class ProjectService:
     Service responsible for managing projects.
     """
 
-    def __init__(self) -> None:
+    def __init__(self, root: Path | None = None) -> None:
+        """Create a new service.
 
-        PROJECT_ROOT.mkdir(
-            parents=True,
-            exist_ok=True,
-        )
+        Args:
+            root: Optional custom project root. If ``None`` the default
+                :data:`PROJECT_ROOT` is used.
+        """
+        self.PROJECT_ROOT = root or PROJECT_ROOT
+        self.PROJECT_ROOT.mkdir(parents=True, exist_ok=True)
 
     def create(
         self,
@@ -50,7 +54,7 @@ class ProjectService:
     ) -> Project:
         # Trim leading and trailing whitespace first
         name = name.strip()
-        
+
         # Validate that the name is not empty after trimming
         if not name:
             raise ValueError("Project name cannot be empty.")
@@ -61,9 +65,7 @@ class ProjectService:
             raise ValueError("Project name cannot be a reserved word.")
 
         project = Project.create(name)
-
-        folder = PROJECT_ROOT / project.slug
-
+        folder = self.PROJECT_ROOT / project.slug
         if folder.exists():
 
             raise FileExistsError(
@@ -76,13 +78,7 @@ class ProjectService:
         )
 
         for directory in PROJECT_STRUCTURE:
-
-            (
-                folder / directory
-            ).mkdir(
-                parents=True,
-                exist_ok=True,
-            )
+            (folder / directory).mkdir(parents=True, exist_ok=True)
 
         project.save(folder)
 
@@ -94,9 +90,7 @@ class ProjectService:
 
         projects: list[Project] = []
 
-        for metadata in PROJECT_ROOT.glob(
-            "*/project.json"
-        ):
+        for metadata in self.PROJECT_ROOT.glob("*/project.json"):
 
             with metadata.open(
                 "r",
@@ -120,11 +114,7 @@ class ProjectService:
         slug: str,
     ) -> Project:
 
-        metadata = (
-            PROJECT_ROOT
-            / slug
-            / "project.json"
-        )
+        metadata = (self.PROJECT_ROOT / slug / "project.json")
 
         if not metadata.exists():
 
@@ -146,9 +136,7 @@ class ProjectService:
         slug: str,
     ) -> bool:
 
-        return (
-            PROJECT_ROOT / slug
-        ).exists()
+        return (self.PROJECT_ROOT / slug).exists()
 
     def rename(
         self,
@@ -172,7 +160,7 @@ class ProjectService:
             UTC
         ).isoformat(timespec="seconds")
 
-        folder = PROJECT_ROOT / slug
+        folder = self.PROJECT_ROOT / slug
 
         project.save(folder)
 
@@ -184,15 +172,15 @@ class ProjectService:
     ) -> None:
         """
         Delete a project by its slug.
-        
+
         Args:
             slug (str): The slug of the project to delete
-            
+
         Raises:
             FileNotFoundError: If the project does not exist
         """
         folder = (
-            PROJECT_ROOT / slug
+            self.PROJECT_ROOT / slug
         )
 
         if not folder.exists():
@@ -202,7 +190,7 @@ class ProjectService:
             )
 
         # Ensure we're only deleting within our project root
-        if not str(folder.resolve()).startswith(str(PROJECT_ROOT.resolve())):
+        if not str(folder.resolve()).startswith(str(self.PROJECT_ROOT.resolve())):
             raise ValueError("Invalid project path - cannot delete outside of project root")
 
         shutil.rmtree(folder)

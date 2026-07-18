@@ -16,5 +16,9 @@
 
     "logging": {
         "level": "INFO"
+    },
+	
+	"lm_studio": {
+        "endpoint": "http://localhost:1234"
     }
 }

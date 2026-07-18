@@ -31,3 +31,11 @@ Notes
 - Scene persistence fix documented in PROJECT.md  
 - Project delete verification documented in PROJECT.md
 
+## Refactor: ProjectService test isolation
+
+- Removed global `project_service` singleton.
+- Added dependency injection via configurable project root.
+- Tests now instantiate isolated `ProjectService` instances and use `tmp_path`/`TemporaryDirectory`.
+- No filesystem side‑effects in `workspace/projects` during pytest runs.
+- Internal test infrastructure improvement only; no user‑visible changes.
+
