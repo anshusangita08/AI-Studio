@@ -154,7 +154,7 @@ class StoryService:
         lines = expanded_story.split('\n')
         scenes_content = ["# Scenes", ""]
         
-        # Add some example scenes structure
+        # Add some example scenes structure - maintaining original test format compatibility
         scenes_content.append("## Scene 1: Introduction")
         scenes_content.append("- Setting: [Setting from expanded story]")
         scenes_content.append("- Characters: [Main characters from expanded story]") 
