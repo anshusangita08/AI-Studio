@@ -31,3 +31,14 @@ This separation allows users to:
 - Edit generated content freely
 
 Use different form handlers for saving each type of content.
+
+## Scene Planner Implementation
+
+During Milestone 008.5 implementation, several key lessons were learned:
+
+- Keep changes incremental and focused on specific features
+- Preserve existing architecture when implementing new functionality
+- VS Code embedded browser suppresses native confirm dialogs (this was discovered during project delete verification)
+- Browser verification should always be performed in a standard browser before assuming an application bug
+- Deterministic mock implementations are sufficient for initial development and testing phases
+

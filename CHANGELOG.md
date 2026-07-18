@@ -1,3 +1,18 @@
+Milestone 008.5
+
+Completed
+- Scene Planner completed
+- Scene generation
+- Scene persistence
+- Deterministic mock workflow
+- Browser verification completed
+- Tests passing
+Notes
+- Scene Planner implementation complete with enhanced formatting
+- All functionality verified in browser
+- StoryService tests pass (16/16)
+- No architectural changes made during implementation
+
 Milestone 008.4
 
 Completed
@@ -15,3 +30,4 @@ Notes
 - Story Planner fixes documented in PROJECT.md
 - Scene persistence fix documented in PROJECT.md  
 - Project delete verification documented in PROJECT.md
+

@@ -1,25 +1,29 @@
 # Current Milestone
-008.3b – Story Planner UX Refresh
-
+009 – LM Studio Integration
 # Current Objective
-Refactor the Story Planner UI into smaller reusable components before implementing new features.
-
+Replace deterministic generators with LM Studio while preserving:
+- StoryService
+- Existing routes
+- Existing templates
+- Existing persistence
+- Existing HTMX workflow
 # Current Status
-In Progress
-
+Not Started
 # Files To Modify
-app/ui/routes_story.py
-app/ui/templates/projects/story.html
-
+app/services/story_service.py
+app/factory/story_factory.py
 # Tests To Run
 python -m pytest tests/ -v
 
 # Definition of Done
-- Story page split into smaller reusable templates.
-- Story, Expanded Story and Scenes each have independent save workflows.
-- Layout is responsive.
-- Existing functionality preserved.
-- Tests pass.
+- LM Studio API integration complete
+- Story generation replaced with LLM-powered approach
+- Expanded story generation replaced with LLM-powered approach
+- Scene generation replaced with LLM-powered approach
+- All existing functionality preserved
+- Existing workflow unchanged (routes, templates, persistence)
+- Tests pass
 
 # After Completion
-Update PROJECT_STATE.md and begin the next UX enhancement.
+Update PROJECT_STATE.md and begin milestone 010.
+
