@@ -7,7 +7,7 @@ Current Branch:
 develop
 
 Current Milestone:
-008.2
+008.3
 
 ---
 
@@ -69,6 +69,30 @@ Commit:
 
 ---
 
+## Milestone 008.2
+Status
+✅ Complete
+
+Implemented
+
+- Generate Story button
+- Mock story generation
+- Overwrite confirmation
+- User edits generated story
+- Save normally
+
+Validation
+
+- pytest ✅
+- launcher ✅
+- Manual testing ✅
+
+Git
+
+Commit:
+...
+---
+
 ## Maintenance
 
 Status
@@ -82,40 +106,27 @@ Validation
 
 - Manual testing ✅
 
----
-
 # Current Work
 
 Milestone
-
-008.2
-
+008.3
 Status
+In Progress
 
 Planning
-
 Repository inspection completed.
-
 No code yet.
-
----
 
 # Next Tasks
 
-- Add Generate Story button
-- Mock story generation
-- Overwrite confirmation
-- Save generated story
-- Tests
-- Manual verification
-
----
-
+- Replace deterministic generators with LM Studio integration
+- Ensure StoryService uses LM Studio API client
+- Update routes to use new generator logic
+- Verify existing templates and persistence remain unchanged
+- Run all tests and perform manual verification
 # Known Issues
 
 None
-
----
 
 # Lessons Learned
 
@@ -124,3 +135,5 @@ None
 - Use TemplateResponse instead of JSON for pages.
 - Always manually verify before marking complete.
 - Keep generated runtime files out of Git.
+
+

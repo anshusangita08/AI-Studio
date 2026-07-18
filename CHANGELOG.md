@@ -33,9 +33,9 @@ Notes
 
 ## Refactor: ProjectService test isolation
 
-- Removed global `project_service` singleton.
-- Added dependency injection via configurable project root.
-- Tests now instantiate isolated `ProjectService` instances and use `tmp_path`/`TemporaryDirectory`.
+- This repository uses a module‑level `ProjectService` instance (`project_service = ProjectService()`) for production compatibility.
+- The refactor preserves that singleton while allowing tests to instantiate isolated `ProjectService(root=tmp_path / "projects")` instances with configurable project roots. Tests now operate entirely inside temporary directories, eliminating filesystem side effects without changing production behavior.
 - No filesystem side‑effects in `workspace/projects` during pytest runs.
 - Internal test infrastructure improvement only; no user‑visible changes.
+
 

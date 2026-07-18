@@ -26,3 +26,5 @@ Project management capabilities including creation, renaming, deletion, and vali
 - ✓ Manual verification
 
 ## Status: Completed
+
+**Note:** The repository uses a module‑level `ProjectService` instance (`project_service = ProjectService()`) for production compatibility.  The refactor preserves that singleton while allowing tests to instantiate isolated `ProjectService(root=tmp_path / "projects")` instances with configurable project roots.  Tests now operate entirely inside temporary directories, eliminating filesystem side effects without changing production behavior.

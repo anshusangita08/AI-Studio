@@ -143,27 +143,47 @@ class ProjectService:
         slug: str,
         new_name: str,
     ) -> Project:
-
         project = self.get(slug)
 
         new_name = new_name.strip()
 
         if not new_name:
+            raise ValueError("Project name cannot be empty.")
+            
+        if new_name.lower() in RESERVED_PROJECT_NAMES:
+            raise ValueError("Project name cannot be a reserved word.")
 
+        # Compute the new slug from the new name
+        new_slug = Project.create(new_name).slug
+
+        source_folder = self.PROJECT_ROOT / slug
+        dest_folder = self.PROJECT_ROOT / new_slug
+
+        # If destination already exists (and is not the same as source), abort
+        if self.exists(new_slug) and new_slug != slug:
             raise ValueError(
-                "Project name cannot be empty."
+                f"Destination project '{new_slug}' already exists."
             )
 
+        # If slug unchanged, just update metadata in place
+        if new_slug == slug:
+            project.name = new_name
+            project.updated_at = datetime.now(UTC).isoformat(timespec="seconds")
+            project.save(source_folder)
+            return project
+
+        try:
+            shutil.move(str(source_folder), str(dest_folder))
+        except Exception as exc:
+            raise RuntimeError(
+                f"Failed to rename project directory: {exc}"
+            ) from exc
+
+        # Update metadata after successful move
         project.name = new_name
-
-        project.updated_at = datetime.now(
-            UTC
-        ).isoformat(timespec="seconds")
-
-        folder = self.PROJECT_ROOT / slug
-
-        project.save(folder)
-
+        project.slug = new_slug
+        project.updated_at = datetime.now(UTC).isoformat(timespec="seconds")
+        project.save(dest_folder)
         return project
 
     def delete(
