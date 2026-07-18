@@ -101,7 +101,7 @@ async def rename_project(
     name: str = Form(...),
 ):
     try:
-        project_service.rename(
+        project = project_service.rename(
             slug,
             name,
         )
@@ -112,8 +112,14 @@ async def rename_project(
             detail="Project not found.",
         ) from exc
 
+    except (ValueError, FileExistsError) as exc:
+        raise HTTPException(
+            status_code=400,
+            detail=str(exc),
+        ) from exc
+
     return RedirectResponse(
-        url=f"/projects/{slug}",
+        url=f"/projects/{project.slug}",
         status_code=303,
     )
 
@@ -135,3 +141,4 @@ async def delete_project(
         url="/projects/",
         status_code=303,
     )
+
