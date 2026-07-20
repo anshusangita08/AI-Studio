@@ -13,11 +13,11 @@ develop
 
 Current Milestone
 
-011 – Export (Completed)
+012 – Rendering / Video Assembly (Completed)
 
 Current Objective
 
-Finalize export functionality and integrate with UI.
+Finalize rendering functionality and integrate with UI.
 
 Development Status
 
@@ -41,6 +41,7 @@ In Progress → Completed
 | Prompt Engine (009) | ✅ |
 | **Project Pipeline (010)** | ✅ |
 | **Export (011)** | ✅ |
+| **Rendering / Video Assembly (012)** | ✅ |
 
 ---
 
@@ -48,11 +49,11 @@ In Progress → Completed
 
 Feature
 
-Export Service Development
+Render Service Development
 
 Description
 
-Implement export service, UI integration and ZIP generation.
+Implement render service, UI integration and JSON status output.
 
 ---
 
@@ -99,7 +100,7 @@ None
 
 # Next Step
 
-Begin Milestone 012 – Rendering / Video Assembly.
+Begin Milestone 013 – Asset Generation.
 
 ---
 
@@ -111,7 +112,7 @@ Automated Tests
 
 Manual Verification
 
-✅ Export functionality verified manually.
+✅ Render functionality verified manually.
 
 Last Verified
 

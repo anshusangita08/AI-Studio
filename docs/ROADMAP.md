@@ -110,6 +110,31 @@ Status: In Progress
 
 ---
 
+## Phase 7 — Rendering / Video Assembly
+
+Objectives:
+
+- Render projects to JSON status files
+- Provide rendering endpoint
+- Integrate render action in UI
+
+**Status: Completed (Milestone 012)**
+
+---
+
+## Phase 8 — Asset Generation
+
+Objectives:
+
+- Image generation
+- Audio generation
+- Video generation
+- Asset management
+
+Status: Planned
+
+---
+
 # Continuous Improvements
 
 The following activities occur throughout development:

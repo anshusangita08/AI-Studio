@@ -86,6 +86,26 @@ Each release should contain:
 
 ---
 
+## Milestone 012 – Rendering / Video Assembly
+
+### Added
+
+- RenderService implementation for rendering projects.
+- POST /projects/{slug}/render exposing rendering functionality.
+- Render Project action added to the project details page UI.
+- `render/render.json` created with status and timestamp upon rendering.
+
+### Changed
+
+- ProjectService integrated with RenderService for orchestration.
+
+### Testing
+
+- Added tests verifying render JSON creation and endpoint behavior.
+- Full test suite passing (43/43).
+
+---
+
 ## Unreleased
 
 ### Added
