@@ -167,3 +167,29 @@ async def export_project(
         url=f"/projects/{slug}",
         status_code=303,
     )
+
+
+# ------------------------------------------------------------------
+# New route for rendering a project
+# ------------------------------------------------------------------
+@router.post("/{slug}/render")
+async def render_project(
+    slug: str,
+):
+    """
+    Render the specified project.
+
+    This endpoint simply delegates to `project_service.render_project`
+    and returns the JSON response from the underlying RenderService.
+    """
+    try:
+        # Delegate rendering logic to ProjectService
+        render_response = project_service.render_project(slug)
+    except FileNotFoundError as exc:
+        # Consistent error handling with other routes
+        raise HTTPException(status_code=404, detail=str(exc))
+    except Exception as exc:
+        # Generic fallback for unexpected errors
+        raise HTTPException(status_code=500, detail=str(exc))
+
+    return {"success": True, "render_result": render_response}
