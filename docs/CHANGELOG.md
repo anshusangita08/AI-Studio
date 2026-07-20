@@ -28,6 +28,24 @@ Each release should contain:
 
 # Releases
 
+## Milestone 009 – Prompt Engine Implementation
+
+### Added
+
+- Prompt Service module for dynamic prompt generation.
+- Integration points with existing services.
+
+### Changed
+
+- Updated project structure to include `app/services/prompt_service.py`.
+- Minor refactoring of service registry to accommodate new engine.
+
+### Fixed
+
+- None
+
+---
+
 ## Unreleased
 
 ### Added

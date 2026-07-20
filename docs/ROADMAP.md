@@ -93,7 +93,7 @@ Objectives:
 - Project timeline
 - Export preparation
 
-Status: Planned
+Status: Active (Milestone 010)
 
 ---
 

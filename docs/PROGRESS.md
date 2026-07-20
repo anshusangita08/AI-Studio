@@ -13,11 +13,11 @@ develop
 
 Current Milestone
 
-TBD
+010 – Project Pipeline (Next)
 
 Current Objective
 
-TBD
+Finalize prompt engine API and integrate with existing services.
 
 Development Status
 
@@ -38,6 +38,7 @@ In Progress
 | Image Engine Groundwork | ✅ |
 | Speech Groundwork | ✅ |
 | Project Manager (008.5) | ✅ |
+| Prompt Engine (009) | ✅ |
 
 ---
 
@@ -45,22 +46,17 @@ In Progress
 
 Feature
 
-TBD
+Project Pipeline Development
 
 Description
 
-TBD
+Develop end‑to‑end workflow, asset tracking, project timeline and export preparation.
 
 ---
 
 # Current Working Files
 
-List only files actively being modified.
-
-Example
-
-- app/services/story_service.py
-- app/ui/routes_story.py
+None
 
 ---
 
@@ -101,7 +97,7 @@ None
 
 # Next Step
 
-TBD
+Begin Milestone 010 – Project Pipeline.
 
 ---
 
@@ -133,4 +129,4 @@ Do not duplicate project status in any other documentation.
 
 Last Updated
 
-YYYY-MM-DD
+2026-07-20
