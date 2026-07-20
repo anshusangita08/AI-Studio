@@ -78,6 +78,19 @@ async def open_project(
 ):
     try:
         project = project_service.get(slug)
+        pipeline_status = project_service.get_pipeline_status(project.slug)
+
+        # Calculate completion metrics
+        completed = sum([
+            1 if pipeline_status["story_complete"] else 0,
+            1 if pipeline_status["scenes_complete"] else 0,
+            1 if pipeline_status["prompts_complete"] else 0,
+        ])
+        percent = (completed / 3) * 100
+
+        # Store metrics in the status dict
+        pipeline_status["completed"] = completed
+        pipeline_status["percent"] = percent
 
     except FileNotFoundError as exc:
         raise HTTPException(
@@ -91,6 +104,7 @@ async def open_project(
         context={
             "title": project.name,
             "project": project,
+            "pipeline_status": pipeline_status,
         },
     )
 
@@ -141,4 +155,3 @@ async def delete_project(
         url="/projects/",
         status_code=303,
     )
-

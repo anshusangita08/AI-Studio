@@ -46,6 +46,25 @@ Each release should contain:
 
 ---
 
+## Milestone 010 – Project Pipeline Completion
+
+### Added
+
+- Backend pipeline status orchestration across StoryService, PromptService and ProjectService.
+- UI integration: Project Pipeline card with overall status and progress indicator.
+- Progress calculation moved from template to route logic.
+- Updated project details page to display pipeline status.
+
+### Changed
+
+- None
+
+### Fixed
+
+- None
+
+---
+
 ## Unreleased
 
 ### Added

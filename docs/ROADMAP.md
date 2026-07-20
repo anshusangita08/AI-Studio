@@ -93,7 +93,7 @@ Objectives:
 - Project timeline
 - Export preparation
 
-Status: Active (Milestone 010)
+**Status: Completed (Milestone 010)**
 
 ---
 
@@ -106,7 +106,7 @@ Objectives:
 - Export options
 - Final project packaging
 
-Status: Planned
+Status: In Progress
 
 ---
 

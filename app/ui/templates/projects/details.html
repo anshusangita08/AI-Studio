@@ -50,6 +50,53 @@
 
     <hr>
 
+    <!-- Project Pipeline Card -->
+    <h2>Project Pipeline</h2>
+
+    {% set status = pipeline_status %}
+    <div style="border:1px solid #ddd; border-radius:6px; padding:15px;">
+        <ul style="list-style:none; padding:0; margin:0 0 10px 0;">
+            <li>
+                <strong>Story:</strong>
+                {% if status.story_complete %}
+                    ✅ Completed
+                {% else %}
+                    ❌ Not Started
+                {% endif %}
+            </li>
+            <li>
+                <strong>Scenes:</strong>
+                {% if status.scenes_complete %}
+                    ✅ Completed
+                {% else %}
+                    ❌ Not Started
+                {% endif %}
+            </li>
+            <li>
+                <strong>Prompts:</strong>
+                {% if status.prompts_complete %}
+                    ✅ Completed
+                {% else %}
+                    ❌ Not Started
+                {% endif %}
+            </li>
+        </ul>
+
+        <p><strong>Overall Status:</strong> {{ status.overall_status }}</p>
+
+        <!-- Progress Bar -->
+        <div style="background:#f0f0f0; border-radius:4px; overflow:hidden;">
+            <div style="
+                width:{{ status.percent }}%;
+                background:#28a745;
+                height:10px;
+            "></div>
+        </div>
+        <p>{{ status.completed }}/3 ({{ status.percent | round(0) }}%)</p>
+    </div>
+
+    <hr>
+
     <h2>Rename Project</h2>
 
     <form
