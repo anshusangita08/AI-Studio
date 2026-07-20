@@ -8,10 +8,12 @@ import json
 import shutil
 from datetime import UTC, datetime
 from pathlib import Path
+import os
 
 from app.models.project import Project
 from app.services.story_service import StoryService
 from app.services.prompt_service import PromptService
+from app.services.export_service import ExportService
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -52,6 +54,9 @@ class ProjectService:
         # Instantiate feature services for pipeline status checks
         self.story_service = StoryService(projects_dir=str(self.PROJECT_ROOT))
         self.prompt_service = PromptService(projects_dir=str(self.PROJECT_ROOT))
+
+        # Export service
+        self.export_service = ExportService(self.PROJECT_ROOT)
 
     def create(
         self,
@@ -200,9 +205,6 @@ class ProjectService:
 
         Args:
             slug (str): The slug of the project to delete
-
-        Raises:
-            FileNotFoundError: If the project does not exist
         """
         folder = (
             self.PROJECT_ROOT / slug
@@ -252,6 +254,17 @@ class ProjectService:
             "prompts_complete": prompts_complete,
             "overall_status": overall_status,
         }
+
+    def export_project(self, slug: str) -> Path:
+        """
+        Orchestrate export of a project.
+        Returns the path to the created ZIP file.
+        """
+        # Re‑create ExportService with the current root so that tests using
+        # an overridden PROJECT_ROOT work correctly.
+        export_service = ExportService(self.PROJECT_ROOT)
+        pipeline_status = self.get_pipeline_status(slug)
+        return export_service.create_export(slug, pipeline_status)
 
 
 project_service = ProjectService()

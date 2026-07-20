@@ -120,15 +120,9 @@ async def rename_project(
             name,
         )
 
-    except FileNotFoundError as exc:
+    except (FileNotFoundError, ValueError, FileExistsError) as exc:
         raise HTTPException(
-            status_code=404,
-            detail="Project not found.",
-        ) from exc
-
-    except (ValueError, FileExistsError) as exc:
-        raise HTTPException(
-            status_code=400,
+            status_code=404 if isinstance(exc, FileNotFoundError) else 400,
             detail=str(exc),
         ) from exc
 
@@ -153,5 +147,23 @@ async def delete_project(
 
     return RedirectResponse(
         url="/projects/",
+        status_code=303,
+    )
+
+
+@router.post("/{slug}/export")
+async def export_project(
+    slug: str,
+):
+    try:
+        project_service.export_project(slug)
+    except FileNotFoundError as exc:
+        raise HTTPException(
+            status_code=404,
+            detail="Project not found.",
+        ) from exc
+
+    return RedirectResponse(
+        url=f"/projects/{slug}",
         status_code=303,
     )
