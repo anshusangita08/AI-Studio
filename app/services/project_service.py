@@ -14,6 +14,7 @@ from app.models.project import Project
 from app.services.story_service import StoryService
 from app.services.prompt_service import PromptService
 from app.services.export_service import ExportService
+from app.services.render_service import RenderService
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -266,5 +267,17 @@ class ProjectService:
         pipeline_status = self.get_pipeline_status(slug)
         return export_service.create_export(slug, pipeline_status)
 
+    def render_project(self, slug: str) -> dict:
+        """
+        Orchestrate rendering of a project.
+
+        Returns the metadata written by RenderService.
+        """
+        if not self.exists(slug):
+            raise FileNotFoundError(f"Project '{slug}' does not exist")
+
+        project_path = self.PROJECT_ROOT / slug
+        render_service = RenderService(project_path)
+        return render_service.render()
 
 project_service = ProjectService()
