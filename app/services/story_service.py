@@ -67,7 +67,7 @@ class StoryService:
             with open(story_path, 'w', encoding='utf-8') as f:
                 f.write(content)
             return True
-        except Exception:
+        except (OSError, IOError):
             return False
             
     def save_expanded_story(self, slug: str, content: str) -> bool:
@@ -89,7 +89,7 @@ class StoryService:
             with open(expanded_path, 'w', encoding='utf-8') as f:
                 f.write(content)
             return True
-        except Exception:
+        except (OSError, IOError):
             return False
             
     def get_scenes_path(self, slug: str) -> str:
@@ -128,13 +128,10 @@ class StoryService:
             # Ensure the directory exists
             Path(scenes_path).parent.mkdir(parents=True, exist_ok=True)
             
-            print("Saving scenes:", repr(content))
             with open(scenes_path, 'w', encoding='utf-8') as f:
                 f.write(content)
-            print(scenes_path)
             return True
-        except Exception as e:
-            print(f"Error saving scenes: {e}")
+        except (OSError, IOError):
             return False
             
     def generate_mock_scenes(self, expanded_story: str) -> str:
