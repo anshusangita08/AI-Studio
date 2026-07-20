@@ -65,6 +65,27 @@ Each release should contain:
 
 ---
 
+## Milestone 011 – Export Implementation
+
+### Added
+
+- Export route exposing `/export/<slug>` endpoint.
+- Export Project UI button on Project Details page.
+- ZIP archive generation with timestamped filename.
+- `manifest.json` generation inside the export package.
+- Exclusion of `cache/`, `temp/`, and `exports/` directories from the archive.
+
+### Changed
+
+- ProjectService now orchestrates exports via ExportService.
+
+### Testing
+
+- Added export tests covering ZIP creation, manifest content, and exclusion rules.
+- Full test suite passing (43/43).
+
+---
+
 ## Unreleased
 
 ### Added
