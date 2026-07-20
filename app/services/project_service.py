@@ -10,6 +10,8 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from app.models.project import Project
+from app.services.story_service import StoryService
+from app.services.prompt_service import PromptService
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -19,7 +21,6 @@ PROJECT_ROOT = ROOT / "workspace" / "projects"
 
 # Reserved project names that conflict with routes
 RESERVED_PROJECT_NAMES = {"new", "delete", "edit", "settings", "story"}
-
 
 PROJECT_STRUCTURE = (
     "story",
@@ -47,6 +48,10 @@ class ProjectService:
         """
         self.PROJECT_ROOT = root or PROJECT_ROOT
         self.PROJECT_ROOT.mkdir(parents=True, exist_ok=True)
+
+        # Instantiate feature services for pipeline status checks
+        self.story_service = StoryService(projects_dir=str(self.PROJECT_ROOT))
+        self.prompt_service = PromptService(projects_dir=str(self.PROJECT_ROOT))
 
     def create(
         self,
@@ -214,6 +219,39 @@ class ProjectService:
             raise ValueError("Invalid project path - cannot delete outside of project root")
 
         shutil.rmtree(folder)
+
+    def get_pipeline_status(self, slug: str) -> dict:
+        """
+        Compute the current pipeline status for a given project.
+
+        Returns a dictionary with keys:
+          - story_complete (bool)
+          - scenes_complete (bool)
+          - prompts_complete (bool)
+          - overall_status (str): "Not Started", "In Progress", or "Completed"
+        """
+        # Ensure project exists
+        if not self.exists(slug):
+            raise FileNotFoundError(f"Project '{slug}' does not exist")
+
+        story_complete = self.story_service.is_story_complete(slug)
+        scenes_complete = self.story_service.are_scenes_complete(slug)
+        prompts_complete = self.prompt_service.are_prompts_complete(slug)
+
+        # Determine overall status
+        if not any([story_complete, scenes_complete, prompts_complete]):
+            overall_status = "Not Started"
+        elif all([story_complete, scenes_complete, prompts_complete]):
+            overall_status = "Completed"
+        else:
+            overall_status = "In Progress"
+
+        return {
+            "story_complete": story_complete,
+            "scenes_complete": scenes_complete,
+            "prompts_complete": prompts_complete,
+            "overall_status": overall_status,
+        }
 
 
 project_service = ProjectService()

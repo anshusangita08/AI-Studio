@@ -223,3 +223,23 @@ class PromptService:
         ]
         
         return '\n'.join(prompt_lines)
+    
+    # New helper method for pipeline status
+    def are_prompts_complete(self, slug: str) -> bool:
+        """
+        Return True if at least one non‑empty prompt file exists.
+        """
+        prompts_dir = self.get_prompts_path(slug)
+        if not os.path.exists(prompts_dir):
+            return False
+        for filename in os.listdir(prompts_dir):
+            if filename.endswith(".json"):
+                path = os.path.join(prompts_dir, filename)
+                try:
+                    with open(path, 'r', encoding='utf-8') as f:
+                        content = f.read()
+                    if content.strip():
+                        return True
+                except OSError:
+                    continue
+        return False

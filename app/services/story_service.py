@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+import re
 
 
 class StoryService:
@@ -183,3 +184,28 @@ class StoryService:
     def generate_mock_story(self, project_name):
         """Generate deterministic placeholder story content for a given project name."""
         return f"# {project_name}\n\n## Introduction\n\nOnce upon a time, in the land of Placeholderia, there lived a hero named Placeholder Hero. The land was filled with mystery and adventure.\n\n## Chapter 1: The Beginning\n\nPlaceholder Hero set out on a quest to uncover the secrets of Placeholderia. Along the way, they encountered various challenges and made new friends.\n\n## Chapter 2: The Journey\n\nThe journey was fraught with danger, but Placeholder Hero remained determined. They faced many obstacles and learned valuable lessons about courage and perseverance.\n\n## Chapter 3: The Climax\n\nPlaceholder Hero finally reached the heart of Placeholderia, where they discovered the ultimate secret. With this knowledge, they were able to save the land from an impending doom.\n\n## Epilogue\n\nPlaceholder Hero returned home as a hero, celebrated by all for their bravery and wisdom."
+
+    # New helper methods for pipeline status
+    def is_story_complete(self, slug: str) -> bool:
+        """
+        Return True if a non‑empty story file exists.
+        """
+        path = self.get_story_path(slug)
+        if not os.path.exists(path):
+            return False
+        with open(path, 'r', encoding='utf-8') as f:
+            content = f.read().strip()
+        return bool(content)
+
+    def are_scenes_complete(self, slug: str) -> bool:
+        """
+        Return True if a non‑empty scenes file exists and contains at least one scene heading.
+        """
+        path = self.get_scenes_path(slug)
+        if not os.path.exists(path):
+            return False
+        with open(path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        # Simple check for "## Scene" headings using multiline regex
+        pattern = r'^##\s+Scene\b'
+        return bool(re.search(pattern, content, flags=re.MULTILINE))
