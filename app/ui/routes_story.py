@@ -38,31 +38,22 @@ async def get_story(slug: str, request: Request):
 
 @router.post("/{slug}/story/generate")
 async def generate_story(
-    slug: str, 
+    slug: str,
     request: Request
 ):
     """Generate mock story content for a project."""
-    project = _get_project_or_404(slug)
-    
-    # Read the current expanded story
+
+    _get_project_or_404(slug)
+
     expanded_story_content = story_service.read_expanded_story(slug)
-    
-    # Generate mock story content based on expanded story (this will populate the expanded story field)
-    generated_content = story_service.generate_mock_story(expanded_story_content)
-    
-    # For AJAX requests, return just the content
-    if request.headers.get("content-type", "").startswith("application/json"):
-        return {"expanded_story": generated_content}
-    
-    context = _build_story_context(project, slug)
-    context["story_content"] = ""  # Keep original unchanged
-    context["expanded_story_content"] = generated_content  # Populate expanded field only
-    
-    return templates.TemplateResponse(
-        request=request,
-        name="projects/story.html",
-        context=context
+
+    generated_content = story_service.generate_mock_story(
+        expanded_story_content
     )
+
+    return {
+        "expanded_story": generated_content
+    }
 
 @router.post("/{slug}/story")
 async def save_story(
@@ -130,29 +121,19 @@ async def save_scenes(
 
 @router.post("/{slug}/scenes/generate")
 async def generate_scenes(
-    slug: str, 
+    slug: str,
     request: Request
 ):
-    """Generate mock scenes content for a project based on expanded story."""
-    project = _get_project_or_404(slug)
-    
-    # Read the current expanded story
+    """Generate mock scenes content for a project."""
+
+    _get_project_or_404(slug)
+
     expanded_story_content = story_service.read_expanded_story(slug)
-    
-    # Generate scenes from the expanded story content
-    generated_scenes = story_service.generate_mock_scenes(expanded_story_content)
-    
-    # For AJAX requests, return just the content 
-    if request.headers.get("content-type", "").startswith("application/json"):
-        return {"scenes": generated_scenes}
-    
-    context = _build_story_context(project, slug)
-    context["story_content"] = ""  # Keep original unchanged
-    context["expanded_story_content"] = expanded_story_content  # Keep existing expanded story 
-    context["scenes_content"] = generated_scenes  # Populate scenes field only
-    
-    return templates.TemplateResponse(
-        request=request,
-        name="projects/story.html",
-        context=context
+
+    generated_scenes = story_service.generate_mock_scenes(
+        expanded_story_content
     )
+
+    return {
+        "scenes": generated_scenes
+    }

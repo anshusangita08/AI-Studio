@@ -136,3 +136,20 @@
     min-height: 16rem;
     resize: vertical;
 }
+
+/* ==========================================================
+   Story Planner Layout
+   ========================================================== */
+
+.story-planner-container {
+    width: min(1400px, 95vw);
+    margin: 0 auto;
+}
+
+.story-planner-card {
+    width: 100%;
+}
+
+.story-planner-card .card-body > * + * {
+    margin-top: var(--spacing-4);
+}

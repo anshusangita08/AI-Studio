@@ -2,26 +2,27 @@
 <script>
     // Handle Generate Story button
     const generateBtn = document.getElementById('generate-btn');
+
     if (generateBtn) {
-        generateBtn.addEventListener('click', function() {
-            console.log("Generate Story handler entered");
+        generateBtn.addEventListener('click', function () {
+
             fetch('/projects/{{ project.slug }}/story/generate', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+                method: 'POST'
             })
             .then(response => {
-                console.log("Status", response.status);
-                return response.text();
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                return response.json();
             })
-            .then(text => JSON.parse(text))
             .then(data => {
                 if (data.expanded_story) {
-                    document.getElementById('expanded-story-content').value = data.expanded_story;
+                    document.getElementById('expanded-story-content').value =
+                        data.expanded_story;
                 }
             })
             .catch(err => console.error(err));
+
         });
     }
 </script>
@@ -29,18 +30,27 @@
 <script>
     // Handle Generate Scenes button
     const generateScenesBtn = document.getElementById('generate-scenes-btn');
+
     if (generateScenesBtn) {
-        generateScenesBtn.addEventListener('click', function() {
+        generateScenesBtn.addEventListener('click', function () {
+
             fetch('/projects/{{ project.slug }}/scenes/generate', {
                 method: 'POST'
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data.scenes) {
-                    document.getElementById('scenes-content').value = data.scenes;
+                    document.getElementById('scenes-content').value =
+                        data.scenes;
                 }
             })
             .catch(err => console.error(err));
+
         });
     }
 </script>
