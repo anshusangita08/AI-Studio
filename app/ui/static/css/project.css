@@ -11,6 +11,7 @@
 }
 
 .project-card:hover {
+    transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
 
@@ -25,13 +26,8 @@
     margin-bottom: var(--spacing-3);
 }
 
-/* Action button spacing */
-.d-flex.justify-content-between > * + * {
-    margin-left: var(--spacing-2);
-}
-
 /* Search */
-.search-container .form-control.w-full {
+.search-container .form-control {
     width: 100%;
 }
 
@@ -75,7 +71,7 @@
 
 .page-description {
     margin-bottom: var(--spacing-6);
-    color: var(--text-secondary);
+    color: var(--color-text-secondary);
 }
 
 
@@ -113,28 +109,32 @@
 .expanded-story-editor-description,
 .scenes-editor-description {
     margin-bottom: var(--spacing-3);
-    color: var(--text-secondary);
+    color: var(--color-text-secondary);
 }
 
 .story-editor-actions,
 .expanded-story-editor-actions,
 .scenes-editor-actions {
     display: flex;
-    justify-content: flex-end;
-    flex-wrap: wrap;
     gap: var(--spacing-2);
+    flex-wrap: wrap;
     margin-top: var(--spacing-4);
+}
+
+.story-editor-textarea,
+.expanded-story-editor-textarea,
+.scenes-editor-textarea {
+    resize: vertical;
+    margin-bottom: var(--spacing-4);
 }
 
 .story-editor-textarea,
 .scenes-editor-textarea {
     min-height: 12rem;
-    resize: vertical;
 }
 
 .expanded-story-editor-textarea {
     min-height: 16rem;
-    resize: vertical;
 }
 
 /* ==========================================================
@@ -142,8 +142,7 @@
    ========================================================== */
 
 .story-planner-container {
-    width: min(1400px, 95vw);
-    margin: 0 auto;
+    width: 100%;
 }
 
 .story-planner-card {

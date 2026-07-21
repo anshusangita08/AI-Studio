@@ -53,7 +53,7 @@ Objectives:
 - Scene generation
 - Scene management
 
-Status: In Progress
+Status: Completed
 
 ---
 
@@ -106,7 +106,7 @@ Objectives:
 - Export options
 - Final project packaging
 
-Status: In Progress
+Status: Completed (Milestones 011–012)
 
 ---
 

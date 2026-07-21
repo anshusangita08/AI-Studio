@@ -2,20 +2,29 @@
 
     <div class="scenes-editor">
 
-        <h2 class="h5 mb-3">Scenes</h2>
+        <div class="mb-4">
+			<h2 class="mb-2">Scenes</h2>
+			<p class="text-secondary mb-0">
+				Review, edit and save your generated scenes.
+			</p>
+		</div>
 
-        <p class="scenes-editor-description">
-            <strong>Editable.</strong>
-            Loads <code>scenes.md</code>. Generate Scenes fills this
-            textarea only. Save Scenes writes back to
-            <code>scenes.md</code>.
-        </p>
-
+       <p class="scenes-editor-description">
+			<strong>Generate Scenes</strong> replaces the editor content.
+			<strong>Save Scenes</strong> writes the current content to
+			<code>scenes.md</code>.
+		</p>
+		
+		<label for="scenes-content" class="d-block mb-2">
+			Scene Content
+		</label>
+		
         <textarea
             class="form-control scenes-editor-textarea"
             id="scenes-content"
             name="content"
             rows="15">{{ scenes_content }}</textarea>
+			
 
         <div class="scenes-editor-actions">
 

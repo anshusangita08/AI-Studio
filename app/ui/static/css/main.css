@@ -1,13 +1,7 @@
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 40px;
-}
+/* Legacy stylesheet.
 
-table {
-    border-collapse: collapse;
-}
+   Global styling has been migrated to theme.css.
 
-td {
-    padding: 8px 16px;
-    border-bottom: 1px solid #ddd;
-}
+   Keep this file intentionally empty unless a future
+   feature requires application-wide overrides.
+*/

@@ -1,11 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container">
-
     <!-- Header -->
-    <header class="d-flex justify-content-between align-items-center mb-6">
-        <h1 class="h3 mb-0">🎬 {{ project.name }}</h1>
+    <header class="d-flex justify-between items-center mb-6">
+        <h1 class="mb-0">🎬 {{ project.name }}</h1>
 
         <a href="/projects/{{ project.slug }}/edit"
            class="btn btn-secondary btn-sm">
@@ -35,7 +33,7 @@
         <!-- Story Planner -->
         <section class="card-body">
 
-            <h2 class="h5 mb-3">Story Planner</h2>
+            <h2 class="mb-3">Story Planner</h2>
 
             <p>
                 Create and edit the story that will be used for image generation,
@@ -54,38 +52,38 @@
         <!-- Pipeline -->
         <section class="card-body">
 
-            <h2 class="h5 mb-3">Project Pipeline</h2>
+            <h2 class="mb-3">Project Pipeline</h2>
 
             {% set status = pipeline_status %}
 
-            <ul class="list-none p-0 m-0 grid grid-3 gap-4">
+            <div class="grid grid-3 gap-4 mb-4">
 
-                <li>
+                <div class="card p-4">
                     <strong>Story:</strong>
                     {% if status.story_complete %}
                         ✅ Completed
                     {% else %}
                         ❌ Not Started
                     {% endif %}
-                </li>
+                </div>
 
-                <li>
+                <div class="card p-4">
                     <strong>Scenes:</strong>
                     {% if status.scenes_complete %}
                         ✅ Completed
                     {% else %}
                         ❌ Not Started
                     {% endif %}
-                </li>
+                </div>
 
-                <li>
+                <div class="card p-4">
                     <strong>Prompts:</strong>
                     {% if status.prompts_complete %}
                         ✅ Completed
                     {% else %}
                         ❌ Not Started
                     {% endif %}
-                </li>
+				</div>
 
             </ul>
 
@@ -100,7 +98,7 @@
             {% if status.prompts_complete %}{% set completed = completed + 1 %}{% endif %}
             {% set percent = (completed / 3) * 100 %}
 
-            <div class="bg-gray-200 rounded-full h-2 mt-2">
+            <div class="bg-gray-200 rounded-full mt-2" style="height:.5rem;">
 
                 <div class="pipeline-progress-fill"
                      style="width: {{ percent }}%;">
@@ -119,18 +117,18 @@
         <!-- Rename -->
         <section class="card-body">
 
-            <h2 class="h5 mb-3">Rename Project</h2>
+            <h2 class="mb-3">Rename Project</h2>
 
             <form action="/projects/{{ project.slug }}/rename"
                   method="post"
-                  class="flex flex-col gap-4 max-w-md">
+                  class="d-flex flex-col gap-4 max-w-md">
 
                 <input
                     type="text"
                     name="name"
                     value="{{ project.name }}"
                     required
-                    class="w-full rounded border border-secondary-400 p-3 focus:border-primary-500 focus:ring-1 focus:ring-primary-200">
+                    class="w-full">
 
                 <button
                     type="submit"
@@ -147,7 +145,7 @@
         <!-- Export -->
         <section class="card-body">
 
-            <h2 class="h5 mb-3">Export Project</h2>
+            <h2 class="mb-3">Export Project</h2>
 
             <form action="/projects/{{ project.slug }}/export"
                   method="post">
@@ -167,7 +165,7 @@
         <!-- Render -->
         <section class="card-body">
 
-            <h2 class="h5 mb-3">Render Project</h2>
+            <h2 class="mb-3">Render Project</h2>
 
             <form action="/projects/{{ project.slug }}/render"
                   method="post">
@@ -214,5 +212,4 @@
         </a>
     </p>
 
-</div>
 {% endblock %}

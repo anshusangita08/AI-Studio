@@ -106,6 +106,29 @@ Each release should contain:
 
 ---
 
+## Milestone 013 – UI Polish and Design System Refinement
+
+### Added
+
+- Reusable design system utilities for layout, spacing, typography, and forms.
+- Consistent editor layouts for Story, Expanded Story, and Scenes.
+- Improved accessibility with semantic headings and associated form labels.
+- Responsive layout refinements across project and Story Planner pages.
+
+### Changed
+
+- Refined global styling in `theme.css` and project-specific styling in `project.css`.
+- Updated templates to consistently use the project's design system and utility classes.
+- Improved Project Index, Project Details, and Story Planner layouts for visual consistency.
+- Standardized editor spacing, typography, and action layouts.
+
+### Testing
+
+- Full UI regression testing completed.
+- Full automated test suite passing (44/44).
+
+---
+
 ## Unreleased
 
 ### Added

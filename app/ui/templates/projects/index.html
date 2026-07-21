@@ -1,8 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="projects-header d-flex justify-content-between align-items-center mb-4">
-    <h1 class="h3 mb-0">Projects</h1>
+<div class="projects-header d-flex justify-between items-center mb-6">
+    <div>
+		<h1 class="mb-2">Projects</h1>
+		<p class="text-secondary">
+			Manage your AI Studio projects and continue your video workflows.
+		</p>
+	</div>
     <a href="/projects/new" class="btn btn-primary">➕ Create Project</a>
 </div>
 
@@ -10,7 +15,7 @@
     <input
         id="project-search"
         type="text"
-        placeholder="🔍 Search projects..."
+		placeholder="🔍 Search by project name or slug..."
         class="form-control w-full"
         onkeyup="filterProjects()"
     >
@@ -21,20 +26,38 @@
 
     {% for project in projects %}
     <article class="project-card card" data-name="{{ project.name }}" data-slug="{{ project.slug }}">
-        <header class="card-header d-flex justify-content-between align-items-center">
-            <h2 class="h4 mb-0">{{ project.name }}</h2>
+        <header class="card-header d-flex justify-between items-center">
+            <h2 class="mb-0">{{ project.name }}</h2>
             <span class="badge badge-success">{{ project.status or 'READY' }}</span>
         </header>
 
         <div class="card-body">
 
-            <p class="mb-3"><strong>Slug</strong><br>{{ project.slug }}</p>
-            <p class="mb-3"><strong>Created</strong><br>{{ project.created_at }}</p>
-            <p class="mb-4"><strong>Last Updated</strong><br>{{ project.updated_at }}</p>
+            <div class="mb-4">
 
-            <div class="d-flex justify-content-between">
+				<p class="mb-2">
+					<strong>Slug</strong><br>
+					{{ project.slug }}
+				</p>
+
+				<p class="mb-2">
+					<strong>Created</strong><br>
+					{{ project.created_at }}
+				</p>
+
+				<p class="mb-0">
+					<strong>Last Updated</strong><br>
+					{{ project.updated_at }}
+				</p>
+
+			</div>
+
+            <div class="d-flex justify-between items-center gap-2">
                 <a href="/projects/{{ project.slug }}" class="btn btn-secondary">Open Project →</a>
-                <form action="/projects/{{ project.slug }}/delete" method="post">
+                <form
+					action="/projects/{{ project.slug }}/delete"
+					method="post"
+					class="mb-0">
                     <button type="submit" class="btn btn-danger delete-btn"
                             onclick="return confirm('Are you sure you want to delete this project?')">
                         Delete
@@ -64,8 +87,8 @@ function filterProjects() {
     let visible = 0;
 
     cards.forEach(card => {
-        const name = card.dataset.name;
-        const slug = card.dataset.slug;
+        const name = (card.dataset.name || "").toLowerCase();
+		const slug = (card.dataset.slug || "").toLowerCase();
 
         const match =
             name.includes(search) ||
@@ -85,8 +108,10 @@ function filterProjects() {
 
 {% else %}
 <div class="empty-state text-center py-12">
-    <h2 class="h4 mb-3">No Projects Yet</h2>
-    <p class="mb-6">Create your first AI Studio project to begin generating videos.</p>
+    <h2 class="mb-2">No Projects Yet</h2>
+    <p class="text-secondary mb-6">
+		Create your first AI Studio project to begin generating videos.
+	</p>
     <a href="/projects/new" class="btn btn-primary">➕ Create Project</a>
 </div>
 {% endif %}

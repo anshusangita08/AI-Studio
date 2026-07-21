@@ -1,36 +1,46 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container story-planner-container">
+<div class="story-planner-container">
 
     <div class="card story-planner-card">
 
-        <header class="card-header d-flex justify-content-between align-items-center">
-            <h1 class="h3 mb-0">📖 Story Planner</h1>
-        </header>
+       <header class="card-header d-flex justify-between items-center">
+			<div>
+				<h1 class="mb-2">📖 Story Planner</h1>
+				<p class="text-secondary mb-0">
+					Create your story, expand it into a screenplay, and generate scenes.
+				</p>
+			</div>
+		</header>
 
         <div class="card-body">
 
-            <p class="mb-4">
-                <strong>Project</strong><br>
-                {{ project.name }}
-            </p>
+            <div class="card p-4 mb-4">
+				<p class="mb-2 text-secondary">
+					Current Project
+				</p>
 
-            <hr class="my-4">
+				<h2 class="mb-0">
+					{{ project.name }}
+				</h2>
+			</div>
+
+            <div class="my-6"></div>
 
             {% include "projects/components/story_editor.html" %}
 
-            <hr class="my-4">
+            <div class="my-6"></div>
 
             {% include "projects/components/expanded_story_editor.html" %}
 
-            <hr class="my-4">
+            <div class="my-6"></div>
 
             {% include "projects/components/scenes_editor.html" %}
 
             {% include "projects/components/story_scripts.html" %}
 
-            <hr class="my-4">
+            <div class="my-6"></div>
 
             <div class="text-center">
                 <a

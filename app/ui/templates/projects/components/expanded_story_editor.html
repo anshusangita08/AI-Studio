@@ -2,14 +2,22 @@
 
     <div class="expanded-story-editor">
 
-        <h2 class="h5 mb-3">Expanded Story</h2>
+        <div class="mb-4">
+            <h2 class="mb-2">Expanded Story</h2>
+            <p class="text-secondary mb-0">
+                Review, edit and save the expanded version of your story.
+            </p>
+        </div>
 
         <p class="expanded-story-editor-description">
-            <strong>Editable.</strong>
-            Loads <code>expanded_story.md</code>. Generate Story fills this
-            textarea only. Save Expanded Story writes back to
+            <strong>Generate Story</strong> replaces the editor content.
+            <strong>Save Expanded Story</strong> writes the current content to
             <code>expanded_story.md</code>.
         </p>
+
+        <label for="expanded-story-content" class="d-block mb-2">
+            Expanded Story Content
+        </label>
 
         <textarea
             class="form-control expanded-story-editor-textarea"
