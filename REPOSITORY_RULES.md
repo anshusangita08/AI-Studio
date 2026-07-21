@@ -50,7 +50,7 @@ Whenever information changes, it must be updated only in its designated document
 
 ---
 
-# Repository Structure
+# Repository Structure (DO NOT CHANGE)
 
 The project root contains only repository assets and application entry points.
 
@@ -75,6 +75,24 @@ AI-Studio/
 ├── .gitignore
 │
 └── REPOSITORY_RULES.md
+
+The directory structure is part of the application architecture.
+
+Examples:
+
+app/ui/templates/
+app/ui/static/css/
+app/ui/static/js/
+
+Do NOT create:
+
+app/static/
+templates/
+static/
+
+unless explicitly instructed by the user.
+
+Always reuse the existing project structure.
 ```
 
 No additional documentation files should exist in the project root.
