@@ -1,192 +1,218 @@
 {% extends "base.html" %}
 
 {% block content %}
-
 <div class="container">
 
-    <h1>🎬 {{ project.name }}</h1>
+    <!-- Header -->
+    <header class="d-flex justify-content-between align-items-center mb-6">
+        <h1 class="h3 mb-0">🎬 {{ project.name }}</h1>
 
-    <hr>
+        <a href="/projects/{{ project.slug }}/edit"
+           class="btn btn-secondary btn-sm">
+            Edit Project
+        </a>
+    </header>
 
-    <p>
-        <strong>Slug</strong><br>
-        {{ project.slug }}
-    </p>
+    <!-- Main Card -->
+    <div class="card mb-8">
 
-    <p>
-        <strong>Created</strong><br>
-        {{ project.created_at }}
-    </p>
+        <!-- Basic Information -->
+        <section class="card-body">
+            <dl class="grid grid-2 gap-4">
+                <dt>Slug</dt>
+                <dd>{{ project.slug }}</dd>
 
-    <p>
-        <strong>Last Updated</strong><br>
-        {{ project.updated_at }}
-    </p>
+                <dt>Created</dt>
+                <dd>{{ project.created_at }}</dd>
 
-    <hr>
+                <dt>Last Updated</dt>
+                <dd>{{ project.updated_at }}</dd>
+            </dl>
+        </section>
 
-    <h2>Story Planner</h2>
+        <hr class="border-t border-gray-200">
 
-    <p>
-        Create and edit the story that will be used for image generation,
-        narration and video rendering.
-    </p>
+        <!-- Story Planner -->
+        <section class="card-body">
 
-    <p>
-        <a
-            href="/projects/{{ project.slug }}/story"
-            style="
-                display:inline-block;
-                padding:10px 18px;
-                background:#0d6efd;
-                color:white;
-                text-decoration:none;
-                border-radius:6px;
-            "
-        >
-            📖 Open Story Planner
+            <h2 class="h5 mb-3">Story Planner</h2>
+
+            <p>
+                Create and edit the story that will be used for image generation,
+                narration and video rendering.
+            </p>
+
+            <a href="/projects/{{ project.slug }}/story"
+               class="btn btn-primary btn-sm mt-4">
+                📖 Open Story Planner
+            </a>
+
+        </section>
+
+        <hr class="border-t border-gray-200">
+
+        <!-- Pipeline -->
+        <section class="card-body">
+
+            <h2 class="h5 mb-3">Project Pipeline</h2>
+
+            {% set status = pipeline_status %}
+
+            <ul class="list-none p-0 m-0 grid grid-3 gap-4">
+
+                <li>
+                    <strong>Story:</strong>
+                    {% if status.story_complete %}
+                        ✅ Completed
+                    {% else %}
+                        ❌ Not Started
+                    {% endif %}
+                </li>
+
+                <li>
+                    <strong>Scenes:</strong>
+                    {% if status.scenes_complete %}
+                        ✅ Completed
+                    {% else %}
+                        ❌ Not Started
+                    {% endif %}
+                </li>
+
+                <li>
+                    <strong>Prompts:</strong>
+                    {% if status.prompts_complete %}
+                        ✅ Completed
+                    {% else %}
+                        ❌ Not Started
+                    {% endif %}
+                </li>
+
+            </ul>
+
+            <p class="mt-4">
+                <strong>Overall Status:</strong>
+                {{ status.overall_status }}
+            </p>
+
+            {% set completed = 0 %}
+            {% if status.story_complete %}{% set completed = completed + 1 %}{% endif %}
+            {% if status.scenes_complete %}{% set completed = completed + 1 %}{% endif %}
+            {% if status.prompts_complete %}{% set completed = completed + 1 %}{% endif %}
+            {% set percent = (completed / 3) * 100 %}
+
+            <div class="bg-gray-200 rounded-full h-2 mt-2">
+
+                <div class="pipeline-progress-fill"
+                     style="width: {{ percent }}%;">
+                </div>
+
+            </div>
+
+            <p class="text-xs text-gray-600 mt-1">
+                {{ completed }}/3 ({{ percent | round(0) }}%)
+            </p>
+
+        </section>
+
+        <hr class="border-t border-gray-200">
+
+        <!-- Rename -->
+        <section class="card-body">
+
+            <h2 class="h5 mb-3">Rename Project</h2>
+
+            <form action="/projects/{{ project.slug }}/rename"
+                  method="post"
+                  class="flex flex-col gap-4 max-w-md">
+
+                <input
+                    type="text"
+                    name="name"
+                    value="{{ project.name }}"
+                    required
+                    class="w-full rounded border border-secondary-400 p-3 focus:border-primary-500 focus:ring-1 focus:ring-primary-200">
+
+                <button
+                    type="submit"
+                    class="btn btn-success btn-sm w-auto">
+                    Save
+                </button>
+
+            </form>
+
+        </section>
+
+        <hr class="border-t border-gray-200">
+
+        <!-- Export -->
+        <section class="card-body">
+
+            <h2 class="h5 mb-3">Export Project</h2>
+
+            <form action="/projects/{{ project.slug }}/export"
+                  method="post">
+
+                <button
+                    type="submit"
+                    class="btn btn-info btn-sm w-auto">
+                    📦 Export Project
+                </button>
+
+            </form>
+
+        </section>
+
+        <hr class="border-t border-gray-200">
+
+        <!-- Render -->
+        <section class="card-body">
+
+            <h2 class="h5 mb-3">Render Project</h2>
+
+            <form action="/projects/{{ project.slug }}/render"
+                  method="post">
+
+                <button
+                    type="submit"
+                    class="btn btn-primary btn-sm w-auto">
+                    Render Project
+                </button>
+
+            </form>
+
+        </section>
+
+        <hr class="border-t border-gray-200">
+
+        <!-- Danger Zone -->
+        <section class="card-body bg-danger-100 p-4 rounded-md">
+
+            <h2 class="h5 mb-3 text-danger-800">
+                Danger Zone
+            </h2>
+
+            <form action="/projects/{{ project.slug }}/delete"
+                  method="post"
+                  onsubmit="return confirm('Delete project &quot;{{ project.name }}&quot;?\n\nThis action cannot be undone.');">
+
+                <button
+                    type="submit"
+                    class="btn btn-danger btn-sm w-auto">
+                    🗑 Delete Project
+                </button>
+
+            </form>
+
+        </section>
+
+    </div>
+
+    <p class="text-center mt-6">
+        <a href="/projects"
+           class="btn btn-secondary btn-sm">
+            ← Back to Projects
         </a>
     </p>
 
-    <hr>
-
-    <!-- Project Pipeline Card -->
-    <h2>Project Pipeline</h2>
-
-    {% set status = pipeline_status %}
-    <div style="border:1px solid #ddd; border-radius:6px; padding:15px;">
-        <ul style="list-style:none; padding:0; margin:0 0 10px 0;">
-            <li>
-                <strong>Story:</strong>
-                {% if status.story_complete %}
-                    ✅ Completed
-                {% else %}
-                    ❌ Not Started
-                {% endif %}
-            </li>
-            <li>
-                <strong>Scenes:</strong>
-                {% if status.scenes_complete %}
-                    ✅ Completed
-                {% else %}
-                    ❌ Not Started
-                {% endif %}
-            </li>
-            <li>
-                <strong>Prompts:</strong>
-                {% if status.prompts_complete %}
-                    ✅ Completed
-                {% else %}
-                    ❌ Not Started
-                {% endif %}
-            </li>
-        </ul>
-
-        <p><strong>Overall Status:</strong> {{ status.overall_status }}</p>
-
-        <!-- Progress Bar -->
-        {% set completed = 0 %}
-        {% if status.story_complete %}{% set completed = completed + 1 %}{% endif %}
-        {% if status.scenes_complete %}{% set completed = completed + 1 %}{% endif %}
-        {% if status.prompts_complete %}{% set completed = completed + 1 %}{% endif %}
-        {% set percent = (completed / 3) * 100 %}
-        <div style="background:#f0f0f0; border-radius:4px; overflow:hidden;">
-            <div style="
-                width:{{ percent }}%;
-                background:#28a745;
-                height:10px;
-            "></div>
-        </div>
-        <p>{{ completed }}/3 ({{ percent | round(0) }}%)</p>
-    </div>
-
-    <hr>
-
-    <h2>Rename Project</h2>
-
-    <form
-        action="/projects/{{ project.slug }}/rename"
-        method="post"
-    >
-
-        <input
-            type="text"
-            name="name"
-            value="{{ project.name }}"
-            required
-            style="width:350px;"
-        >
-
-        <button type="submit">
-            Save
-        </button>
-
-    </form>
-	
-	<hr>
-	
-	<h2>Export Project</h2>
-
-	<form
-		action="/projects/{{ project.slug }}/export"
-		method="post"
-	>
-
-		<button type="submit">
-			📦 Export Project
-		</button>
-
-	</form>
-
-	<hr>
-
-	<h2>Render Project</h2>
-
-	<form
-		action="/projects/{{ project.slug }}/render"
-		method="post"
-	>
-
-		<button type="submit">
-			Render Project
-		</button>
-
-	</form>
-
-	<hr>
-	
-    <h2 style="color:#c62828;">
-        Danger Zone
-    </h2>
-
-    <form
-        action="/projects/{{ project.slug }}/delete"
-        method="post"
-        onsubmit="return confirm('Delete project &quot;{{ project.name }}&quot;?\n\nThis action cannot be undone.');"
-    >
-
-        <button
-            type="submit"
-            style="
-                background:#c62828;
-                color:white;
-                border:none;
-                padding:10px 18px;
-                border-radius:6px;
-                cursor:pointer;
-            "
-        >
-            🗑 Delete Project
-        </button>
-
-    </form>
-
-    <br>
-
-    <a href="/projects/">
-        ← Back to Projects
-    </a>
-
 </div>
-
 {% endblock %}
