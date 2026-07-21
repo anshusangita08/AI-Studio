@@ -1,64 +1,47 @@
-.project-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
+/* Project page specific styles */
 
-/* Modern responsive grid */
-.project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 24px;
-    margin-top: 24px;
-}
-
+/* Card layout adjustments */
 .project-card {
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 20px;
-    background: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-    position: relative;
+    border: none;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-base);
 }
 
 .project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-md);
 }
 
-.project-card h2 {
-    margin-top: 0;
-    font-size: 1.3rem;
-    color: #1f2937;
+/* Header inside card */
+.card-header h4,
+.card-header .badge {
+    margin-bottom: 0;
 }
 
-/* Project header with status badge */
-.project-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
-    margin-bottom: 16px;
+/* Metadata spacing */
+.card-body p {
+    margin-bottom: var(--spacing-3);
 }
 
-.status-badge {
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+/* Action buttons container */
+.d-flex.justify-content-between > * + * {
+    margin-left: var(--spacing-2);
 }
 
-.project-card a {
-    display: inline-block;
-    padding: 8px 14px;
-    border-radius: 4px;
-    background: #0d6efd;
-    color: white;
-    text-decoration: none;
+/* Search input full width */
+.search-container .form-control.w-full {
+    width: 100%;
 }
 
-.project-card a:hover {
-    background: #0b5ed7;
+/* Responsive adjustments for card grid */
+@media (max-width: 991.98px) {
+    #project-list.grid-3 {
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+
+@media (max-width: 767.98px) {
+    #project-list.grid-3 {
+        grid-template-columns: repeat(1,1fr);
+    }
 }
