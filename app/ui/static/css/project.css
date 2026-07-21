@@ -1,6 +1,8 @@
-/* Project page specific styles */
+/* ==========================================================
+   Projects Page
+   ========================================================== */
 
-/* Card layout adjustments */
+/* Project cards */
 .project-card {
     border: none;
     border-radius: var(--radius-lg);
@@ -12,73 +14,125 @@
     box-shadow: var(--shadow-md);
 }
 
-/* Header inside card */
+/* Card header */
 .card-header h4,
 .card-header .badge {
     margin-bottom: 0;
 }
 
-/* Metadata spacing */
-.card-body p {
+/* Card content */
+.project-card .card-body p {
     margin-bottom: var(--spacing-3);
 }
 
-/* Action buttons container */
+/* Action button spacing */
 .d-flex.justify-content-between > * + * {
     margin-left: var(--spacing-2);
 }
 
-/* Search input full width */
+/* Search */
 .search-container .form-control.w-full {
     width: 100%;
 }
 
-/* Responsive adjustments for card grid */
+/* Responsive project grid */
 @media (max-width: 991.98px) {
     #project-list.grid-3 {
-        grid-template-columns: repeat(2,1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 767.98px) {
     #project-list.grid-3 {
-        grid-template-columns: repeat(1,1fr);
+        grid-template-columns: 1fr;
     }
 }
 
-/* New Project form container */
-.card.max-w-xl {
-    max-width: 600px;
+
+/* ==========================================================
+   Create Project
+   ========================================================== */
+
+.create-project-card {
+    max-width: 720px;
+    margin: 0 auto;
 }
 
-/* Additional page‑specific styles for details view */
-
-/* Reduce vertical rhythm inside card body sections */
-.card-body > section + section {
-    margin-top: var(--spacing-8);
+.create-project-form {
+    padding: var(--spacing-6);
 }
 
-/* Style the progress bar container */
-.bg-gray-200 {
-    background-color: var(--color-secondary-200);
+.project-input {
+    display: block;
+    width: 100%;
 }
 
-.text-danger-800 {
-    color: var(--color-danger-900);
+.create-project-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: var(--spacing-4);
 }
 
-/* Story Planner specific styles */
-
-/* Space between major sections inside the story planner card */
-.story-section + .story-section,
-.story-section + hr,
-hr + .story-section {
-    margin-top: var(--spacing-8);
+.page-description {
+    margin-bottom: var(--spacing-6);
+    color: var(--text-secondary);
 }
 
-/* Ensure horizontal rules are subtle and spaced */
-hr.my-4 {
-    border-color: var(--color-secondary-300);
+
+/* ==========================================================
+   Project Details
+   ========================================================== */
+
+.project-details-card {
+    overflow: hidden;
+}
+
+.pipeline-progress-fill {
+    height: 100%;
+    background-color: var(--color-success-500);
+    border-radius: inherit;
+}
+
+
+/* ==========================================================
+   Story Planner
+   ========================================================== */
+
+.card hr.my-4 {
     margin-top: var(--spacing-6);
     margin-bottom: var(--spacing-6);
+    border-color: var(--color-secondary-300);
+}
+
+
+/* ==========================================================
+   Story Planner Editors
+   ========================================================== */
+
+.story-editor-description,
+.expanded-story-editor-description,
+.scenes-editor-description {
+    margin-bottom: var(--spacing-3);
+    color: var(--text-secondary);
+}
+
+.story-editor-actions,
+.expanded-story-editor-actions,
+.scenes-editor-actions {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+    margin-top: var(--spacing-4);
+}
+
+.story-editor-textarea,
+.scenes-editor-textarea {
+    min-height: 12rem;
+    resize: vertical;
+}
+
+.expanded-story-editor-textarea {
+    min-height: 16rem;
+    resize: vertical;
 }

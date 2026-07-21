@@ -1,11 +1,43 @@
 <form method="post" action="/projects/{{ project.slug }}/expanded-story">
-    <div class="mb-3 mt-4">
-        <h2>Expanded Story</h2>
-        <p><strong>Editable.</strong> Loads expanded_story.md. Generate Story fills this textarea only. Save Expanded Story saves to expanded_story.md (separate from original).</p>
-        <textarea class="form-control" id="expanded-story-content" name="content" rows="15">{{ expanded_story_content }}</textarea>
+
+    <div class="expanded-story-editor">
+
+        <h2 class="h5 mb-3">Expanded Story</h2>
+
+        <p class="expanded-story-editor-description">
+            <strong>Editable.</strong>
+            Loads <code>expanded_story.md</code>. Generate Story fills this
+            textarea only. Save Expanded Story writes back to
+            <code>expanded_story.md</code>.
+        </p>
+
+        <textarea
+            class="form-control expanded-story-editor-textarea"
+            id="expanded-story-content"
+            name="content"
+            rows="15">{{ expanded_story_content }}</textarea>
+
+        <div class="expanded-story-editor-actions">
+
+            <button type="submit" class="btn btn-primary">
+                Save Expanded Story
+            </button>
+
+            <button
+                type="button"
+                class="btn btn-secondary"
+                id="generate-btn">
+                ✨ Generate Story
+            </button>
+
+            <a
+                href="/projects/{{ project.slug }}"
+                class="btn btn-secondary">
+                ← Back to Project
+            </a>
+
+        </div>
+
     </div>
-    
-    <button type="submit" class="btn btn-primary">Save Expanded Story</button>
-    <button type="button" class="btn btn-secondary" id="generate-btn">✨ Generate Story</button>
-    <a href="/projects/{{ project.slug }}" class="btn btn-secondary">Back to Project</a>
+
 </form>

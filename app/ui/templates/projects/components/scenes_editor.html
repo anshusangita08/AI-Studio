@@ -1,10 +1,43 @@
 <form method="post" action="/projects/{{ project.slug }}/scenes">
-    <div class="mb-3 mt-4">
-        <h2>Scenes</h2>
-        <p><strong>Editable.</strong> Loads scenes.md. Generate Scenes fills this textarea only. Save Scenes saves to scenes.md (separate from original and expanded story).</p>
-        <textarea class="form-control" id="scenes-content" name="content" rows="15">{{ scenes_content }}</textarea>
+
+    <div class="scenes-editor">
+
+        <h2 class="h5 mb-3">Scenes</h2>
+
+        <p class="scenes-editor-description">
+            <strong>Editable.</strong>
+            Loads <code>scenes.md</code>. Generate Scenes fills this
+            textarea only. Save Scenes writes back to
+            <code>scenes.md</code>.
+        </p>
+
+        <textarea
+            class="form-control scenes-editor-textarea"
+            id="scenes-content"
+            name="content"
+            rows="15">{{ scenes_content }}</textarea>
+
+        <div class="scenes-editor-actions">
+
+            <button type="submit" class="btn btn-primary">
+                Save Scenes
+            </button>
+
+            <button
+                type="button"
+                class="btn btn-secondary"
+                id="generate-scenes-btn">
+                🎬 Generate Scenes
+            </button>
+
+            <a
+                href="/projects/{{ project.slug }}"
+                class="btn btn-secondary">
+                ← Back to Project
+            </a>
+
+        </div>
+
     </div>
-    
-    <button type="submit" class="btn btn-primary">Save Scenes</button>
-    <button type="button" class="btn btn-secondary" id="generate-scenes-btn">🎬 Generate Scenes</button>
+
 </form>
