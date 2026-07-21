@@ -66,3 +66,19 @@
 .text-danger-800 {
     color: var(--color-danger-900);
 }
+
+/* Story Planner specific styles */
+
+/* Space between major sections inside the story planner card */
+.story-section + .story-section,
+.story-section + hr,
+hr + .story-section {
+    margin-top: var(--spacing-8);
+}
+
+/* Ensure horizontal rules are subtle and spaced */
+hr.my-4 {
+    border-color: var(--color-secondary-300);
+    margin-top: var(--spacing-6);
+    margin-bottom: var(--spacing-6);
+}

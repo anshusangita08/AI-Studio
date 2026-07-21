@@ -82,7 +82,7 @@ Each release should contain:
 ### Testing
 
 - Added export tests covering ZIP creation, manifest content, and exclusion rules.
-- Full test suite passing (43/43).
+- Full test suite passing (44/44).
 
 ---
 

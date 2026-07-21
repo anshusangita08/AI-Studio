@@ -1,32 +1,43 @@
 {% extends "base.html" %}
 
 {% block content %}
-
 <div class="container">
 
-    <h1>📖 Story Planner</h1>
+    <div class="card mb-6">
 
-    <p>
-        <strong>Project</strong><br>
-        {{ project.name }}
-    </p>
+        <header class="card-header d-flex justify-content-between align-items-center">
+            <h1 class="h3 mb-0">📖 Story Planner</h1>
+        </header>
 
-    <hr>
+        <div class="card-body">
 
-    {% include "projects/components/story_editor.html" %}
-    
-    {% include "projects/components/expanded_story_editor.html" %}
+            <p class="mb-4">
+                <strong>Project</strong><br>
+                {{ project.name }}
+            </p>
 
-    {% include "projects/components/scenes_editor.html" %}
+            <hr class="my-4">
 
-    {% include "projects/components/story_scripts.html" %}
+            {% include "projects/components/story_editor.html" %}
 
-    <hr>
+            {% include "projects/components/expanded_story_editor.html" %}
 
-    <a href="/projects/{{ project.slug }}">
-        ← Back to Project
-    </a>
+            {% include "projects/components/scenes_editor.html" %}
+
+            {% include "projects/components/story_scripts.html" %}
+
+            <hr class="my-4">
+
+            <div class="text-center">
+                <a href="/projects/{{ project.slug }}"
+                   class="btn btn-secondary btn-sm">
+                    ← Back to Project
+                </a>
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
-
 {% endblock %}
