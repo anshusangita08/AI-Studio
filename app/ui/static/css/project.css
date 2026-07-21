@@ -45,3 +45,8 @@
         grid-template-columns: repeat(1,1fr);
     }
 }
+
+/* New Project form container */
+.card.max-w-xl {
+    max-width: 600px;
+}
