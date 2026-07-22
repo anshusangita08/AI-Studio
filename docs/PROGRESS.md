@@ -13,11 +13,11 @@ milestone-015
 
 Current Milestone
 
-015.6 – Prompt Template Variants (Completed)
+015.7 – Typed Prompt Generation (Completed)
 
 Next Milestone
 
-015.7 – Prompt Template Registry
+015.8 – Image Prompt Builder
 
 Current Focus
 
@@ -105,7 +105,7 @@ Secondary
 
 Latest Automated Tests
 
-57 / 57 Passing
+59 / 59 Passing
 
 Manual Verification
 

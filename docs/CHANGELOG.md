@@ -244,6 +244,22 @@ Each release should contain:
 - Full automated test suite passing (57/57).
 ---
 
+## Milestone 015.7 – Typed Prompt Generation
+
+### Added
+
+- Added generate_image_prompt().
+- Added generate_narration_prompt().
+
+### Changed
+
+- Centralized prompt rendering through a shared private helper.
+
+### Testing
+
+- Full automated suite passing (59/59).
+---
+
 ## Unreleased
 
 ### Added

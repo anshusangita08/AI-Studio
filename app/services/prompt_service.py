@@ -6,8 +6,8 @@ import re
 
 # Import the PromptTemplateEngine for placeholder rendering
 from app.services.prompt_template_engine import PromptTemplateEngine
-# Import the shared prompt template
-from app.services.prompt_templates import PROMPT_TEMPLATE
+# Import the shared prompt templates
+from app.services.prompt_templates import PROMPT_TEMPLATE, IMAGE_PROMPT_TEMPLATE, NARRATION_PROMPT_TEMPLATE
 
 
 class PromptService:
@@ -204,13 +204,26 @@ class PromptService:
         Returns:
             str: Generated prompt content
         """
-        # Build structured context for rendering
+        return self._render_prompt(self._PROMPT_TEMPLATE, scene_content, scene_number)
+    
+    # New public methods for image and narration prompts
+    def generate_image_prompt(self, scene_content: str, scene_number: int) -> str:
+        """Generate an image prompt using IMAGE_PROMPT_TEMPLATE."""
+        return self._render_prompt(IMAGE_PROMPT_TEMPLATE, scene_content, scene_number)
+    
+    def generate_narration_prompt(self, scene_content: str, scene_number: int) -> str:
+        """Generate a narration prompt using NARRATION_PROMPT_TEMPLATE."""
+        return self._render_prompt(NARRATION_PROMPT_TEMPLATE, scene_content, scene_number)
+    
+    # Private helper to render any template with context
+    def _render_prompt(self, template: str, scene_content: str, scene_number: int) -> str:
+        """
+        Render a prompt using the given template and scene data.
+        
+        Builds the rendering context via _build_prompt_context and delegates to PromptTemplateEngine.
+        """
         context = self._build_prompt_context(scene_content, scene_number)
-        
-        # Render the reusable template using PromptTemplateEngine
-        rendered_prompt = self._template_engine.render(self._PROMPT_TEMPLATE, context)
-        
-        return rendered_prompt
+        return self._template_engine.render(template, context)
     
     def _build_prompt_context(self, scene_content: str, scene_number: int) -> Dict[str, str]:
         """

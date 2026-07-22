@@ -189,3 +189,24 @@ class TestPromptService:
         assert captured['context'] == expected_ctx
         # Verify that the rendered output contains the expanded scene title
         assert "## Scene X: Title" in result
+    
+    # ------------------------------------------------------------------
+    # New tests for image and narration prompt generation
+    # ------------------------------------------------------------------
+    def test_generate_image_prompt(self):
+        """Verify generate_image_prompt uses IMAGE_PROMPT_TEMPLATE."""
+        service = PromptService()
+        scene_content = "## Scene 1: Sunset\nA beautiful sunset over the hills."
+        result = service.generate_image_prompt(scene_content, 1)
+        assert "Image Prompt for" in result
+        assert "Scene 1: Sunset" in result
+        assert "A beautiful sunset over the hills." in result
+    
+    def test_generate_narration_prompt(self):
+        """Verify generate_narration_prompt uses NARRATION_PROMPT_TEMPLATE."""
+        service = PromptService()
+        scene_content = "## Scene 2: Battle\nThe battle rages on."
+        result = service.generate_narration_prompt(scene_content, 2)
+        assert "Narration Prompt for" in result
+        assert "Scene 2: Battle" in result
+        assert "The battle rages on." in result
