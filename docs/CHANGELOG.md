@@ -214,6 +214,21 @@ Each release should contain:
 - Full test suite passing (57/57).
 ---
 
+## Milestone 015.5 – Prompt Template Library
+
+### Added
+
+- Introduced a shared prompt template library.
+
+### Changed
+
+- PromptService now imports reusable prompt templates from a dedicated module.
+
+### Testing
+
+- Full automated test suite passing (57/57).
+---
+
 ## Unreleased
 
 ### Added

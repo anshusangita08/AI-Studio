@@ -1,11 +1,11 @@
 # AI Studio Progress
 
-Version: 1.0
+Version: 2.0
 Status: Living Document
 
 ---
 
-# Current Status
+# Project Status
 
 Current Branch
 
@@ -13,30 +13,23 @@ milestone-015
 
 Current Milestone
 
-015.4 – Prompt Template Expansion (Completed)
+015.5 – Prompt Template Library (Completed)
 
-Current Status:
+Next Milestone
 
-Feature
+015.6 – Prompt Template Variants
 
-Milestone 015.5 – Prompt Template Library
+Current Focus
 
-Description
+Prepare reusable prompt template variants while preserving the existing prompt generation pipeline.
 
-Prepare reusable prompt templates for future expansion by separating template definitions from PromptService while preserving current behavior.
-Current Objective
+Last Updated
 
-Begin Milestone 015.4 – Prompt Template Expansion
-
-Development Status
-
-Milestone 015.4 Completed
-
-Preparing Milestone 015.5
+2026-07-22
 
 ---
 
-# Completed Milestones
+# Milestone Progress
 
 | Milestone | Status |
 |-----------|--------|
@@ -50,37 +43,36 @@ Preparing Milestone 015.5
 | Speech Groundwork | ✅ |
 | Project Manager (008.5) | ✅ |
 | Prompt Engine (009) | ✅ |
-| **Project Pipeline (010)** | ✅ |
-| **Export (011)** | ✅ |
-| **Rendering / Video Assembly (012)** | ✅ |
-| **UI Polish and Design System Refinement (013)** | ✅ |
+| Project Pipeline (010) | ✅ |
+| Export (011) | ✅ |
+| Rendering / Video Assembly (012) | ✅ |
+| UI Polish & Design System (013) | ✅ |
 | Asset Workspace Foundation (014) | ✅ |
 | Prompt Template Engine (015.1) | ✅ |
-| Prompt Template Engine (015.1) | ✅ |
-| PromptService Integration (015.2) | ✅|
-| Prompt Context Builder (015.3) | ✅|
-| Prompt Template Expansion (015.4) | ✅|
----
-
-# Current Work
-
-Feature
-
-Milestone 015 – AI Prompt Pipeline
-
-Description
-
-Integrate PromptTemplateEngine into PromptService while preserving existing behavior.
+| PromptService Integration (015.2) | ✅ |
+| Prompt Context Builder (015.3) | ✅ |
+| Prompt Template Expansion (015.4) | ✅ |
+| Prompt Template Library (015.5) | ✅ |
 
 ---
 
-# Current Working Files
+# Active Development
 
-To be determined during Milestone 015.5.
+Working Files
+
+To be determined for the current milestone.
+
+Current Goal
+
+Implement the next approved milestone only.
+
+Known Issues
+
+None
 
 ---
 
-# Current Development Environment
+# Development Environment
 
 IDE
 
@@ -109,27 +101,17 @@ Secondary
 
 ---
 
-# Known Issues
+# Verification
 
-None
+Latest Automated Tests
 
----
-
-# Next Step
-
-Begin Milestone 015.5 – Prompt Template Library.
-
----
-
-# Latest Test Results
-
-Automated Tests
-
-**57/57 tests passing**
+57 / 57 Passing
 
 Manual Verification
 
-✅ UI and rendering workflows verified manually.
+✅ UI workflows verified
+
+✅ Rendering workflows verified
 
 Last Verified
 
@@ -139,14 +121,16 @@ Last Verified
 
 # Notes
 
-This is the only project status document.
+This is the single source of truth for project progress.
 
-Update this file whenever development progress changes.
+Update only the following fields after each completed milestone:
 
-Do not duplicate project status in any other documentation.
+- Current Milestone
+- Next Milestone
+- Current Focus
+- Milestone Progress
+- Latest Automated Tests
+- Last Verified
+- Last Updated
 
----
-
-Last Updated
-
-2026-07-22
+Do not duplicate project status in any other document.
