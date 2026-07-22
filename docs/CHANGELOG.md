@@ -169,6 +169,21 @@ Each release should contain:
 
 ---
 
+## Milestone 015.2 – PromptService Integration
+
+### Added
+
+- Integrated PromptTemplateEngine into PromptService.
+
+### Changed
+
+- Prompt generation now delegates placeholder rendering to PromptTemplateEngine while preserving existing behavior.
+
+### Testing
+
+- Full automated test suite passing (54/54).
+---
+
 
 ## Unreleased
 

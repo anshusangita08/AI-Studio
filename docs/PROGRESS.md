@@ -13,11 +13,11 @@ milestone-015
 
 Current Milestone
 
-015.1 – Prompt Template Engine (Completed)
+015.2 – PromptService Integration (Completed)
 
 Current Objective
 
-Begin Milestone 015.2 – PromptService Integration.
+Begin Milestone 015.3 – Prompt Context Builder
 
 Development Status
 

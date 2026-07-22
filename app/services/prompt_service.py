@@ -4,12 +4,17 @@ from pathlib import Path
 from typing import List, Dict, Optional
 import re
 
+# Import the PromptTemplateEngine for placeholder rendering
+from app.services.prompt_template_engine import PromptTemplateEngine
+
 
 class PromptService:
     """Service for managing project prompts."""
     
     def __init__(self, projects_dir: str = "workspace/projects"):
         self.projects_dir = projects_dir
+        # Instantiate the template engine once per service instance
+        self._template_engine = PromptTemplateEngine()
     
     def get_prompts_path(self, slug: str) -> str:
         """Get the path to the prompts directory for a given project slug."""
@@ -194,8 +199,11 @@ class PromptService:
         Returns:
             str: Generated prompt content
         """
+        # Render any placeholders in the scene content using PromptTemplateEngine
+        rendered_scene = self._template_engine.render(scene_content, {})
+        
         # Simple deterministic generation based on scene structure
-        lines = scene_content.strip().split('\n')
+        lines = rendered_scene.strip().split('\n')
         
         # Extract title if it exists
         title_line = ""
@@ -209,7 +217,7 @@ class PromptService:
             "## Task Description",
             "Generate content based on the following scene description:",
             "",
-            scene_content,
+            rendered_scene,
             "",
             "## Instructions",
             "- Follow the structure and key elements from the scene description",
