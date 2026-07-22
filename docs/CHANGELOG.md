@@ -184,6 +184,21 @@ Each release should contain:
 - Full automated test suite passing (54/54).
 ---
 
+## Milestone 015.3 – Prompt Context Builder
+
+### Added
+
+- Structured prompt context generation for template rendering.
+
+### Changed
+
+- PromptService now builds and supplies structured context to PromptTemplateEngine.
+
+### Testing
+
+- Added unit tests for context construction and template integration.
+- Full automated test suite passing (57/57).
+---
 
 ## Unreleased
 

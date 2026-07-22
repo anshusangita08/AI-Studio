@@ -91,7 +91,7 @@ class TestPromptService:
             result2 = service.generate_prompt_from_scene(scene_content, 1)
             
             assert result1 == result2
-            
+    
     def test_generate_prompts_from_scenes_with_content(self):
         """Test generating prompts from actual scene content."""
         with tempfile.TemporaryDirectory() as tmp_dir:
@@ -140,3 +140,51 @@ class TestPromptService:
             # Check second prompt
             assert prompts[1]['scene_number'] == 2
             assert prompts[1]['content'] == "Prompt content for scene 2"
+    
+    # ------------------------------------------------------------------
+    # New focused tests for context building and template engine usage
+    # ------------------------------------------------------------------
+    def test_build_prompt_context_with_title(self):
+        """Ensure _build_prompt_context extracts title correctly."""
+        service = PromptService()
+        scene_content = "## Scene 1: The Beginning\nSome description."
+        ctx = service._build_prompt_context(scene_content, 5)
+        assert ctx['scene_number'] == '5'
+        assert ctx['scene_title'] == "## Scene 1: The Beginning"
+        # project_slug is empty string by design
+        assert ctx['project_slug'] == ''
+    
+    def test_build_prompt_context_without_title(self):
+        """Ensure context handles missing title gracefully."""
+        service = PromptService()
+        scene_content = "No heading here, just text."
+        ctx = service._build_prompt_context(scene_content, 3)
+        assert ctx['scene_number'] == '3'
+        assert ctx['scene_title'] == ""
+    
+    def test_generate_prompt_receives_correct_context(self):
+        """Verify that PromptTemplateEngine receives the expected context."""
+        # We'll monkey‑patch the render method to capture its arguments
+        service = PromptService()
+        captured = {}
+        
+        original_render = service._template_engine.render
+        
+        def mock_render(template, ctx):
+            captured['template'] = template
+            captured['context'] = ctx
+            return template  # return unchanged for simplicity
+    
+        service._template_engine.render = mock_render
+    
+        scene_content = "## Scene X: Title\nContent with {{placeholder}}."
+        result = service.generate_prompt_from_scene(scene_content, 2)
+    
+        # The render method should have been called once
+        assert 'template' in captured
+        assert 'context' in captured
+        # Context should match what _build_prompt_context would produce
+        expected_ctx = service._build_prompt_context(scene_content, 2)
+        assert captured['context'] == expected_ctx
+        # The returned prompt still contains the original template text
+        assert "## Scene X: Title" in result

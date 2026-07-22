@@ -199,8 +199,11 @@ class PromptService:
         Returns:
             str: Generated prompt content
         """
+        # Build structured context for rendering
+        context = self._build_prompt_context(scene_content, scene_number)
+        
         # Render any placeholders in the scene content using PromptTemplateEngine
-        rendered_scene = self._template_engine.render(scene_content, {})
+        rendered_scene = self._template_engine.render(scene_content, context)
         
         # Simple deterministic generation based on scene structure
         lines = rendered_scene.strip().split('\n')
@@ -231,6 +234,32 @@ class PromptService:
         ]
         
         return '\n'.join(prompt_lines)
+    
+    def _build_prompt_context(self, scene_content: str, scene_number: int) -> Dict[str, str]:
+        """
+        Build a context dictionary for rendering placeholders.
+        
+        Includes:
+          - project_slug (empty string if not available)
+          - scene_number
+          - scene_title (if present)
+          - scene_content
+        
+        Missing values resolve to empty strings.
+        """
+        # Extract title from the first heading line if it exists
+        title = ""
+        for line in scene_content.splitlines():
+            if line.startswith('##'):
+                title = line.strip()
+                break
+        
+        return {
+            'project_slug': '',
+            'scene_number': str(scene_number),
+            'scene_title': title,
+            'scene_content': scene_content
+        }
     
     # New helper method for pipeline status
     def are_prompts_complete(self, slug: str) -> bool:

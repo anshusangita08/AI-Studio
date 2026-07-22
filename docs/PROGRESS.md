@@ -13,11 +13,11 @@ milestone-015
 
 Current Milestone
 
-015.2 – PromptService Integration (Completed)
+015.3 – Prompt Context Builder (Completed)
 
 Current Objective
 
-Begin Milestone 015.3 – Prompt Context Builder
+Begin Milestone 015.4 – Prompt Template Expansion
 
 Development Status
 
@@ -111,7 +111,7 @@ Begin Milestone 015.2 – PromptService Integration.
 
 Automated Tests
 
-**54/54 tests passing**
+**57/57 tests passing**
 
 Manual Verification
 
