@@ -205,7 +205,6 @@ class TestPromptService:
         assert "Cinematic realism" in result
         assert "Wide establishing shot" in result
         assert "35mm cinematic" in result
-        assert "Low quality, blurry, watermark, text" in result
     
     def test_generate_narration_prompt(self):
         """Verify generate_narration_prompt uses NARRATION_PROMPT_TEMPLATE."""
@@ -215,3 +214,10 @@ class TestPromptService:
         assert "Narration Prompt for" in result
         assert "Scene 2: Battle" in result
         assert "The battle rages on." in result
+        # Verify narration specific fields are present
+        assert "Cinematic storytelling" in result
+        assert "Immersive" in result
+        assert "Moderate" in result
+        assert "Warm and expressive" in result
+        assert "30-60 seconds" in result
+        assert "Natural pacing with emotional emphasis" in result

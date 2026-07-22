@@ -1,29 +1,29 @@
 # AI Studio Progress
 
-Version: 2.0
+Version: 2.0  
 Status: Living Document
 
 ---
 
 # Project Status
 
-Current Branch
+## Current Branch
 
 milestone-015
 
-Current Milestone
+## Current Milestone
 
-015.8 – Structured Image Prompt Generation (Completed)
+015.9 – Structured Narration Prompt Generation (Completed)
 
-Next Milestone
+## Next Milestone
 
-015.9 – Structured Narration Prompt Generation
+016.0 – LM Studio Prompt Integration
 
-Current Focus
+## Current Focus
 
-Prepare reusable prompt template variants while preserving the existing prompt generation pipeline.
+Integrate the completed prompt generation pipeline with LM Studio to enable AI-powered story, image, and narration prompt generation while preserving the existing architecture and prompt template system.
 
-Last Updated
+## Last Updated
 
 2026-07-22
 
@@ -53,20 +53,24 @@ Last Updated
 | Prompt Context Builder (015.3) | ✅ |
 | Prompt Template Expansion (015.4) | ✅ |
 | Prompt Template Library (015.5) | ✅ |
+| Prompt Template Variants (015.6) | ✅ |
+| Typed Prompt Generation (015.7) | ✅ |
+| Structured Image Prompt Generation (015.8) | ✅ |
+| Structured Narration Prompt Generation (015.9) | ✅ |
 
 ---
 
 # Active Development
 
-Working Files
+## Working Files
 
 To be determined for the current milestone.
 
-Current Goal
+## Current Goal
 
 Implement the next approved milestone only.
 
-Known Issues
+## Known Issues
 
 None
 
@@ -74,28 +78,28 @@ None
 
 # Development Environment
 
-IDE
+## IDE
 
 - Visual Studio Code
 
-AI Assistants
+## AI Assistants
 
 - ChatGPT
 - Aider
 - Continue
 - Cline
 
-Local AI
+## Local AI
 
 - LM Studio
 
-Reference Models
+## Reference Models
 
-Primary
+### Primary
 
 - GPT-OSS
 
-Secondary
+### Secondary
 
 - Qwen
 
@@ -103,17 +107,17 @@ Secondary
 
 # Verification
 
-Latest Automated Tests
+## Latest Automated Tests
 
 59 / 59 Passing
 
-Manual Verification
+## Manual Verification
 
 ✅ UI workflows verified
 
 ✅ Rendering workflows verified
 
-Last Verified
+## Last Verified
 
 2026-07-22
 

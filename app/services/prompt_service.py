@@ -214,7 +214,8 @@ class PromptService:
     
     def generate_narration_prompt(self, scene_content: str, scene_number: int) -> str:
         """Generate a narration prompt using NARRATION_PROMPT_TEMPLATE."""
-        return self._render_prompt(NARRATION_PROMPT_TEMPLATE, scene_content, scene_number)
+        context = self._narration_context(scene_content, scene_number)
+        return self._render_prompt(NARRATION_PROMPT_TEMPLATE, context)
     
     # Private helper to render any template with context
     def _render_prompt(self, template: str, content_or_context, scene_number: int = None) -> str:
@@ -245,6 +246,22 @@ class PromptService:
             'camera': "35mm cinematic",
             'quality': "Highly detailed",
             'negative_prompt': "Low quality, blurry, watermark, text"
+        })
+        return base
+    
+    def _narration_context(self, scene_content: str, scene_number: int) -> Dict[str, str]:
+        """
+        Build narration prompt context by extending the base context with default values.
+        """
+        base = self._build_prompt_context(scene_content, scene_number)
+        # Add fixed defaults for narration prompts
+        base.update({
+            'narration_style': "Cinematic storytelling",
+            'tone': "Immersive",
+            'pacing': "Moderate",
+            'voice_style': "Warm and expressive",
+            'target_duration': "30-60 seconds",
+            'delivery_notes': "Natural pacing with emotional emphasis"
         })
         return base
     

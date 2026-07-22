@@ -275,6 +275,21 @@ Each release should contain:
 - Full automated suite passing (59/59).
 ---
 
+## Milestone 015.9 – Structured Narration Prompt Generation
+
+### Added
+
+- Structured narration prompt generation with narration-specific defaults.
+
+### Changed
+
+- NARRATION_PROMPT_TEMPLATE now renders narration style, tone, pacing, voice style, target duration, and delivery notes.
+
+### Testing
+
+- Full test suite passing (59/59).
+---
+
 ## Unreleased
 
 ### Added
