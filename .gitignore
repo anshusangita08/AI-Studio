@@ -102,6 +102,7 @@ models/
 .aider*
 .continue/sessions/
 .continue/cache/
+dummy/
 
 # ------------------------------------------------------------
 # Miscellaneous
