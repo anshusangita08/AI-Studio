@@ -56,18 +56,16 @@ Objectives:
 Status: Completed
 
 ---
-
-## Phase 3 — AI Generation
+## Phase 3 — AI Prompt Pipeline
 
 Objectives:
 
-- Local LLM integration
-- Prompt management
-- Image prompt generation
-- AI workflow improvements
-- Configurable model support
+- Prompt template engine
+- Structured prompt generation
+- LM Studio integration
+- AI response management
 
-Status: Planned
+Status: In Progress
 
 ---
 
@@ -78,60 +76,22 @@ Objectives:
 - Image generation
 - Audio generation
 - Video generation
-- Asset management
-
-Status: Planned
-
----
-
-## Phase 5 — Project Pipeline
-
-Objectives:
-
-- End-to-end workflow
 - Asset tracking
-- Project timeline
-- Export preparation
-
-**Status: Completed (Milestone 010)**
-
----
-
-## Phase 6 — Export
-
-Objectives:
-
-- Video assembly
-- Rendering
-- Export options
-- Final project packaging
-
-Status: Completed (Milestones 011–012)
-
----
-
-## Phase 7 — Rendering / Video Assembly
-
-Objectives:
-
-- Render projects to JSON status files
-- Provide rendering endpoint
-- Integrate render action in UI
-
-**Status: Completed (Milestone 012)**
-
----
-
-## Phase 8 — Asset Generation
-
-Objectives:
-
-- Image generation
-- Audio generation
-- Video generation
-- Asset management
 
 Status: Planned
+
+---
+
+## Phase 5 — Rendering & Export
+
+Objectives:
+
+- Render orchestration
+- Video assembly
+- Export packaging
+- Final project delivery
+
+Status: Partially Complete
 
 ---
 

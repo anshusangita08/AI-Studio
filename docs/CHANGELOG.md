@@ -128,6 +128,26 @@ Each release should contain:
 - Full automated test suite passing (44/44).
 
 ---
+## Milestone 014 – Asset Workspace Foundation
+
+### Added
+
+- Automatic creation of project asset directories:
+  - assets/images
+  - assets/audio
+  - assets/video
+- Render metadata now includes placeholder collections for image, audio, and video assets.
+
+### Changed
+
+- Project creation now initializes the asset workspace.
+- Render metadata prepared for future asset generation workflows.
+
+### Testing
+
+- Added automated tests for asset workspace creation.
+- Added automated tests for render metadata placeholders.
+- Full automated test suite passing (46/46).
 
 ## Unreleased
 
