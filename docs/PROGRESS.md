@@ -13,15 +13,15 @@ milestone-015
 
 ## Current Milestone
 
-015.9 – Structured Narration Prompt Generation (Completed)
+016.0 – LM Studio Prompt Integration Foundation (Completed)
 
 ## Next Milestone
 
-016.0 – LM Studio Prompt Integration
+016.1 – AI Story Generation
 
 ## Current Focus
 
-Integrate the completed prompt generation pipeline with LM Studio to enable AI-powered story, image, and narration prompt generation while preserving the existing architecture and prompt template system.
+Integrate StoryService with PromptService to generate AI-powered stories through LM Studio while preserving the existing prompt template pipeline and architecture.
 
 ## Last Updated
 
@@ -57,6 +57,7 @@ Integrate the completed prompt generation pipeline with LM Studio to enable AI-p
 | Typed Prompt Generation (015.7) | ✅ |
 | Structured Image Prompt Generation (015.8) | ✅ |
 | Structured Narration Prompt Generation (015.9) | ✅ |
+| LM Studio Prompt Integration Foundation (016.0) | ✅ |
 
 ---
 

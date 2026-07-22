@@ -8,6 +8,8 @@ import re
 from app.services.prompt_template_engine import PromptTemplateEngine
 # Import the shared prompt templates
 from app.services.prompt_templates import PROMPT_TEMPLATE, IMAGE_PROMPT_TEMPLATE, NARRATION_PROMPT_TEMPLATE
+# Import LMStudioClient to enable prompt execution
+from app.core.lm_studio_client import LMStudioClient
 
 
 class PromptService:
@@ -20,6 +22,8 @@ class PromptService:
         self.projects_dir = projects_dir
         # Instantiate the template engine once per service instance
         self._template_engine = PromptTemplateEngine()
+        # Instantiate LMStudioClient for future prompt execution
+        self._lm_client = LMStudioClient()
     
     def get_prompts_path(self, slug: str) -> str:
         """Get the path to the prompts directory for a given project slug."""
@@ -310,3 +314,24 @@ class PromptService:
                 except OSError:
                     continue
         return False
+    
+    # ------------------------------------------------------------------
+    # Prompt execution helper (integrates LMStudioClient)
+    # ------------------------------------------------------------------
+    
+    def _execute_prompt(self, rendered_prompt: str) -> str:
+        """
+        Execute a rendered prompt using the LMStudioClient.
+        
+        Parameters:
+            rendered_prompt (str): The fully rendered prompt text.
+            
+        Returns:
+            str: The generated response from LM Studio.
+            
+        Raises:
+            LMStudioError or its subclasses – propagates any exception
+            raised by LMStudioClient.generate_text.
+        """
+        # Use the existing LMStudioClient instance to generate text
+        return self._lm_client.generate_text(rendered_prompt)

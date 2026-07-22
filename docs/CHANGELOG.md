@@ -290,6 +290,23 @@ Each release should contain:
 - Full test suite passing (59/59).
 ---
 
+## Milestone 016.0 – LM Studio Prompt Integration Foundation
+
+### Added
+
+- Integrated PromptService with the existing LMStudioClient.
+- Added a reusable internal prompt execution helper for future AI-powered workflows.
+
+### Changed
+
+- PromptService now owns LM Studio prompt execution while preserving the existing prompt rendering pipeline.
+
+### Testing
+
+- Full automated test suite passing (59/59).
+
+---
+
 ## Unreleased
 
 ### Added
