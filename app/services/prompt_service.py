@@ -209,21 +209,44 @@ class PromptService:
     # New public methods for image and narration prompts
     def generate_image_prompt(self, scene_content: str, scene_number: int) -> str:
         """Generate an image prompt using IMAGE_PROMPT_TEMPLATE."""
-        return self._render_prompt(IMAGE_PROMPT_TEMPLATE, scene_content, scene_number)
+        context = self._image_context(scene_content, scene_number)
+        return self._render_prompt(IMAGE_PROMPT_TEMPLATE, context)
     
     def generate_narration_prompt(self, scene_content: str, scene_number: int) -> str:
         """Generate a narration prompt using NARRATION_PROMPT_TEMPLATE."""
         return self._render_prompt(NARRATION_PROMPT_TEMPLATE, scene_content, scene_number)
     
     # Private helper to render any template with context
-    def _render_prompt(self, template: str, scene_content: str, scene_number: int) -> str:
+    def _render_prompt(self, template: str, content_or_context, scene_number: int = None) -> str:
         """
         Render a prompt using the given template and scene data.
         
-        Builds the rendering context via _build_prompt_context and delegates to PromptTemplateEngine.
+        Builds the rendering context via _build_prompt_context (or uses provided dict)
+        and delegates to PromptTemplateEngine.
         """
-        context = self._build_prompt_context(scene_content, scene_number)
+        if isinstance(content_or_context, dict):
+            # Already a full context
+            context = content_or_context
+        else:
+            # Build context from scene content
+            context = self._build_prompt_context(content_or_context, scene_number)
         return self._template_engine.render(template, context)
+    
+    def _image_context(self, scene_content: str, scene_number: int) -> Dict[str, str]:
+        """
+        Build image prompt context by extending the base context with default values.
+        """
+        base = self._build_prompt_context(scene_content, scene_number)
+        # Add fixed defaults for image prompts
+        base.update({
+            'visual_style': "Cinematic realism",
+            'composition': "Wide establishing shot",
+            'lighting': "Natural scene lighting",
+            'camera': "35mm cinematic",
+            'quality': "Highly detailed",
+            'negative_prompt': "Low quality, blurry, watermark, text"
+        })
+        return base
     
     def _build_prompt_context(self, scene_content: str, scene_number: int) -> Dict[str, str]:
         """

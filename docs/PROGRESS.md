@@ -13,11 +13,11 @@ milestone-015
 
 Current Milestone
 
-015.7 – Typed Prompt Generation (Completed)
+015.8 – Structured Image Prompt Generation (Completed)
 
 Next Milestone
 
-015.8 – Image Prompt Builder
+015.9 – Structured Narration Prompt Generation
 
 Current Focus
 

@@ -260,6 +260,21 @@ Each release should contain:
 - Full automated suite passing (59/59).
 ---
 
+## Milestone 015.8 – Structured Image Prompt Generation
+
+### Added
+
+- Added structured image prompt generation with default visual metadata.
+
+### Changed
+
+- IMAGE_PROMPT_TEMPLATE now renders style, composition, camera, lighting, quality, and negative prompt fields.
+
+### Testing
+
+- Full automated suite passing (59/59).
+---
+
 ## Unreleased
 
 ### Added

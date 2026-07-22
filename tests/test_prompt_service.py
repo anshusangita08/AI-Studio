@@ -201,6 +201,11 @@ class TestPromptService:
         assert "Image Prompt for" in result
         assert "Scene 1: Sunset" in result
         assert "A beautiful sunset over the hills." in result
+        # Check default image fields
+        assert "Cinematic realism" in result
+        assert "Wide establishing shot" in result
+        assert "35mm cinematic" in result
+        assert "Low quality, blurry, watermark, text" in result
     
     def test_generate_narration_prompt(self):
         """Verify generate_narration_prompt uses NARRATION_PROMPT_TEMPLATE."""
