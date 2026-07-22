@@ -229,6 +229,21 @@ Each release should contain:
 - Full automated test suite passing (57/57).
 ---
 
+## Milestone 015.6 – Prompt Template Variants
+
+### Added
+
+- Added reusable image and narration prompt template definitions.
+
+### Changed
+
+- Expanded the shared prompt template library for future prompt types.
+
+### Testing
+
+- Full automated test suite passing (57/57).
+---
+
 ## Unreleased
 
 ### Added

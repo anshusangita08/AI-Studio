@@ -13,11 +13,11 @@ milestone-015
 
 Current Milestone
 
-015.5 – Prompt Template Library (Completed)
+015.6 – Prompt Template Variants (Completed)
 
 Next Milestone
 
-015.6 – Prompt Template Variants
+015.7 – Prompt Template Registry
 
 Current Focus
 
