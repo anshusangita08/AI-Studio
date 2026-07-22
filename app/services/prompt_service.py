@@ -319,6 +319,14 @@ class PromptService:
     # Prompt execution helper (integrates LMStudioClient)
     # ------------------------------------------------------------------
     
+    def execute(self, rendered_prompt: str) -> str:
+        """
+        Public wrapper for executing a rendered prompt.
+        
+        Delegates to the private _execute_prompt method.
+        """
+        return self._execute_prompt(rendered_prompt)
+    
     def _execute_prompt(self, rendered_prompt: str) -> str:
         """
         Execute a rendered prompt using the LMStudioClient.
