@@ -162,3 +162,19 @@ def test_export_missing_project(tmp_path) -> None:
 
     with pytest.raises(FileNotFoundError):
         project_service.export_project("nonexistent")
+
+
+# NEW TEST: verify asset directories are created on project creation
+def test_asset_folders_created(tmp_path) -> None:
+    """Ensure that assets/, assets/images/ etc. are created automatically."""
+    project_service = ProjectService()
+    project_service.PROJECT_ROOT = Path(tmp_path) / "projects"
+    project_service.PROJECT_ROOT.mkdir(parents=True, exist_ok=True)
+
+    proj = project_service.create("AssetTest")
+    asset_root = project_service.PROJECT_ROOT / proj.slug / "assets"
+
+    assert asset_root.exists()
+    assert (asset_root / "images").exists()
+    assert (asset_root / "audio").exists()
+    assert (asset_root / "video").exists()

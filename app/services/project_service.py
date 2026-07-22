@@ -36,6 +36,14 @@ PROJECT_STRUCTURE = (
     "temp",
 )
 
+# New asset sub‑structure to be created automatically
+ASSET_SUBSTRUCTURE = (
+    "assets",
+    "assets/images",
+    "assets/audio",
+    "assets/video",
+)
+
 
 class ProjectService:
     """
@@ -88,8 +96,14 @@ class ProjectService:
             exist_ok=True,
         )
 
+        # Create the original project structure
         for directory in PROJECT_STRUCTURE:
             (folder / directory).mkdir(parents=True, exist_ok=True)
+
+        # ---- NEW: create asset sub‑structure ---------------------------------
+        for directory in ASSET_SUBSTRUCTURE:
+            (folder / directory).mkdir(parents=True, exist_ok=True)
+        # ---------------------------------------------------------------------
 
         project.save(folder)
 
