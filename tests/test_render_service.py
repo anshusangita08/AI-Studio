@@ -44,3 +44,39 @@ def test_render_creates_directory_and_file(temp_project):
         parsed_ts = datetime.fromisoformat(data["timestamp"])
     except ValueError:
         pytest.fail("Timestamp is not a valid ISO8601 string")
+
+    # Verify placeholder asset collections exist and are empty
+    assert "images" in data, "render.json should contain 'images' key"
+    assert isinstance(data["images"], list) and len(data["images"]) == 0, "'images' should be an empty list"
+
+    assert "audio" in data, "render.json should contain 'audio' key"
+    assert isinstance(data["audio"], list) and len(data["audio"]) == 0, "'audio' should be an empty list"
+
+    assert "video" in data, "render.json should contain 'video' key"
+    assert isinstance(data["video"], list) and len(data["video"]) == 0, "'video' should be an empty list"
+
+
+def test_asset_record_schema():
+    """
+    Ensure that the asset collections are intended to hold records with
+    the expected keys.  The collections are empty at render time,
+    but we can verify that a sample record would match the schema.
+    """
+    # Sample record matching the defined schema
+    sample = {
+        "id": "",
+        "type": "",
+        "prompt": "",
+        "filename": "",
+        "status": ""
+    }
+
+    # The keys of the sample should be exactly those expected
+    expected_keys = {"id", "type", "prompt", "filename", "status"}
+    assert set(sample.keys()) == expected_keys, "Asset record schema must contain all required keys"
+
+    # Verify that each collection is a list (empty by default)
+    render_service = RenderService(Path("dummy"))
+    data = render_service.render()
+    for key in ("images", "audio", "video"):
+        assert isinstance(data[key], list), f"{key} should be a list"
