@@ -149,6 +149,27 @@ Each release should contain:
 - Added automated tests for render metadata placeholders.
 - Full automated test suite passing (46/46).
 
+---
+## Milestone 015.1 – Prompt Template Engine
+
+### Added
+
+- Introduced a standalone `PromptTemplateEngine` for lightweight placeholder rendering.
+- Added support for placeholder replacement using plain Python.
+- Unknown placeholders are preserved to support future template expansion.
+
+### Changed
+
+- None
+
+### Testing
+
+- Added automated unit tests covering placeholder rendering behavior.
+- Full automated test suite passing (54/54).
+
+---
+
+
 ## Unreleased
 
 ### Added

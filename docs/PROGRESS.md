@@ -9,19 +9,19 @@ Status: Living Document
 
 Current Branch
 
-develop
+milestone-015
 
 Current Milestone
 
-014 – Asset Workspace Foundation (Completed)
+015.1 – Prompt Template Engine (Completed)
 
 Current Objective
 
-Begin Milestone 015 – AI Prompt Pipeline.
+Begin Milestone 015.2 – PromptService Integration.
 
 Development Status
 
-In Progress → Completed
+Milestone 015 in Progress
 
 ---
 
@@ -44,6 +44,7 @@ In Progress → Completed
 | **Rendering / Video Assembly (012)** | ✅ |
 | **UI Polish and Design System Refinement (013)** | ✅ |
 | Asset Workspace Foundation (014) | ✅ |
+| Prompt Template Engine (015.1) | ✅ |
 
 ---
 
@@ -55,13 +56,13 @@ Milestone 015 – AI Prompt Pipeline
 
 Description
 
-Preparing prompt template engine and structured AI prompt pipeline.
+Integrate PromptTemplateEngine into PromptService while preserving existing behavior.
 
 ---
 
 # Current Working Files
 
-None
+To be determined during Milestone 015.2.
 
 ---
 
@@ -102,7 +103,7 @@ None
 
 # Next Step
 
-Begin Milestone 015.1 – Prompt Template Engine.
+Begin Milestone 015.2 – PromptService Integration.
 
 ---
 
@@ -110,7 +111,7 @@ Begin Milestone 015.1 – Prompt Template Engine.
 
 Automated Tests
 
-**46/46 tests passing**
+**54/54 tests passing**
 
 Manual Verification
 
