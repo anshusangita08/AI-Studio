@@ -84,7 +84,7 @@ class LMStudioClient:
             
         Returns:
             str: Generated text from the LLM
-			
+            
         Raises:
             LMStudioConnectionError: If connection fails
             LMStudioTimeoutError: If request times out
@@ -265,3 +265,76 @@ class LMStudioClient:
                     "error_type": "unexpected_error"
                 }
             )
+
+    # ------------------------------------------------------------------
+    # Placeholder methods for future media generation
+    # ------------------------------------------------------------------
+
+    async def generate_image(self, prompt: str, **kwargs) -> bytes:
+        """
+        Generate an image from a text prompt using LM Studio.
+
+        This method is currently a placeholder and will raise NotImplementedError.
+        It is intended to be implemented once the LM Studio API supports image generation
+        or when a suitable backend is integrated.
+
+        Args:
+            prompt (str): Text prompt describing the desired image.
+            **kwargs: Additional parameters for the generation request.
+
+        Returns:
+            bytes: Raw image data.
+
+        Raises:
+            NotImplementedError: Always, until implementation is added.
+        """
+        raise NotImplementedError(
+            "Image generation via LM Studio is not yet implemented. "
+            "This method will be updated once a compatible endpoint or backend is available."
+        )
+
+    async def generate_audio(self, prompt: str, **kwargs) -> bytes:
+        """
+        Generate an audio clip from a text prompt using LM Studio.
+
+        This method is currently a placeholder and will raise NotImplementedError.
+        It is intended to be implemented once the LM Studio API supports audio generation
+        or when a suitable backend is integrated.
+
+        Args:
+            prompt (str): Text prompt describing the desired audio content.
+            **kwargs: Additional parameters for the generation request.
+
+        Returns:
+            bytes: Raw audio data.
+
+        Raises:
+            NotImplementedError: Always, until implementation is added.
+        """
+        raise NotImplementedError(
+            "Audio generation via LM Studio is not yet implemented. "
+            "This method will be updated once a compatible endpoint or backend is available."
+        )
+
+    async def generate_video(self, prompt: str, **kwargs) -> bytes:
+        """
+        Generate a video clip from a text prompt using LM Studio.
+
+        This method is currently a placeholder and will raise NotImplementedError.
+        It is intended to be implemented once the LM Studio API supports video generation
+        or when a suitable backend is integrated.
+
+        Args:
+            prompt (str): Text prompt describing the desired video content.
+            **kwargs: Additional parameters for the generation request.
+
+        Returns:
+            bytes: Raw video data.
+
+        Raises:
+            NotImplementedError: Always, until implementation is added.
+        """
+        raise NotImplementedError(
+            "Video generation via LM Studio is not yet implemented. "
+            "This method will be updated once a compatible endpoint or backend is available."
+        )
