@@ -11,6 +11,25 @@ from app.services.prompt_template_engine import PromptTemplateEngine
 class PromptService:
     """Service for managing project prompts."""
     
+    # Reusable prompt template string with placeholders
+    _PROMPT_TEMPLATE = (
+        "# Prompt for {{scene_title}}\n"
+        "\n"
+        "## Task Description\n"
+        "Generate content based on the following scene description:\n"
+        "\n"
+        "{{scene_content}}\n"
+        "\n"
+        "## Instructions\n"
+        "- Follow the structure and key elements from the scene description\n"
+        "- Maintain consistency with the overall story tone and style\n"
+        "- Focus on the specific elements mentioned in this scene\n"
+        "- Ensure the generated content aligns with the project's narrative direction\n"
+        "\n"
+        "## Output Format\n"
+        "Provide your response in markdown format.\n"
+    )
+    
     def __init__(self, projects_dir: str = "workspace/projects"):
         self.projects_dir = projects_dir
         # Instantiate the template engine once per service instance
@@ -202,38 +221,10 @@ class PromptService:
         # Build structured context for rendering
         context = self._build_prompt_context(scene_content, scene_number)
         
-        # Render any placeholders in the scene content using PromptTemplateEngine
-        rendered_scene = self._template_engine.render(scene_content, context)
+        # Render the reusable template using PromptTemplateEngine
+        rendered_prompt = self._template_engine.render(self._PROMPT_TEMPLATE, context)
         
-        # Simple deterministic generation based on scene structure
-        lines = rendered_scene.strip().split('\n')
-        
-        # Extract title if it exists
-        title_line = ""
-        if len(lines) > 0 and lines[0].startswith('##'):
-            title_line = lines[0]
-            
-        # Create a structured prompt template
-        prompt_lines = [
-            f"# Prompt for {title_line.strip() if title_line else f'Scene {scene_number}'}",
-            "",
-            "## Task Description",
-            "Generate content based on the following scene description:",
-            "",
-            rendered_scene,
-            "",
-            "## Instructions",
-            "- Follow the structure and key elements from the scene description",
-            "- Maintain consistency with the overall story tone and style",
-            "- Focus on the specific elements mentioned in this scene",
-            "- Ensure the generated content aligns with the project's narrative direction",
-            "",
-            "## Output Format",
-            "Provide your response in markdown format.",
-            ""
-        ]
-        
-        return '\n'.join(prompt_lines)
+        return rendered_prompt
     
     def _build_prompt_context(self, scene_content: str, scene_number: int) -> Dict[str, str]:
         """
@@ -242,7 +233,7 @@ class PromptService:
         Includes:
           - project_slug (empty string if not available)
           - scene_number
-          - scene_title (if present)
+          - scene_title (if present; otherwise empty string)
           - scene_content
         
         Missing values resolve to empty strings.

@@ -61,7 +61,7 @@ class TestPromptService:
         with tempfile.TemporaryDirectory() as tmp_dir:
             service = PromptService(tmp_dir)
             
-            # Save prompt to a non-existent directory path
+            # Save prompt to a non‑existent directory path
             content_to_save = "Prompt content in nested directory"
             result = service.save_prompt("test-project", 1, content_to_save)
             assert result is True
@@ -159,12 +159,12 @@ class TestPromptService:
         service = PromptService()
         scene_content = "No heading here, just text."
         ctx = service._build_prompt_context(scene_content, 3)
+        # Title should remain empty string when no heading exists
         assert ctx['scene_number'] == '3'
         assert ctx['scene_title'] == ""
     
     def test_generate_prompt_receives_correct_context(self):
         """Verify that PromptTemplateEngine receives the expected context."""
-        # We'll monkey‑patch the render method to capture its arguments
         service = PromptService()
         captured = {}
         
@@ -173,7 +173,8 @@ class TestPromptService:
         def mock_render(template, ctx):
             captured['template'] = template
             captured['context'] = ctx
-            return template  # return unchanged for simplicity
+            # Delegate to the original render implementation
+            return original_render(template, ctx)
     
         service._template_engine.render = mock_render
     
@@ -186,5 +187,5 @@ class TestPromptService:
         # Context should match what _build_prompt_context would produce
         expected_ctx = service._build_prompt_context(scene_content, 2)
         assert captured['context'] == expected_ctx
-        # The returned prompt still contains the original template text
+        # Verify that the rendered output contains the expanded scene title
         assert "## Scene X: Title" in result

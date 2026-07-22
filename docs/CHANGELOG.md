@@ -200,6 +200,20 @@ Each release should contain:
 - Full automated test suite passing (57/57).
 ---
 
+## Milestone 015.4 – Prompt Template Expansion
+
+### Changed
+
+- Replaced hard-coded prompt construction with a reusable prompt template.
+- Prompt templates are rendered through PromptTemplateEngine.
+- Existing prompt output preserved.
+
+### Testing
+
+- Updated PromptService tests.
+- Full test suite passing (57/57).
+---
+
 ## Unreleased
 
 ### Added
