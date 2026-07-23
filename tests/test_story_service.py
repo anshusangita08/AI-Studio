@@ -1,6 +1,7 @@
 import os
 import tempfile
 import pytest
+from unittest.mock import patch
 from app.services.story_service import StoryService
 
 
@@ -110,40 +111,47 @@ class TestStoryService:
             read_content = service.read_expanded_story("test-project")
             assert read_content == content_to_save
     
-    def test_generate_mock_story(self):
+    @patch('app.services.story_service.PromptService')
+    def test_generate_mock_story(self, mock_prompt_service_cls):
         """Test generate_mock_story method."""
         with tempfile.TemporaryDirectory() as tmp_dir:
             service = StoryService(tmp_dir)
             
-            # Test generate_mock_story method
+            # Configure the mock PromptService to return a deterministic string
+            mock_instance = mock_prompt_service_cls.return_value
+            mock_instance.generate_story.return_value = "Mocked story content for Test Project"
+            
             result = service.generate_mock_story("Test Project")
             
-            assert "Test Project" in result
-            assert result.startswith("# Test Project")
-            assert "placeholder hero" in result.lower()
-            
-    def test_generate_mock_story_deterministic(self):
+            assert result == "Mocked story content for Test Project"
+    
+    @patch('app.services.story_service.PromptService')
+    def test_generate_mock_story_deterministic(self, mock_prompt_service_cls):
         """Test that generate_mock_story produces deterministic output."""
         with tempfile.TemporaryDirectory() as tmp_dir:
             service = StoryService(tmp_dir)
             
-            # Generate twice with same input - should be identical
+            mock_instance = mock_prompt_service_cls.return_value
+            mock_instance.generate_story.return_value = "Deterministic story content"
+            
             result1 = service.generate_mock_story("Test Project")
             result2 = service.generate_mock_story("Test Project")
             
             assert result1 == result2
-            
-    def test_generate_mock_story_includes_project_name(self):
+    
+    @patch('app.services.story_service.PromptService')
+    def test_generate_mock_story_includes_project_name(self, mock_prompt_service_cls):
         """Test that generated content includes the project name."""
         with tempfile.TemporaryDirectory() as tmp_dir:
             service = StoryService(tmp_dir)
             
-            # Test that generated content includes the project name
-            project_name = "My Amazing Project"
-            result = service.generate_mock_story(project_name)
+            mock_instance = mock_prompt_service_cls.return_value
+            mock_instance.generate_story.return_value = "Project: My Amazing Project"
             
-            assert project_name in result
+            result = service.generate_mock_story("My Amazing Project")
             
+            assert "My Amazing Project" in result
+    
     def test_get_scenes_path(self):
         """Test that scenes path generation works."""
         with tempfile.TemporaryDirectory() as tmp_dir:
@@ -152,7 +160,7 @@ class TestStoryService:
             expected_path = os.path.join(tmp_dir, "test-project", "story", "scenes.md")
             actual_path = service.get_scenes_path("test-project")
             assert actual_path == expected_path
-            
+    
     def test_read_scenes(self):
         """Test reading scenes content."""
         with tempfile.TemporaryDirectory() as tmp_dir:
@@ -170,7 +178,7 @@ class TestStoryService:
             # This should succeed without error (can't easily test actual file creation)
             success = service.save_scenes("test-project", "# Test Scenes\n\nScene 1 description.")
             assert success is True
-            
+    
     def test_generate_mock_scenes(self):
         """Test generating mock scenes from expanded story."""
         with tempfile.TemporaryDirectory() as tmp_dir:

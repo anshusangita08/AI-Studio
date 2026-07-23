@@ -2,12 +2,17 @@ import os
 from pathlib import Path
 import re
 
+# Import PromptService for story generation
+from app.services.prompt_service import PromptService
+
 
 class StoryService:
     """Service for managing project stories."""
     
     def __init__(self, projects_dir: str = "workspace/projects"):
         self.projects_dir = projects_dir
+        # Instantiate PromptService once with the same projects_dir
+        self._prompt_service = PromptService(projects_dir)
     
     def get_story_path(self, slug: str) -> str:
         """Get the path to a story file for a given project slug."""
@@ -115,7 +120,7 @@ class StoryService:
     
     def save_scenes(self, slug: str, content: str) -> bool:
         """
-        Save scenes content for a given project slug.
+        Save scenes content for a given project.
         
         Args:
             slug (str): The project slug
@@ -183,7 +188,8 @@ class StoryService:
 
     def generate_mock_story(self, project_name):
         """Generate deterministic placeholder story content for a given project name."""
-        return f"# {project_name}\n\n## Introduction\n\nOnce upon a time, in the land of Placeholderia, there lived a hero named Placeholder Hero. The land was filled with mystery and adventure.\n\n## Chapter 1: The Beginning\n\nPlaceholder Hero set out on a quest to uncover the secrets of Placeholderia. Along the way, they encountered various challenges and made new friends.\n\n## Chapter 2: The Journey\n\nThe journey was fraught with danger, but Placeholder Hero remained determined. They faced many obstacles and learned valuable lessons about courage and perseverance.\n\n## Chapter 3: The Climax\n\nPlaceholder Hero finally reached the heart of Placeholderia, where they discovered the ultimate secret. With this knowledge, they were able to save the land from an impending doom.\n\n## Epilogue\n\nPlaceholder Hero returned home as a hero, celebrated by all for their bravery and wisdom."
+        # Reuse the single PromptService instance
+        return self._prompt_service.generate_story(project_name)
 
     # New helper methods for pipeline status
     def is_story_complete(self, slug: str) -> bool:
