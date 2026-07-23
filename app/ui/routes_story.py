@@ -45,15 +45,12 @@ async def generate_story(
 
     _get_project_or_404(slug)
 
-    expanded_story_content = story_service.read_expanded_story(slug)
-
-    generated_content = story_service.generate_mock_story(
-        expanded_story_content
-    )
+    generated_content = story_service.generate_mock_story(slug)
 
     return {
         "expanded_story": generated_content
     }
+
 
 @router.post("/{slug}/story")
 async def save_story(

@@ -13,19 +13,19 @@ main
 
 ## Current Milestone
 
-018 – Route Integration Verification (Completed)
+019 – End-to-End Story Generation Verification (In Progress)
 
 ## Next Milestone
 
-019 – End-to-End Story Generation Verification
+020 – AI Generation User Experience
 
 ## Current Focus
 
-Verify the complete Story Planner workflow from UI through LM Studio and ensure generated stories are saved and reloaded correctly.
+Complete end-to-end AI story generation using LM Studio, improve generation UX, and finalize workflow verification.
 
 ## Last Updated
 
-2026-07-22
+2026-07-24
 
 ---
 
@@ -61,6 +61,7 @@ Verify the complete Story Planner workflow from UI through LM Studio and ensure 
 | AI Story Generation (016.1) | ✅ |
 | StoryService Integration (017) | ✅ |
 | Route Integration Verification (018) | ✅ |
+| End-to-End Story Generation Verification (019) | 🚧 |
 
 ---
 
@@ -68,7 +69,10 @@ Verify the complete Story Planner workflow from UI through LM Studio and ensure 
 
 ## Working Files
 
-To be determined for the current milestone.
+- app/core/lm_studio_client.py
+- app/services/prompt_service.py
+- app/services/story_service.py
+- app/ui/routes_story.py
 
 ## Current Goal
 
@@ -76,8 +80,9 @@ Implement the next approved milestone only.
 
 ## Known Issues
 
-None
-
+- Long AI generations can exceed the current HTTP timeout.
+- Story generation currently has no loading/progress indicator.
+- Model selection is configuration-driven and will be improved in a future milestone.
 ---
 
 # Development Environment

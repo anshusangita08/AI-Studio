@@ -225,30 +225,35 @@ class TestPromptService:
     # NEW TESTS FOR COMPLETE STORY GENERATION
     # ------------------------------------------------------------------
     def test_generate_story_with_prompts(self):
-        """Test that generate_story concatenates results from all scenes."""
+        """Test that generate_story reads story.md, renders expansion template, and calls LMStudioClient."""
         with tempfile.TemporaryDirectory() as tmp_dir:
-            # Create scenes file
+            # Create a story file
             from app.services.story_service import StoryService
             story_service = StoryService(tmp_dir)
-            scenes_content = "# Scenes\n\n## Scene 1: Intro\n\nIntro scene text.\n\n## Scene 2: Conflict\n\nConflict scene text."
-            story_service.save_scenes("test-project", scenes_content)
-            
+            story_content = "# Story\n\nThis is the original story."
+            story_service.save_story("test-project", story_content)
+
             # Mock LMStudioClient to avoid real API calls
             class DummyLMStudioClient:
-                def generate_text(self, prompt: str) -> str:
+                def __init__(self):
+                    self.last_prompt = None
+
+                def generate_text(self, prompt):
+                    self.last_prompt = prompt
                     return f"Generated for prompt: {prompt[:30]}..."
-    
+
             service = PromptService(tmp_dir)
-            # Patch the internal client
-            service._lm_client = DummyLMStudioClient()
-            
+            dummy_client = DummyLMStudioClient()
+            service._lm_client = dummy_client
+
             story = service.generate_story("test-project")
-            # Should contain two generated parts
+            # Should contain generated text
             assert "Generated for prompt:" in story
-            assert story.count("\n\n") == 1  # one separator between two parts
+            # The prompt passed to LMStudioClient should contain the original story content
+            assert story_content.strip() in dummy_client.last_prompt
     
     def test_generate_story_no_scenes(self):
-        """Test that generate_story returns empty string when no scenes exist."""
+        """Test that generate_story returns empty string when no story file exists."""
         with tempfile.TemporaryDirectory() as tmp_dir:
             service = PromptService(tmp_dir)
             story = service.generate_story("empty-project")

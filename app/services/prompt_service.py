@@ -7,7 +7,12 @@ import re
 # Import the PromptTemplateEngine for placeholder rendering
 from app.services.prompt_template_engine import PromptTemplateEngine
 # Import the shared prompt templates
-from app.services.prompt_templates import PROMPT_TEMPLATE, IMAGE_PROMPT_TEMPLATE, NARRATION_PROMPT_TEMPLATE
+from app.services.prompt_templates import (
+    PROMPT_TEMPLATE,
+    IMAGE_PROMPT_TEMPLATE,
+    NARRATION_PROMPT_TEMPLATE,
+    STORY_EXPANSION_TEMPLATE,
+)
 # Import LMStudioClient to enable prompt execution
 from app.core.lm_studio_client import LMStudioClient
 
@@ -350,27 +355,33 @@ class PromptService:
     
     def generate_story(self, slug: str) -> str:
         """
-        Generate a full story for the given project slug.
-        
+        Generate a full expanded story for the given project slug.
+
         The method:
-          1. Generates prompts from all scenes in the project.
-          2. Renders each prompt using the standard prompt template.
-          3. Executes each rendered prompt via LMStudioClient.
-          4. Concatenates the generated text blocks into a single story string.
-        
-        Returns an empty string if no scenes or prompts are available.
+          1. Reads the original story from workspace/projects/<slug>/story/story.md.
+          2. Renders STORY_EXPANSION_TEMPLATE using the story content.
+          3. Executes the rendered prompt via LMStudioClient.
+          4. Returns the generated expanded story text.
+
+        Returns an empty string if the story file does not exist or is empty.
         """
-        # Step 1: generate prompts from scenes
-        prompts = self.generate_prompts_from_scenes(slug)
-        if not prompts:
+        # Path to the original story file
+        story_path = os.path.join(self.projects_dir, slug, "story", "story.md")
+        if not os.path.exists(story_path):
             return ""
-        
-        story_parts = []
-        for p in prompts:
-            # Execute the rendered prompt
-            result = self.execute(p['content'])
-            story_parts.append(result)
-        
-        # Join parts with double newlines for readability
-        return "\n\n".join(story_parts)
+
+        try:
+            with open(story_path, 'r', encoding='utf-8') as f:
+                story_content = f.read()
+        except (OSError, IOError):
+            return ""
+
+        if not story_content.strip():
+            return ""
+
+        # Render the expansion prompt
+        rendered_prompt = self._render_prompt(STORY_EXPANSION_TEMPLATE, {'story': story_content})
+
+        # Execute the prompt and return the result
+        return self.execute(rendered_prompt)
     
