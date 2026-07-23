@@ -9,19 +9,19 @@ Status: Living Document
 
 ## Current Branch
 
-milestone-015
+main
 
 ## Current Milestone
 
-016.0 – LM Studio Prompt Integration Foundation (Completed)
+018 – Route Integration Verification (Completed)
 
 ## Next Milestone
 
-016.1 – AI Story Generation
+019 – End-to-End Story Generation Verification
 
 ## Current Focus
 
-Integrate StoryService with PromptService to generate AI-powered stories through LM Studio while preserving the existing prompt template pipeline and architecture.
+Verify the complete Story Planner workflow from UI through LM Studio and ensure generated stories are saved and reloaded correctly.
 
 ## Last Updated
 
@@ -58,6 +58,9 @@ Integrate StoryService with PromptService to generate AI-powered stories through
 | Structured Image Prompt Generation (015.8) | ✅ |
 | Structured Narration Prompt Generation (015.9) | ✅ |
 | LM Studio Prompt Integration Foundation (016.0) | ✅ |
+| AI Story Generation (016.1) | ✅ |
+| StoryService Integration (017) | ✅ |
+| Route Integration Verification (018) | ✅ |
 
 ---
 
@@ -110,7 +113,7 @@ None
 
 ## Latest Automated Tests
 
-59 / 59 Passing
+61 / 61 Passing
 
 ## Manual Verification
 

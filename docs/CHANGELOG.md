@@ -307,6 +307,47 @@ Each release should contain:
 
 ---
 
+## Milestone 016.1 – AI Story Generation
+
+### Added
+
+- PromptService now supports AI-powered story generation through LM Studio.
+
+### Changed
+
+- Story generation now executes through the PromptService AI pipeline.
+
+### Testing
+
+- Updated PromptService tests.
+- Full automated test suite passing (61/61).
+---
+
+## Milestone 017 – StoryService Integration
+
+### Changed
+
+- StoryService now delegates story generation to PromptService while preserving the existing public interface.
+
+### Testing
+
+- Updated StoryService tests.
+- Full automated test suite passing (61/61).
+---
+
+## Milestone 018 – Route Integration Verification
+
+### Verified
+
+- Confirmed the existing Story Planner route already delegates to StoryService.
+- No implementation changes were required.
+
+### Testing
+
+- Architecture verified.
+- No production code changes.
+---
+
 ## Unreleased
 
 ### Added
