@@ -19,6 +19,8 @@
     },
 	
 	"lm_studio": {
-        "endpoint": "http://localhost:1234"
+    "endpoint": "http://localhost:1234",
+    "model": "qwen2.5-coder-14b-instruct",
+    "timeout": 120
     }
 }

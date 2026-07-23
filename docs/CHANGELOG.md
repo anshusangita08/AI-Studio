@@ -352,16 +352,20 @@ Each release should contain:
 
 ### Added
 
-- None
+- End-to-end LM Studio integration for AI story generation.
+- Story expansion now executes against the configured local language model.
+- Additional debug logging for LM Studio request and response troubleshooting.
 
 ### Changed
 
-- None
+- Replaced the asynchronous LM Studio client with a synchronous requests-based implementation.
+- PromptService now executes rendered prompts directly through LM Studio.
+- StoryService now performs real AI story generation instead of mock generation.
 
 ### Fixed
 
-- None
-
+- Resolved coroutine execution issues during story generation.
+- Improved LM Studio error reporting for invalid requests and configuration problems.
 ---
 
 ## Template

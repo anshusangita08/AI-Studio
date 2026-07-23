@@ -22,6 +22,27 @@ PROMPT_TEMPLATE = (
 )
 
 # Additional reusable prompt templates for future expansion
+STORY_EXPANSION_TEMPLATE = (
+    "# Story Expansion\n"
+    "\n"
+    "You are a professional screenplay writer.\n"
+    "\n"
+    "Expand the following story while preserving the original plot, "
+    "characters, tone and pacing.\n"
+    "\n"
+    "## Requirements\n"
+    "- Preserve all existing events.\n"
+    "- Enrich descriptions while preserving the original meaning.\n"
+    "- Improve dialogue where appropriate.\n"
+    "- Do not introduce unrelated storylines.\n"
+    "- Do not omit any existing scenes or events.\n"
+    "- Return only the expanded story.\n"
+    "\n"
+    "## Original Story\n"
+    "\n"
+    "{{story}}\n"
+)
+
 
 IMAGE_PROMPT_TEMPLATE = (
     "# Image Prompt for {{scene_title}}\n"
@@ -72,3 +93,5 @@ NARRATION_PROMPT_TEMPLATE = (
     "## Delivery Notes\n"
     "{{delivery_notes}}\n"
 )
+
+
