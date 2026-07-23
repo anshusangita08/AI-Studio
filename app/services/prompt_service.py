@@ -343,3 +343,34 @@ class PromptService:
         """
         # Use the existing LMStudioClient instance to generate text
         return self._lm_client.generate_text(rendered_prompt)
+    
+    # ------------------------------------------------------------------
+    # NEW PUBLIC API: Generate a complete story for a project
+    # ------------------------------------------------------------------
+    
+    def generate_story(self, slug: str) -> str:
+        """
+        Generate a full story for the given project slug.
+        
+        The method:
+          1. Generates prompts from all scenes in the project.
+          2. Renders each prompt using the standard prompt template.
+          3. Executes each rendered prompt via LMStudioClient.
+          4. Concatenates the generated text blocks into a single story string.
+        
+        Returns an empty string if no scenes or prompts are available.
+        """
+        # Step 1: generate prompts from scenes
+        prompts = self.generate_prompts_from_scenes(slug)
+        if not prompts:
+            return ""
+        
+        story_parts = []
+        for p in prompts:
+            # Execute the rendered prompt
+            result = self.execute(p['content'])
+            story_parts.append(result)
+        
+        # Join parts with double newlines for readability
+        return "\n\n".join(story_parts)
+    

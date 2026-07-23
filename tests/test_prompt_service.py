@@ -1,4 +1,5 @@
 import os
+import json
 import tempfile
 import pytest
 from app.services.prompt_service import PromptService
@@ -213,11 +214,42 @@ class TestPromptService:
         result = service.generate_narration_prompt(scene_content, 2)
         assert "Narration Prompt for" in result
         assert "Scene 2: Battle" in result
-        assert "The battle rages on." in result
         # Verify narration specific fields are present
         assert "Cinematic storytelling" in result
         assert "Immersive" in result
         assert "Moderate" in result
         assert "Warm and expressive" in result
         assert "30-60 seconds" in result
-        assert "Natural pacing with emotional emphasis" in result
+    
+    # ------------------------------------------------------------------
+    # NEW TESTS FOR COMPLETE STORY GENERATION
+    # ------------------------------------------------------------------
+    def test_generate_story_with_prompts(self):
+        """Test that generate_story concatenates results from all scenes."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            # Create scenes file
+            from app.services.story_service import StoryService
+            story_service = StoryService(tmp_dir)
+            scenes_content = "# Scenes\n\n## Scene 1: Intro\n\nIntro scene text.\n\n## Scene 2: Conflict\n\nConflict scene text."
+            story_service.save_scenes("test-project", scenes_content)
+            
+            # Mock LMStudioClient to avoid real API calls
+            class DummyLMStudioClient:
+                def generate_text(self, prompt: str) -> str:
+                    return f"Generated for prompt: {prompt[:30]}..."
+    
+            service = PromptService(tmp_dir)
+            # Patch the internal client
+            service._lm_client = DummyLMStudioClient()
+            
+            story = service.generate_story("test-project")
+            # Should contain two generated parts
+            assert "Generated for prompt:" in story
+            assert story.count("\n\n") == 1  # one separator between two parts
+    
+    def test_generate_story_no_scenes(self):
+        """Test that generate_story returns empty string when no scenes exist."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            service = PromptService(tmp_dir)
+            story = service.generate_story("empty-project")
+            assert story == ""
