@@ -55,9 +55,22 @@ class LMStudioClient:
     Lightweight client for communicating with LM Studio (local LLM server).
     """
 
-    def __init__(self, timeout: int = 30):
-        self.timeout = timeout
-        self.base_url = config.get("lm_studio", {}).get("endpoint", "http://localhost:1234")
+    def __init__(self, timeout: int | None = None):
+        lm_config = config.get("lm_studio", {})
+
+        self.base_url = lm_config.get(
+            "endpoint",
+            "http://localhost:1234"
+        )
+
+        self.timeout = (
+            timeout
+            if timeout is not None
+            else lm_config.get("timeout", 30)
+        )
+        logger.info(
+            f"LM Studio timeout: {self.timeout}s"
+        )
         # No persistent session required
 
     def generate_text(self, prompt: str, **kwargs) -> str:
@@ -98,6 +111,12 @@ class LMStudioClient:
 
             logger.debug("LM Studio payload: %s", request_data)
             
+            print("=" * 60)
+            print(request_data)
+            print("=" * 60)
+            print(request_data["model"])
+            print(len(prompt))
+            print(prompt[:500])
             response = requests.post(
                 f"{self.base_url}/v1/completions",
                 json=request_data,

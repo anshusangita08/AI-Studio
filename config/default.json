@@ -20,7 +20,7 @@
 	
 	"lm_studio": {
     "endpoint": "http://localhost:1234",
-    "model": "qwen2.5-coder-14b-instruct",
-    "timeout": 120
+    "model": "tinyllama-1.1b-chat-v1.0",
+    "timeout": 300
     }
 }
