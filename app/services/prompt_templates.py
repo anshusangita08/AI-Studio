@@ -94,4 +94,13 @@ NARRATION_PROMPT_TEMPLATE = (
     "{{delivery_notes}}\n"
 )
 
+SCENES_GENERATION_TEMPLATE = (
+    "# Scene Generation Prompt\n"
+    "\n"
+    "Generate scenes from the following expanded story. Output should be in markdown format with headings for each scene (## Scene X: Title). Include at least 3 scenes. Use the story content to create scenes that progress the plot.\n"
+    "\n"
+    "Expanded Story:\n"
+    "{{expanded_story}}\n"
+)
+
 

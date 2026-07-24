@@ -348,6 +348,33 @@ Each release should contain:
 - No production code changes.
 ---
 
+## Milestone 019 – End-to-End Story Generation Verification
+
+### Added
+
+- AI-powered scene generation using LM Studio.
+- End-to-end Story → Expanded Story → Scenes workflow.
+- Automatic persistence of generated scenes to `scenes.md`.
+
+### Changed
+
+- PromptService now supports AI-powered scene generation.
+- Story Planner now supports the complete AI-assisted story planning workflow from story generation through scene generation.
+- Improved LM Studio request logging and diagnostics for troubleshooting.
+
+### Fixed
+
+- Replaced the previous mock scene generation workflow with the production AI generation pipeline.
+- Resolved coroutine-related issues by using the synchronous LM Studio client implementation.
+
+### Testing
+
+- Full automated test suite passing (61/61).
+- End-to-end Story → Expanded Story → Scenes workflow manually verified.
+- Verified generation and persistence of `story.md`, `expanded_story.md`, and `scenes.md`.
+---
+
+
 ## Unreleased
 
 ### Added

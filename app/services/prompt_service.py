@@ -12,6 +12,7 @@ from app.services.prompt_templates import (
     IMAGE_PROMPT_TEMPLATE,
     NARRATION_PROMPT_TEMPLATE,
     STORY_EXPANSION_TEMPLATE,
+    SCENES_GENERATION_TEMPLATE,
 )
 # Import LMStudioClient to enable prompt execution
 from app.core.lm_studio_client import LMStudioClient
@@ -383,5 +384,32 @@ class PromptService:
         rendered_prompt = self._render_prompt(STORY_EXPANSION_TEMPLATE, {'story': story_content})
 
         # Execute the prompt and return the result
+        return self.execute(rendered_prompt)
+
+    # ------------------------------------------------------------------
+    # New method: Generate scenes from expanded story
+    # ------------------------------------------------------------------
+
+    def generate_scenes_from_expanded_story(self, slug: str) -> str:
+        """
+        Generate scenes from the expanded story for the given project slug.
+
+        Reads expanded_story.md, renders SCENES_GENERATION_TEMPLATE, executes via LMStudioClient,
+        and returns the generated scenes text.
+
+        Returns an empty string if expanded_story.md does not exist or is empty.
+        """
+        expanded_path = os.path.join(self.projects_dir, slug, "story", "expanded_story.md")
+        if not os.path.exists(expanded_path):
+            return ""
+        try:
+            with open(expanded_path, 'r', encoding='utf-8') as f:
+                expanded_story = f.read()
+        except (OSError, IOError):
+            return ""
+        if not expanded_story.strip():
+            return ""
+
+        rendered_prompt = self._render_prompt(SCENES_GENERATION_TEMPLATE, {'expanded_story': expanded_story})
         return self.execute(rendered_prompt)
     

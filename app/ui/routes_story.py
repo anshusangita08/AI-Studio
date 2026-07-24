@@ -1,12 +1,14 @@
 from fastapi import APIRouter, Depends, Request, HTTPException, Form
 from app.services.project_service import project_service
 from app.services.story_service import StoryService
+from app.services.prompt_service import PromptService
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import RedirectResponse
 
 router = APIRouter(prefix="/projects", tags=["story"])
 
 story_service = StoryService()
+prompt_service = PromptService()
 templates = Jinja2Templates(directory="app/ui/templates")
 
 def _get_project_or_404(slug: str):
@@ -121,15 +123,17 @@ async def generate_scenes(
     slug: str,
     request: Request
 ):
-    """Generate mock scenes content for a project."""
-
+    """Generate scenes content for a project using LM Studio."""
+    
     _get_project_or_404(slug)
 
-    expanded_story_content = story_service.read_expanded_story(slug)
+    # Generate scenes using LM Studio via PromptService
+    generated_scenes = prompt_service.generate_scenes_from_expanded_story(slug)
 
-    generated_scenes = story_service.generate_mock_scenes(
-        expanded_story_content
-    )
+    # Persist the generated scenes to disk
+    success = story_service.save_scenes(slug, generated_scenes)
+    if not success:
+        raise HTTPException(status_code=500, detail="Failed to save scenes")
 
     return {
         "scenes": generated_scenes

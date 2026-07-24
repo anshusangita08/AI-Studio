@@ -67,7 +67,11 @@ Objectives:
 - End-to-end workflow verification ✅
 - Long-running AI generation UX (In Progress)
 
-Status: AI integration complete — User experience and workflow verification in progress
+Status: AI integration complete.
+Story generation workflow verified.
+
+Next focus:
+Reusable Operation Framework for long-running AI tasks.
 
 ---
 
