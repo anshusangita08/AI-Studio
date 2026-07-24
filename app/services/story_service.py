@@ -9,6 +9,18 @@ from app.services.prompt_service import PromptService
 class StoryService:
     """Service for managing project stories."""
     
+    # ------------------------------------------------------------------
+    # Private helper methods for file I/O
+    # ------------------------------------------------------------------
+    def _read_text_file(self, path: str) -> str:
+        """Read the entire contents of a text file."""
+        with open(path, 'r', encoding='utf-8') as f:
+            return f.read()
+
+    def _write_text_file(self, path: str, content: str) -> None:
+        """Write the given content to a text file."""
+        with open(path, 'w', encoding='utf-8') as f:
+            f.write(content)
     def __init__(self, projects_dir: str = "workspace/projects"):
         self.projects_dir = projects_dir
         # Instantiate PromptService once with the same projects_dir
@@ -23,77 +35,31 @@ class StoryService:
         return os.path.join(self.projects_dir, slug, "story", "expanded_story.md")
     
     def read_story(self, slug: str) -> str:
-        """
-        Read the story content for a given project slug.
-        
-        Args:
-            slug (str): The project slug
-            
-        Returns:
-            str: The story content or empty string if file doesn't exist
-        """
         story_path = self.get_story_path(slug)
         if os.path.exists(story_path):
-            with open(story_path, 'r', encoding='utf-8') as f:
-                return f.read()
+            return self._read_text_file(story_path)
         return ""
-    
+
     def read_expanded_story(self, slug: str) -> str:
-        """
-        Read the expanded story content for a given project slug.
-        
-        Args:
-            slug (str): The project slug
-            
-        Returns:
-            str: The expanded story content or empty string if file doesn't exist
-        """
         expanded_path = self.get_expanded_story_path(slug)
         if os.path.exists(expanded_path):
-            with open(expanded_path, 'r', encoding='utf-8') as f:
-                return f.read()
+            return self._read_text_file(expanded_path)
         return ""
     
     def save_story(self, slug: str, content: str) -> bool:
-        """
-        Save story content for a given project slug.
-        
-        Args:
-            slug (str): The project slug
-            content (str): The story content to save
-            
-        Returns:
-            bool: True if successful, False otherwise
-        """
         story_path = self.get_story_path(slug)
         try:
-            # Ensure the directory exists
             Path(story_path).parent.mkdir(parents=True, exist_ok=True)
-            
-            with open(story_path, 'w', encoding='utf-8') as f:
-                f.write(content)
+            self._write_text_file(story_path, content)
             return True
         except (OSError, IOError):
             return False
             
     def save_expanded_story(self, slug: str, content: str) -> bool:
-        """
-        Save expanded story content for a given project slug.
-        
-        Args:
-            slug (str): The project slug
-            content (str): The expanded story content to save
-            
-        Returns:
-            bool: True if successful, False otherwise
-        """
         expanded_path = self.get_expanded_story_path(slug)
         try:
-            # Ensure the directory exists
             Path(expanded_path).parent.mkdir(parents=True, exist_ok=True)
-            
-            with open(expanded_path, 'w', encoding='utf-8') as f:
-                f.write(content)
+            self._write_text_file(expanded_path, content)
             return True
         except (OSError, IOError):
             return False
@@ -119,23 +85,10 @@ class StoryService:
         return ""
     
     def save_scenes(self, slug: str, content: str) -> bool:
-        """
-        Save scenes content for a given project.
-        
-        Args:
-            slug (str): The project slug
-            content (str): The scenes content to save
-            
-        Returns:
-            bool: True if successful, False otherwise
-        """
         scenes_path = self.get_scenes_path(slug)
         try:
-            # Ensure the directory exists
             Path(scenes_path).parent.mkdir(parents=True, exist_ok=True)
-            
-            with open(scenes_path, 'w', encoding='utf-8') as f:
-                f.write(content)
+            self._write_text_file(scenes_path, content)
             return True
         except (OSError, IOError):
             return False
