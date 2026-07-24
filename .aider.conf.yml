@@ -1,0 +1,170 @@
+# =============================================================================
+# Aider Configuration
+# Version: 0.86.2
+#
+# Optimized for:
+# - Windows 11
+# - LM Studio
+# - GPT-OSS-20B (Architect)
+# - DeepSeek-R1-Qwen3-8B (Editor)
+# - Local models only
+# - Small, reviewable commits
+# =============================================================================
+
+
+# =============================================================================
+# Models
+# =============================================================================
+
+# Primary reasoning / planning model.
+# This model analyzes the repository, plans implementation,
+# answers architectural questions and coordinates the editor model.
+model: lm_studio/openai/gpt-oss-20b
+
+# Dedicated coding model used to generate edits.
+# Keeping a separate editor model usually produces cleaner patches
+# and allows using a smaller, faster coding model.
+editor-model: lm_studio/agentica-org_deepcoder-14b-preview
+
+# Enable Architect Mode.
+#
+# true
+#   GPT-OSS plans first, then delegates edits to the editor model.
+#
+# false
+#   The selected model edits files directly.
+#
+# Recommended: true
+architect: true
+
+# Edit strategy used by the editor model.
+#
+# diff
+#   Sends unified diffs.
+#   ✔ Recommended for most local models.
+#   ✔ Small edits
+#   ✔ Lower hallucination rate
+#
+# whole
+#   Rewrites the complete file.
+#   Use only if your editor model struggles with diff editing.
+#
+# editor-diff
+#   Newer edit format.
+#   Use only if your model specifically supports it well.
+#
+editor-edit-format: diff
+
+
+# =============================================================================
+# Repository
+# =============================================================================
+
+# Restrict Aider to the current working tree.
+#
+# Helps prevent unnecessary repository-wide exploration.
+#
+# Recommended: true
+subtree-only: true
+
+# Automatically monitor files for external changes.
+#
+# true
+#   Useful if another editor continuously modifies files.
+#
+# false
+#   Slightly lower overhead.
+#
+# Recommended: false
+watch-files: false
+
+# Repository map size.
+#
+# Higher values:
+#   Better project understanding
+#   More tokens consumed
+#
+# Lower values:
+#   Faster
+#   Less repository context
+#
+# Suggested values:
+#
+# 1024  Small projects
+# 2048  <-- Recommended
+# 4096  Large repositories
+#
+map-tokens: 2048
+
+
+# =============================================================================
+# Git
+# =============================================================================
+
+# Enable Git integration.
+#
+# Almost always leave enabled.
+git: true
+
+# Automatically commit every successful edit.
+#
+# Recommended:
+# false
+#
+# since you review every change before committing.
+auto-commits: false
+
+# Allow commits while repository contains unrelated changes.
+#
+# false
+# prevents accidental commits.
+dirty-commits: false
+
+
+# =============================================================================
+# User Interface
+# =============================================================================
+
+# Hide model capability warnings.
+#
+# LM Studio models often trigger unnecessary warnings.
+show-model-warnings: false
+
+# Skip provider capability validation.
+#
+# LM Studio does not advertise all OpenAI capabilities,
+# so disabling this avoids unnecessary warnings.
+check-model-accepts-settings: false
+
+# Dark terminal theme.
+dark-mode: true
+
+# Rich terminal formatting.
+pretty: true
+
+# Stream model responses as they are generated.
+#
+# Recommended: true
+stream: true
+
+
+# =============================================================================
+# Performance
+# =============================================================================
+
+# Cache prompts.
+#
+# Reduces repeated prompt construction
+# and improves responsiveness.
+cache-prompts: true
+
+
+# =============================================================================
+# Convenience
+# =============================================================================
+
+# Disable shell command suggestions.
+#
+# Recommended for users who prefer to execute
+# Git, tests and scripts manually.
+suggest-shell-commands: false
