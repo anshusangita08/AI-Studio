@@ -52,10 +52,13 @@ class PromptService:
             Dict: The prompt data or None if file doesn't exist
         """
         prompt_path = self.get_prompt_file_path(slug, scene_number)
-        if os.path.exists(prompt_path):
-            with open(prompt_path, 'r', encoding='utf-8') as f:
-                return json.load(f)
-        return None
+        content = self._read_text_file(prompt_path)
+        if not content:
+            return None
+        try:
+            return json.loads(content)
+        except json.JSONDecodeError:
+            return None
     
     def read_all_prompts(self, slug: str) -> List[Dict]:
         """
@@ -79,8 +82,8 @@ class PromptService:
                 try:
                     scene_number = int(filename.replace("prompt_", "").replace(".json", ""))
                     
-                    with open(os.path.join(prompts_dir, filename), 'r', encoding='utf-8') as f:
-                        prompt_data = json.load(f)
+                    content = self._read_text_file(os.path.join(prompts_dir, filename))
+                    prompt_data = json.loads(content) if content else {}
                         
                     prompts.append({
                         'scene_number': scene_number,
@@ -168,11 +171,7 @@ class PromptService:
         if not os.path.exists(scenes_path):
             return ""
             
-        try:
-            with open(scenes_path, 'r', encoding='utf-8') as f:
-                return f.read()
-        except (OSError, IOError):
-            return ""
+        return self._read_text_file(scenes_path)
     
     def _split_scenes(self, scenes_content: str) -> List[str]:
         """Split scenes content into individual scene sections."""
@@ -333,6 +332,20 @@ class PromptService:
         """
         return self._execute_prompt(rendered_prompt)
     
+    def _read_text_file(self, path: str) -> str:
+        """
+        Read the entire contents of a text file using UTF‑8 encoding.
+
+        Returns an empty string if the file cannot be read (e.g., missing or
+        permission error).  This helper is used internally to avoid duplicating
+        the open/read/close pattern across multiple methods.
+        """
+        try:
+            with open(path, 'r', encoding='utf-8') as f:
+                return f.read()
+        except (OSError, IOError):
+            return ""
+
     def _execute_prompt(self, rendered_prompt: str) -> str:
         """
         Execute a rendered prompt using the LMStudioClient.
@@ -371,11 +384,7 @@ class PromptService:
         if not os.path.exists(story_path):
             return ""
 
-        try:
-            with open(story_path, 'r', encoding='utf-8') as f:
-                story_content = f.read()
-        except (OSError, IOError):
-            return ""
+        story_content = self._read_text_file(story_path)
 
         if not story_content.strip():
             return ""
@@ -402,11 +411,7 @@ class PromptService:
         expanded_path = os.path.join(self.projects_dir, slug, "story", "expanded_story.md")
         if not os.path.exists(expanded_path):
             return ""
-        try:
-            with open(expanded_path, 'r', encoding='utf-8') as f:
-                expanded_story = f.read()
-        except (OSError, IOError):
-            return ""
+        expanded_story = self._read_text_file(expanded_path)
         if not expanded_story.strip():
             return ""
 
