@@ -25,14 +25,25 @@ class StoryService:
         self.projects_dir = projects_dir
         # Instantiate PromptService once with the same projects_dir
         self._prompt_service = PromptService(projects_dir)
+
+    # ------------------------------------------------------------------
+    # Private helpers for path construction
+    # ------------------------------------------------------------------
+    def _project_dir(self, slug: str) -> str:
+        """Return the absolute directory path for a project."""
+        return os.path.join(self.projects_dir, slug)
+    
+    def _story_dir(self, slug: str) -> str:
+        """Return the story sub‑directory path for a project."""
+        return os.path.join(self._project_dir(slug), "story")
     
     def get_story_path(self, slug: str) -> str:
         """Get the path to a story file for a given project slug."""
-        return os.path.join(self.projects_dir, slug, "story", "story.md")
+        return os.path.join(self._story_dir(slug), "story.md")
     
     def get_expanded_story_path(self, slug: str) -> str:
         """Get the path to an expanded story file for a given project slug."""
-        return os.path.join(self.projects_dir, slug, "story", "expanded_story.md")
+        return os.path.join(self._story_dir(slug), "expanded_story.md")
     
     def read_story(self, slug: str) -> str:
         story_path = self.get_story_path(slug)
@@ -66,7 +77,7 @@ class StoryService:
             
     def get_scenes_path(self, slug: str) -> str:
         """Get the path to a scenes file for a given project slug."""
-        return os.path.join(self.projects_dir, slug, "story", "scenes.md")
+        return os.path.join(self._story_dir(slug), "scenes.md")
     
     def read_scenes(self, slug: str) -> str:
         """
